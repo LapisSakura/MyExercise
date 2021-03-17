@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbTeam2_FinalModelStoreContainer" CdmEntityContainer="dbTeam2_FinalEntities">
+    <EntitySetMapping Name="N5">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.N5">
+        <MappingFragment StoreEntitySet="N5">
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tMemberInformation">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMemberInformation">
+        <MappingFragment StoreEntitySet="tMemberInformation">
+          <ScalarProperty Name="fRegistrationDatetime" ColumnName="fRegistrationDatetime" />
+          <ScalarProperty Name="fPassword" ColumnName="fPassword" />
+          <ScalarProperty Name="fAccount" ColumnName="fAccount" />
+          <ScalarProperty Name="fBirthday" ColumnName="fBirthday" />
+          <ScalarProperty Name="fName" ColumnName="fName" />
+          <ScalarProperty Name="fId" ColumnName="fId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tArticle">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tArticle">
+        <MappingFragment StoreEntitySet="tArticle">
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="LoveCount" ColumnName="LoveCount" />
+          <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+          <ScalarProperty Name="Main" ColumnName="Main" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tArticleLove">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tArticleLove">
+        <MappingFragment StoreEntitySet="tArticleLove">
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tMembers">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMembers">
+        <MappingFragment StoreEntitySet="tMembers">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Authority" ColumnName="Authority" />
+          <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tReArticle">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tReArticle">
+        <MappingFragment StoreEntitySet="tReArticle">
+          <ScalarProperty Name="LoveCount" ColumnName="LoveCount" />
+          <ScalarProperty Name="UpTime" ColumnName="UpTime" />
+          <ScalarProperty Name="Main" ColumnName="Main" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tReArticleLove">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tReArticleLove">
+        <MappingFragment StoreEntitySet="tReArticleLove">
+          <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

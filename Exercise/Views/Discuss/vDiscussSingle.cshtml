@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "vDiscussSingle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section styles{
+    @*<link href="~/Styles/Lapis.css" rel="stylesheet" />*@
+}
+<div class="container body-content">
+
+    <div class="container body-content col-8">
+        <div class="row article my-5 MainArticle">
+        </div>
+        @*以下回文*@
+        <div class="ReArticle">
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        ShowView();
+
+        function ShowView() {  　　　　　　　　 //頁面產生
+            var fid = window.location.href.split("/")
+            var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
+            $.ajax({　　　　　　　　　　　　　　　//產生主文
+                url: "/Discuss/DiscussSingle",
+                type: "Get",
+                data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
+                dataType: "Json",
+                success: function (data) {
+                    console.log(data[0].LoveStatus)
+                    var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
+                    var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                    var txt="";
+                     txt += `
+                            <div class="at-title">
+                                <h4>【${data[0].Category}】${data[0].Title}</h4><br>
+                            </div>
+                            <div class="at-discuss mt-2">
+                                <span>${data[0].MemberName}</span><br>
+                                <span class="at-time">最後編輯日期: ${time}</span>
+                                <div class="at-main">${unescape(data[0].Main)}</div>
+                            </div>
+                            <div class="at-floor row justify-content-between">
+                                <div class="row ml-3">
+                            `
+                    if (data[0].LoveStatus) {
+                        txt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
+                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                </div>
+                                `
+                    }
+                    else {
+                        txt += `
+                                <a class="btn-love nolove mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
+                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                </div>
+                                `
+                    }
+
+                        
+                    $(".MainArticle").html(txt)
+                },
+            });
+
+
+            $.ajax({　　　　　　　　　　　　　　　　　　//產生回文
+                url: "/Discuss/ReDiscussSingle",
+                type: "Get",
+                data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
+                dataType: "Json",
+                success: function (data) {
+                    var txt = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
+                        var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                        txt += `
+                                <div class="row article my-5">
+                                <div class="at-discuss mt-2">
+                                    <span>${data[i].MemberName}</span><br>
+                                    <span class="at-time">最後編輯日期: ${time}</span>
+                                    <div class="at-main">${unescape(data[i].Main)}</div>
+                                </div>
+                                <div class="at-floor row justify-content-between">
+                                `
+                        if (data[i].LoveStatus) {
+                            txt += `
+                                <div class="row ml-3"><a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
+                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                </div>
+                                </div>
+                               `;
+
+                        }
+                        else {
+                            txt += `
+                                <div class="row ml-3"><a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
+                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                </div>
+                                </div>
+                               `;
+
+                        }
+                    };
+                    $(".ReArticle").append(txt);
+                },
+            });
+        };
+
+
+        $(".MainArticle").on('click', '.btn-love', function () {      //主文愛心事件
+            if (document.cookie != "") {
+                var LoveStatus;
+                var fid = window.location.href.split("/")
+                if ($(this).hasClass("love")) {
+                    LoveStatus = false;
+                    $(this).next().text(parseInt($(this).next().text()) - 1);
+                }
+                else {
+                    LoveStatus = true;
+                    $(this).next().text(parseInt($(this).next().text()) + 1);
+                }
+                $(this).toggleClass("love").toggleClass("nolove")
+
+                $.ajax({
+                    url: "/Discuss/MainLoveCount",
+                    type: "Get",
+                    data: { "ArticleID": `${fid[fid.length - 1]}`, "LoveStatus": `${LoveStatus}`,"MemberID":`${(document.cookie.split('MemberID=')[1].split("&")[0]) / 1}` },
+                });
+            }
+            else
+                $('#exampleModalCenter').modal('show')
+
+        })
+
+        $(".ReArticle").on('click', '.btn-love', function () {      //回文愛心事件
+            if (document.cookie != "") {
+                var LoveStatus;
+                var ReArticleID = parseInt($(this).attr("id"));
+                if ($(this).hasClass("love")) {
+                    LoveStatus = false;
+                    $(this).next().text(parseInt($(this).next().text()) - 1);
+                }
+                else {
+                    LoveStatus = true;
+                    $(this).next().text(parseInt($(this).next().text()) + 1);
+                }
+                $(this).toggleClass("love").toggleClass("nolove")
+                $.ajax({
+                    url: "/Discuss/ReLoveCount",
+                    type: "Get",
+                    data: { "ReArticleID": `${ReArticleID}`, "LoveStatus": `${LoveStatus}`, "MemberID": `${(document.cookie.split('MemberID=')[1].split("&")[0]) / 1}`  },
+                });
+            }
+            else
+                $('#exampleModalCenter').modal('show')
+        })
+
+
+
+    </script>
+}

@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbTeam2_FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="N5">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="Options" Type="nvarchar(max)" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tArticle">
+    <Key>
+      <PropertyRef Name="ArticleID" />
+    </Key>
+    <Property Name="ArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="Main" Type="nvarchar(max)" />
+    <Property Name="UpTime" Type="datetime" />
+    <Property Name="LoveCount" Type="int" />
+    <Property Name="ViewCount" Type="int" />
+  </EntityType>
+  <EntityType Name="tArticleLove">
+    <Key>
+      <PropertyRef Name="No" />
+    </Key>
+    <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tMemberInformation">
+    <Key>
+      <PropertyRef Name="fId" />
+    </Key>
+    <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fBirthday" Type="date" Nullable="false" />
+    <Property Name="fAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fRegistrationDatetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tMembers">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RegisteredDate" Type="datetime" />
+    <Property Name="Authority" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tReArticle">
+    <Key>
+      <PropertyRef Name="ReArticleID" />
+    </Key>
+    <Property Name="ReArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleID" Type="int" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="Main" Type="nvarchar(max)" />
+    <Property Name="UpTime" Type="datetime" />
+    <Property Name="LoveCount" Type="int" />
+  </EntityType>
+  <EntityType Name="tReArticleLove">
+    <Key>
+      <PropertyRef Name="No" />
+    </Key>
+    <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="ReArticleID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tArticle_tMembers">
+    <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+    <End Role="tArticle" Type="Self.tArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMembers">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="tArticle">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tArticleLove_tArticle">
+    <End Role="tArticle" Type="Self.tArticle" Multiplicity="1" />
+    <End Role="tArticleLove" Type="Self.tArticleLove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tArticle">
+        <PropertyRef Name="ArticleID" />
+      </Principal>
+      <Dependent Role="tArticleLove">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tArticleLove_tMembers">
+    <End Role="tMembers" Type="Self.tMembers" Multiplicity="1" />
+    <End Role="tArticleLove" Type="Self.tArticleLove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMembers">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="tArticleLove">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tReArticle_tArticle">
+    <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
+    <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tArticle">
+        <PropertyRef Name="ArticleID" />
+      </Principal>
+      <Dependent Role="tReArticle">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tReArticle_tMembers">
+    <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
+    <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMembers">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="tReArticle">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tReArticleLove_tMembers">
+    <End Role="tMembers" Type="Self.tMembers" Multiplicity="1" />
+    <End Role="tReArticleLove" Type="Self.tReArticleLove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMembers">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="tReArticleLove">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tReArticleLove_tReArticle">
+    <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="1" />
+    <End Role="tReArticleLove" Type="Self.tReArticleLove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tReArticle">
+        <PropertyRef Name="ReArticleID" />
+      </Principal>
+      <Dependent Role="tReArticleLove">
+        <PropertyRef Name="ReArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbTeam2_FinalModelStoreContainer">
+    <EntitySet Name="N5" EntityType="Self.N5" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tMemberInformation" EntityType="Self.tMemberInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tArticle_tMembers" Association="Self.FK_tArticle_tMembers">
+      <End Role="tMembers" EntitySet="tMembers" />
+      <End Role="tArticle" EntitySet="tArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tArticleLove_tArticle" Association="Self.FK_tArticleLove_tArticle">
+      <End Role="tArticle" EntitySet="tArticle" />
+      <End Role="tArticleLove" EntitySet="tArticleLove" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tArticleLove_tMembers" Association="Self.FK_tArticleLove_tMembers">
+      <End Role="tMembers" EntitySet="tMembers" />
+      <End Role="tArticleLove" EntitySet="tArticleLove" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tReArticle_tArticle" Association="Self.FK_tReArticle_tArticle">
+      <End Role="tArticle" EntitySet="tArticle" />
+      <End Role="tReArticle" EntitySet="tReArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tReArticle_tMembers" Association="Self.FK_tReArticle_tMembers">
+      <End Role="tMembers" EntitySet="tMembers" />
+      <End Role="tReArticle" EntitySet="tReArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tReArticleLove_tMembers" Association="Self.FK_tReArticleLove_tMembers">
+      <End Role="tMembers" EntitySet="tMembers" />
+      <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="Self.FK_tReArticleLove_tReArticle">
+      <End Role="tReArticle" EntitySet="tReArticle" />
+      <End Role="tReArticleLove" EntitySet="tReArticleLove" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

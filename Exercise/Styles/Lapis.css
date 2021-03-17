@@ -1,0 +1,258 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Hachi Maru Pop', cursive;
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.nav-li a:hover {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-ul {
+    list-style: none;
+    display: flex;
+}
+
+.nav-li {
+    margin: 0 10px 0 10px;
+}
+
+.navbar {
+    background-color: #bafeef;/*薄荷綠*/
+    font-size: 16pt;
+}
+
+.nav-a {
+    color: #7e491ee8;
+}
+
+.btn-login {
+    background-color: #7e491ee8;/*咖啡色*/
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    color: #bafeef;
+}
+.btn-login:hover{
+    color:red ;
+}
+.vlogin {
+    background: #bafeef;
+    color: #7e491ee8;
+}
+
+
+
+/*--↓↓-------------SingleDiscuss*/
+
+
+.member {
+    width: 100px;
+    height: 100px;
+    border: solid 1px;
+}
+
+.nolove {
+    background-image: url('../imgs/nolove.png');
+    display: block;
+    height: 32px;
+    width: 32px;
+    border: none;
+}
+
+.love {
+    background-image: url('../imgs/love.png');
+    display: block;
+    height: 32px;
+    width: 32px;
+    border: none;
+}
+
+.at-title {
+    border-bottom: 1px solid;
+    width: 100%;
+}
+
+.at-discuss {
+    width: 100%;
+    border-bottom: 1px solid;
+    padding-bottom: 12px;
+}
+
+.at-main {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.at-floor {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.at-member {
+    margin-top: 30px;
+}
+
+.at-time {
+    font-size: 5pt;
+    color: #797979;
+}
+
+.memberdiv {
+    width: 100px;
+}
+
+.lovediv {
+    width: 100px;
+}
+
+.article {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    padding: 36px;
+}
+
+
+
+/*--↓↓-------------DiscussList*/
+
+.textbox-search {
+    border-radius: 20px;
+    width:100px;
+    text-align: center;
+}
+.textbox-search:focus{
+    outline:none;
+}
+
+.list-th {
+    background-color: #fcd7a7;
+}
+
+.list-btn {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    width: 96.9px;
+    background-color: #bafeef;
+}
+.list-btn-select {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    width: 96.9px;
+    background-color: #7e491ee8;
+}
+.btn-row{
+    margin-top:50px;
+}
+
+.btn-a {
+    color: #7e491ee8;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.btn-a-select {
+    color: #bafeef;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.list-sort {
+    border: solid #fff 1px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgb(88, 174, 231);
+}
+
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+    border-right: solid 1px #cccccc;
+}
+
+.list-title {
+    text-align: left !important;
+}
+
+.list {
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+}
+
+.title-p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.title-div {
+    width: 700px;
+}
+
+.th-Count {
+    width: 150px;
+}
+.td-Category{
+    width:100px
+}
+.th-Re{
+    width:150px;
+}
+.custom-paginationjs a {
+    background-color: #bafeef !important;
+    color: #7e491ee8 !important;
+}
+
+.paginationjs .paginationjs-pages li.active > a {
+    background-color: #7e491ee8 !important;
+    color: #bafeef !important;
+}
+
+
+
+
+/*--↓↓-------------EditDiscuss*/
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.tbody a{
+    color:black;
+}
+
+.tr-select{
+    background-color: rgba(246, 193, 239,0.5) !important;
+}
+
+
+.main-textarea{
+    resize: none;
+    max-width: initial;
+}
+.msg {
+    margin-left: 20px;
+    color: red;
+    text-align: center;
+    display: block;
+}
+
+.reg-msg{
+    font-size:10pt;
+    color:red;
+}
+.reg-title{
+    text-align:end;
+    line-height:40px;
+}
+

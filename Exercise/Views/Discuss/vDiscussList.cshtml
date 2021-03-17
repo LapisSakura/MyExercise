@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "vDiscussList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    @*<link href="~/styles/Lapis.css" rel="stylesheet" />*@
+
+    <style>
+
+    </style>
+}
+<div class="container body-content">
+
+    <div class="container body-content col-12">
+        <div class="row mb-3 btn-row">
+            <input type="text" class="textbox-search" placeholder="輸入關鍵字" />
+        </div>
+        <div class="row mb-3 justify-content-between">
+            <ul class="btn-ul">
+                <li class="btn list-btn-select btn-li" name=""><a class="btn-a-select">全部主題</a></li>
+                <li class="btn list-btn btn-li" name="分享"><a class="btn-a">心得分享</a></li>
+                <li class="btn list-btn btn-li" name="問題"><a class="btn-a">問題討論</a></li>
+                <li class="btn list-btn btn-li" name="文改"><a class="btn-a">文章修改</a></li>
+            </ul>
+            <ul class="btn-ul">
+                <li class="btn list-btn-select" id="Edit-btn"><a class="btn-a-select">發表文章</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <table class="table table-striped col-12 list">
+                <thead class="list-th">
+                    <tr>
+                        <th colspan="2">
+                            <span>排序:</span>
+                            <select class="list-sort">
+                                <option value="new">依最新回覆:新>舊</option>
+                                <option value="old">依最新回覆:舊>新</option>
+                                <option value="love">依最愛人數</option>
+                                <option value="view">依觀看人數</option>
+                            </select>
+                        </th>
+                        <th class="th-Count"><span>互動/觀看人數</span></th>
+                        <th class="th-Re">最新回覆</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            <div class="pagelist">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        var Article;
+
+        $(".tbody").on('mouseover', 'tr', function () {
+            $(this).addClass("tr-select")
+        })
+        $(".tbody").on('mouseout', 'tr', function () {
+            $(this).removeClass("tr-select")
+        })
+
+        const sortFn = {
+            'new': (a, b) => {
+                return a.UpTime < b.UpTime ? 1 : -1;
+            },
+            'old': (a, b) => {
+                return a.UpTime < b.UpTime ? -1 : 1;
+            },
+            'love': (a, b) => {
+                return b.LoveCount - a.LoveCount;
+            },
+            'view': (a, b) => {
+                return b.ViewCount - a.ViewCount;
+            },
+        }
+
+
+        document.querySelector(".list-sort").addEventListener('change', function (event) {
+            Article.sort(sortFn[$(this).val()]);
+            test();
+        });
+
+
+        CategoryList("")
+
+        $("li.btn-li").click(function () {
+            $(this).addClass("list-btn-select").removeClass("list-btn").children().addClass("btn-a-select").removeClass("btn-a").end()
+                .siblings().addClass("list-btn").removeClass("list-btn-select").children().addClass("btn-a").removeClass("btn-a-select")
+            CategoryList($(this).attr("Name"))
+        });
+
+        $("#Edit-btn").click(function () {
+            LoginStatus("/Discuss/vEditDiscuss")
+        });
+
+
+        function CategoryList(Category) {
+            $.ajax({
+                url: "/Discuss/CategoryDiscussList",
+                type: "GET",
+                data: { "Category": `${Category}` },
+                dataType: "json",
+                success: function (data) {
+                    Article = data;
+                    document.querySelector(".list-sort").dispatchEvent(new Event('change'))
+                },
+            });
+        }
+
+
+        $(".textbox-search").change(function () {
+            $.ajax({
+                url: "/Discuss/TitleDiscussList",
+                type: "GET",
+                data: { "Title": `${$(".textbox-search").val()}` },
+                dataType: "json",
+                success: function (data) {
+                    $(".textbox-search").val("")
+                    if (data.length == 0) {
+                        Swal.fire({
+                            title: '無此文章',
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        })
+                        return;
+                    }
+
+                    Article = data;
+                    document.querySelector(".list-sort").dispatchEvent(new Event('change'))
+                },
+            });
+        });
+
+
+
+
+        function test() {
+            $('.pagelist').pagination({
+                className: 'custom-paginationjs',
+                dataSource: function (done) {
+                    $.ajax({
+                        success: function (data) {
+                            done(Article);
+                        }
+                    })
+                },
+                callback: function (data) {
+                    var txt = ""
+                    for (var i = 0; i < data.length; i++) {
+                        var t = new Date(parseInt(data[i].UpTime.slice(6, -2)))
+                        var time = `${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                        txt += `
+                        <tr>
+                            <td class="td-Category">【${data[i].Category}】</td>
+                            <td class="list-title"><a href="/Discuss/vDiscussSingle/${data[i].ArticleID}">
+                                <div class="title-div">
+                                    <p class="title-p">${data[i].Title}</p>
+                                </div></a></td>
+                            <td>${data[i].ReCount}/${data[i].ViewCount}</td>
+                            <td>${time}</td>
+                        </tr>
+                       `
+                    }
+
+                    $(".tbody").html(txt);
+                }
+            })
+
+        }
+
+
+
+
+
+    </script>
+}

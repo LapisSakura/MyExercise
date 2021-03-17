@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "vEditDiscuss";
+}
+@section styles{
+    @*<link href="~/Styles/Lapis.css" rel="stylesheet" />*@
+}
+<div class="container body-content">
+    <div class="container body-content col-8">
+        <form id="form-Article">
+            <div class="row  btn-row">
+                <h2>發表新文章</h2>
+            </div>
+            <div class="row mt-2">
+                <select class="list-sort" name="Category" required>
+                    <option value="" disabled selected hidden>文章分類</option>
+                    <option value="問題">問題</option>
+                    <option value="心得">心得</option>
+                    <option value="文改">文改</option>
+                </select>
+                <input type="text" placeholder="請輸入標題" class="form-control" id="Title" name="Title" required />
+            </div>
+            <div class="row mt-3">
+                <textarea class="form-control m-auto main-textarea" placeholder="本文" rows="10" cols="42" name="Main" id="Main" required></textarea>
+            </div>
+        </form>
+        <div class=" row mt-2">
+            <div class="btn list-btn-select" style="width:60px;" id="submit">
+                <a class="btn-a-select">送出</a>
+            </div>
+            <span class="msg" id="Edit-msg"></span>
+        </div>
+    </div>
+</div>
+    @section scripts{
+        <script>
+            tinymce.init({
+                selector: "#Main", 
+                auto_focus: "Main",
+                statusbar: false,
+                menubar:"",
+                toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
+            });
+            
+
+            $("#submit").click(function () {
+                if (document.cookie != "") {
+                    if ($("select[name='Category']").val() == null || $("input[name='Title']").val() == "" || tinymce.get("Main").getContent() == "") {
+                        $("#Edit-msg").html("尚有資料未填寫!!")
+                        return;
+                    }
+                    var form = document.querySelector("#form-Article");
+                    var formdata = new FormData(form);
+                    formdata.set('Main', escape(tinymce.get("Main").getContent()));
+                    formdata.append("MemberID", document.cookie.split('MemberID=')[1].split("&")[0])
+                    $.ajax({
+                        url: "/Discuss/CreateDiscuss",
+                        type: "POST",
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            window.location.href = "/Discuss/vDiscussList";
+                        },
+                    })
+                }
+                else
+                    $('#exampleModalCenter').modal('show')
+            })
+        </script>
+    }

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" />
+    <link href="~/Styles/Lapis.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.tiny.cloud/1/sc3jp0c7htyf9c5oqc0pa3xysyz5gd7ttvbxwqgyo9bqnldj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+     
+    </script>
+    @RenderSection("styles", required: false)
+    <style>
+    </style>
+</head>
+<body>
+    @*登入頁面ˇ*@
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content vlogin">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">帳密登入</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mx-5 my-2"><span>帳號:</span><input type="text" id="Account" name="Account" /></div>
+                    <div class="row mx-5 my-2"><span>密碼:</span><input type="text" id="Password" name="Password" /></div>
+                    <div class="row mx-5 my-2"><span class="msg" id="Login-msg"></span></div>
+                    <div class="row mx-5 my-2 justify-content-between">
+                        <div><input type="checkbox" name="RememberMe" id="RememberMe" /><span class="ml-2">自動登入</span></div>
+                        <a>忘記密碼?</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-login" id="login">登入</button>
+                    <button type="button" class="btn btn-login registered" data-dismiss="modal">還沒帳號?</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*登入頁面^*@
+
+    <nav class="navbar fixed-top">
+        <div class="container">
+            <div class="row justify-content-between col-12">
+                <ul class="nav-ul">
+                    <li class="nav-li"><a class="nav-a">首頁</a></li>
+                    <li class="nav-li"><a href="/Discuss/vDiscussList" class="nav-a">討論區</a></li>
+                    <li class="nav-li"><a class="nav-a">單字表</a></li>
+                    <li class="nav-li"><a class="nav-a">小測驗</a></li>
+                </ul>
+                <ul class="nav-ul" id="member-ul">
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
+
+    <script>
+
+        function LoginStatus(href) {
+            if (document.cookie != "")
+                window.location.href = href;
+            else
+                $('#exampleModalCenter').modal('show')
+        }
+
+        if (document.cookie == "") {
+            var txt = `
+                        <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#exampleModalCenter">登入</a></li>
+                        <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
+                          `
+            $("#member-ul").html(txt)
+        }
+        else {
+            var txt = `
+                        <li class="nav-li"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
+                        <li class="nav-li"><a class="nav-a"id="logout">登出</a></li>
+                          `
+            $("#member-ul").html(txt)
+        }
+
+        $("#registered").click(function () {
+            window.location.href = "/Member/Registered";
+        })
+
+        $("#member-ul").on('click', '#logout', function () {
+            $.ajax({
+                url: "/Member/Logout",
+                success: function () {
+                    var txt = `
+                        <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#exampleModalCenter">登入</a></li>
+                        <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
+                          `
+                    $("#member-ul").html(txt)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '已成功登出',
+                        showConfirmButton: false,
+                        timer: 500
+                    })
+                }
+            })
+        })
+        $("#login").click(function () {
+            $.ajax({
+                url: "/Member/Login",
+                data: { "Account": `${$("#Account").val()}`, "Password": `${$("#Password").val()}`, "RememberMe": `${$("#RememberMe").is(":checked")}` },
+                type: "POST",
+                dataType: "text",
+                success: function (data) {
+                    if (data == "登入成功") {
+                        $('#exampleModalCenter').modal('hide')
+                        var txt = `<li class="nav-li"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
+                                       <li class="nav-li"><a class="nav-a" id="logout">登出</a></li>
+                                      `
+                        $("#member-ul").html(txt)
+                        $("#Account").val("");
+                        $("#Password").val("");
+                    }
+                    else {
+                        $("#Login-msg").text(data)
+                    }
+                },
+            })
+        })
+
+        $("body").on('click', '.registered', function () {
+            window.location.href = "/Member/vRegistered";
+        })
+
+    </script>
+</body>
+</html>

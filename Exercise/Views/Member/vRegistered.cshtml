@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Registered";
+}
+<div class="container body-content">
+    <div class="container body-content col-8">
+        <form id="form-Member">
+            <div class="row  btn-row mb-2"><h2 class="col-12" style="text-align:center">註冊新帳號(*必填)</h2></div>
+
+            <div class="row mb-2">
+                <span class="col-3 reg-title">*帳號</span>
+                <input type="text" placeholder="" class="form-control col-5" id="account" name="Account" required />
+                <span class="reg-msg col-4">帳號為信箱</span>
+            </div>
+
+            <div class="row mb-2">
+                <span class="col-3 reg-title">*密碼</span>
+                <input type="text" placeholder="" class="form-control col-5" id="password" name="Password" required />
+                <span class="reg-msg col-4">密碼必須包含大小寫英文和數字，長度最少為8</span>
+            </div>
+
+            <div class="row mb-2">
+                <span class="col-3 reg-title">*重複輸入密碼</span>
+                <input type="text" placeholder="" class="form-control col-5" id="repassword" name="rePassword" />
+                <span class="reg-msg col-4"></span>
+            </div>
+
+            <hr />
+            <div class="row mb-2">
+                <span class="col-3 reg-title">姓名或暱稱</span>
+                <input type="text" placeholder="" class="form-control col-5" name="MemberName"/>
+            </div>
+        </form>
+        <div class=" row mt-2">
+            <div class="btn list-btn" style="width:60px;" id="submit"><a class="btn-a">送出</a></div>
+            <span class="msg" id="Edit-msg"></span>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        console.log(window.location.href)
+        var ac = false;
+        var ps = false;
+        var rps = false;
+        $("#account").change(function () {
+            var ThisSapn = $(this).next();
+            if (!/\S+@@\S+.\S+/.test($(this).val())) {
+                ThisSapn.html('<img src="/imgs/NO.png" />帳號須為信箱格式')
+                ac = false;
+            }
+            else {
+                $.ajax({
+                    url: "/Member/CheckAccount",
+                    data: { "Account": $(this).val() },
+                    success: function (data) {
+                        if (data) {
+                            ThisSapn.html('<img src="/imgs/OK.png" />可以使用')
+                            ac = true;
+                        }
+                        else{
+                            ThisSapn.html('<img src="/imgs/NO.png" />此帳號已被使用')
+                            ac = flase;
+                        }                                
+                    },
+                })
+            }
+                
+        })
+
+        $("#password").change(function () {
+            var ThisSpan = $(this).next();
+            var txt = $(this).val().split("");
+            var en = false;
+            var EN = false;
+            var ma = false;
+            if (txt.length < 8) {
+                ThisSpan.html('<img src="/imgs/NO.png"/>密碼長度至少為8')
+                ps = false;
+            }
+            else {
+                for (var i = 0; i < txt.length; i++) {
+                    if (/[0-9]/.test(txt[i])) {
+                        ma = true;
+                        continue;
+                    }
+                    if (/[A-Z]/.test(txt[i])) {
+                        EN = true;
+                        continue;
+                    }
+                    if (/[a-z]/.test(txt[i])) {
+                        en = true;
+                        continue;
+                    }
+                }
+                if (ma && en && EN) {
+                    ThisSpan.html('<img src="/imgs/OK.png" />可以使用')
+                    ps = true;
+                }
+                else {
+                    ThisSpan.html('<img src="/imgs/NO.png" />密碼必須包含大小寫英文和數字')
+                    ps = false;
+                }
+            };
+        })
+
+        $("#repassword").change(function () {
+            var ThisSpan = $(this).next();
+            if ($(this).val() != $("#password").val()) {
+                ThisSpan.html('<img src="/imgs/NO.png" />必須與上方密碼相同')
+                rps = false;
+            }
+            else {
+                ThisSpan.html('<img src="/imgs/OK.png" />OK')
+                rps = true;
+            }
+        })
+
+        $("#submit").click(function () {
+            if (ac && ps && rps) {
+                var form = document.querySelector("#form-Member");
+                var formdata = new FormData(form);
+                formdata.delete("rePassword")
+                console.log(formdata)
+                $.ajax({
+                    url: "/Member/CreateMember",
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '註冊成功',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            window.location.href = "/Discuss/vDiscussList"
+                        })
+                    },
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '請確實填寫資料',
+                })
+            }
+        })
+    </script>
+}
