@@ -51,14 +51,14 @@
                             `
                     if (data[0].LoveStatus) {
                         txt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                <button class="btn btn-info btn-re">回覆</button>
                                 </div>
                                 `
                     }
                     else {
                         txt += `
                                 <a class="btn-love nolove mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                <button class="btn btn-info btn-re">回覆</button>
                                 </div>
                                 `
                     }
@@ -91,7 +91,7 @@
                         if (data[i].LoveStatus) {
                             txt += `
                                 <div class="row ml-3"><a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                <button class="btn btn-info btn-re">回覆</button>
                                 </div>
                                 </div>
                                `;
@@ -100,7 +100,7 @@
                         else {
                             txt += `
                                 <div class="row ml-3"><a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <button class="btn btn-info btn-re" value="">回覆</button>
+                                <button class="btn btn-info btn-re">回覆</button>
                                 </div>
                                 </div>
                                `;
@@ -161,6 +161,9 @@
                 $('#exampleModalCenter').modal('show')
         })
 
+        $(".body-content").on("click", ".re-btn", function () {
+            
+        })
 
 
     </script>

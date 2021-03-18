@@ -7,10 +7,10 @@
       <Diagram DiagramId="5fc7b8c3adcc4013bd0ff0bff2f64314" Name="Diagram1">
         <EntityTypeShape EntityType="dbTeam2_FinalModel.N5" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tMemberInformation" Width="1.5" PointX="2.75" PointY="6.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticle" Width="1.5" PointX="6.625" PointY="1.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticleLove" Width="1.5" PointX="6.5" PointY="5.5" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="9.125" PointY="3.5" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticle" Width="1.5" PointX="11.375" PointY="2.25" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticle" Width="1.5" PointX="6.625" PointY="2.25" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticleLove" Width="1.5" PointX="6.625" PointY="5.875" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="8.875" PointY="4.25" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticle" Width="1.5" PointX="11.375" PointY="2.375" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticleLove" Width="1.5" PointX="11.375" PointY="5.75" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticle_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticleLove_tArticle" />

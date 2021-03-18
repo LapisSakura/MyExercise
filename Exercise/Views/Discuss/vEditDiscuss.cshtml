@@ -18,10 +18,10 @@
                     <option value="心得">心得</option>
                     <option value="文改">文改</option>
                 </select>
-                <input type="text" placeholder="請輸入標題" class="form-control" id="Title" name="Title" required />
+                <input type="text" placeholder="請輸入標題" class="form-control mx-2" id="Title" name="Title" required />
             </div>
             <div class="row mt-3">
-                <textarea class="form-control m-auto main-textarea" placeholder="本文" rows="10" cols="42" name="Main" id="Main" required></textarea>
+                <textarea class="form-control m-auto main-textarea" placeholder="本文"name="Main" id="Main" required></textarea>
             </div>
         </form>
         <div class=" row mt-2">
@@ -36,6 +36,7 @@
         <script>
             tinymce.init({
                 selector: "#Main", 
+                width: '682px',
                 auto_focus: "Main",
                 statusbar: false,
                 menubar:"",
