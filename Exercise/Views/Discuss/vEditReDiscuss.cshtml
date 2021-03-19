@@ -25,19 +25,26 @@
 
 @section scripts{
     <script>
-            tinymce.init({
-                selector: "#Main",
-                width: '682px' ,
-                auto_focus: "Main",
-                statusbar: false,
-                menubar:"",
-                toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
-            });
+        tinymce.init({
+            selector: "#Main",
+            width: '682px',
+            height: 500,
+            auto_focus: "Main",
+            statusbar: false,
+            menubar:"",
+            toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
+        });
+
 
         $("#submit").click(function () {
-            tinymce.get("Main").setContent("<p>123</p>");
-
+            
         })
+
+        $(window).on("load",function(){
+            tinymce.get("Main").setContent(localStorage.getItem("main"));
+            localStorage.removeItem("main")
+        })
+
 
             //$("#submit").click(function () {
             //    if (document.cookie != "") {

@@ -40,9 +40,6 @@ namespace Exercise.Controllers
         }
 
 
-
-
-
         public JsonResult CategoryDiscussList(string Category)       //分類清單
         {
             var list = ta.getAll().Where(m => m.Category.Contains(Category)).Select(m => new

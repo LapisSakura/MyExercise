@@ -9,7 +9,7 @@
 }
 <div class="container body-content">
 
-    <div class="container body-content col-8">
+    <div class="container body-content col-8 div-discuss" >
         <div class="row article my-5 MainArticle">
         </div>
         @*以下回文*@
@@ -33,7 +33,6 @@
                 data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
                 dataType: "Json",
                 success: function (data) {
-                    console.log(data[0].LoveStatus)
                     var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
                     var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
                     var txt="";
@@ -51,14 +50,14 @@
                             `
                     if (data[0].LoveStatus) {
                         txt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <button class="btn btn-info btn-re">回覆</button>
+                                <a class="btn btn-info btn-re" >回覆</a>
                                 </div>
                                 `
                     }
                     else {
                         txt += `
                                 <a class="btn-love nolove mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <button class="btn btn-info btn-re">回覆</button>
+                                <a class="btn btn-info btn-re">回覆</a>
                                 </div>
                                 `
                     }
@@ -91,7 +90,7 @@
                         if (data[i].LoveStatus) {
                             txt += `
                                 <div class="row ml-3"><a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <button class="btn btn-info btn-re">回覆</button>
+                                <a class="btn btn-info btn-re">回覆</a>
                                 </div>
                                 </div>
                                `;
@@ -100,7 +99,7 @@
                         else {
                             txt += `
                                 <div class="row ml-3"><a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <button class="btn btn-info btn-re">回覆</button>
+                                <a class="btn btn-info btn-re">回覆</a>
                                 </div>
                                 </div>
                                `;
@@ -139,6 +138,7 @@
         })
 
         $(".ReArticle").on('click', '.btn-love', function () {      //回文愛心事件
+            console.log($(this))
             if (document.cookie != "") {
                 var LoveStatus;
                 var ReArticleID = parseInt($(this).attr("id"));
@@ -161,9 +161,11 @@
                 $('#exampleModalCenter').modal('show')
         })
 
-        $(".body-content").on("click", ".re-btn", function () {
-            
-        })
+        $(".div-discuss").on("click", ".btn-re", function () {
+            var fid = window.location.href.split("/")
+            localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
+            document.location.href = `/Discuss/vEditReDiscuss/${fid[fid.length - 1]}`
+        });
 
 
     </script>

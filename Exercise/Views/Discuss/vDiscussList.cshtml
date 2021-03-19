@@ -87,7 +87,7 @@
 
         document.querySelector(".list-sort").addEventListener('change', function (event) {
             Article.sort(sortFn[$(this).val()]);
-            test();
+            pagelist();
         });
 
 
@@ -148,7 +148,7 @@
 
 
 
-        function test() {
+        function pagelist() {
             $('.pagelist').pagination({
                 className: 'custom-paginationjs',
                 dataSource: function (done) {
@@ -175,11 +175,9 @@
                         </tr>
                        `
                     }
-
                     $(".tbody").html(txt);
                 }
             })
-
         }
 
 
