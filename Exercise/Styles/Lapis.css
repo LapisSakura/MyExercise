@@ -98,6 +98,11 @@ a {
     padding: 12px;
     margin-top: 10px;
 }
+.at-comment {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+}
 
 .at-member {
     margin-top: 30px;
@@ -106,6 +111,17 @@ a {
 .at-time {
     font-size: 5pt;
     color: #797979;
+}
+
+.at-comment-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+}
+.comment-input {
+    width: 100%;
+    border-radius: 10px;
+    height: 50px;
 }
 
 .memberdiv {
@@ -121,13 +137,41 @@ a {
     padding: 36px;
 }
 
+.at-btn {
+    padding: 1px;
+    width: 50px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color: #bafeef;
+    color: #7e491ee8;
+}
 
+.comment-input {
+    border-radius: 10px;
+    max-width: 542px;
+    max-height: 40px;
+}
+.comment-input:focus {
+    outline: none;
+}
+.com-div {
+    word-wrap: break-word;
+    overflow: auto;
+    width: 602px;
+}
+
+.MemberImg {
+    border: solid 1px;
+    border-radius: 50%;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
 
 /*--↓↓-------------DiscussList*/
-
 .textbox-search {
     border-radius: 20px;
-    width:100px;
+    width: 100px;
     text-align: center;
 }
 .textbox-search:focus{

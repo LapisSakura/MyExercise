@@ -14,29 +14,28 @@
         </div>
         @*以下回文*@
         <div class="ReArticle">
-
         </div>
-    </div>
+    </div> 
 </div>
-
 
 @section scripts{
     <script>
         ShowView();
-
-        function ShowView() {  　　　　　　　　 //頁面產生
+        //<---------------------------------產生頁面---------------------------->
+        function ShowView() {  　　　　　　　　 
             var fid = window.location.href.split("/")
             var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
-            $.ajax({　　　　　　　　　　　　　　　//產生主文
+         //<---------------------------------產生主文---------------------------->
+            $.ajax({　　　　　　　　　　　　　　　
                 url: "/Discuss/DiscussSingle",
                 type: "Get",
                 data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
                 dataType: "Json",
                 success: function (data) {
+                    var maintxt = "";
                     var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
                     var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
-                    var txt="";
-                     txt += `
+                    maintxt += `
                             <div class="at-title">
                                 <h4>【${data[0].Category}】${data[0].Title}</h4><br>
                             </div>
@@ -49,26 +48,62 @@
                                 <div class="row ml-3">
                             `
                     if (data[0].LoveStatus) {
-                        txt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
+                        maintxt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
                                 <a class="btn btn-info btn-re" >回覆</a>
                                 </div>
                                 `
                     }
                     else {
-                        txt += `
+                        maintxt += `
                                 <a class="btn-love nolove mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
                                 <a class="btn btn-info btn-re">回覆</a>
                                 </div>
                                 `
-                    }
-
-                        
-                    $(".MainArticle").html(txt)
+                    }                        
+                    $(".MainArticle").prepend(maintxt)
                 },
             });
+           //<---------------------------------產生主文留言---------------------------->
+            $.ajax({　　　　　　　　　　　　
+                url: "/Discuss/Comment",
+                type: "Get",
+                data: { "ArticleID": `${fid[fid.length - 1]}`},
+                success: function (data) {
+                    var maintxt = "";
+                    maintxt += `<div class="at-comment-list">`
+                    for (var i = 0; i < data.length; i++) {
+                        var t = new Date(parseInt(data[i].UpTime.slice(6, -2)))
+                        var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                        maintxt += `
+                                     <div class="row at-comment">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <div class="col-11 mt-2">
+                                            <div>${data[i].MemberName}:</div>
+                                            <div  class="com-div">${data[i].Main}</div>
+                                            <div class="row justify-content-between" style="padding:0 15px;">
+                                                <span class="at-time">最後編輯時間: ${time}</span>
+                                                <div>
+                                                    <div class="btn at-btn com-edit" no="${data[i].No}">編輯</div>
+                                                    <div class="btn at-btn com-del" no="${data[i].No}">刪除</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  `
+                    };
+                    maintxt += `
+                                 </div>
+                                <div class="at-comment-input row" style="padding: 12px;">
+                                    <div class="col-1 mt-2 MemberImg"></div>
+                                    <div class="col-11 mt-3"><input type="text" class="comment-input"/></div>
+                                </div>
+                               `
+                    $(".MainArticle").append(maintxt);
+                },
+            })
 
-
-            $.ajax({　　　　　　　　　　　　　　　　　　//產生回文
+         //<---------------------------------產生回文--------------------------->
+            $.ajax({　　　　　　　　　　　　　　　　　　
                 url: "/Discuss/ReDiscussSingle",
                 type: "Get",
                 data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
@@ -103,7 +138,6 @@
                                 </div>
                                 </div>
                                `;
-
                         }
                     };
                     $(".ReArticle").append(txt);
@@ -111,8 +145,8 @@
             });
         };
 
-
-        $(".MainArticle").on('click', '.btn-love', function () {      //主文愛心事件
+       //<---------------------------------主文愛心事件---------------------------->
+        $(".MainArticle").on('click', '.btn-love', function () {      
             if (document.cookie != "") {
                 var LoveStatus;
                 var fid = window.location.href.split("/")
@@ -137,7 +171,8 @@
 
         })
 
-        $(".ReArticle").on('click', '.btn-love', function () {      //回文愛心事件
+        //<---------------------------------回文愛心事件---------------------------->
+        $(".ReArticle").on('click', '.btn-love', function () {      
             console.log($(this))
             if (document.cookie != "") {
                 var LoveStatus;
@@ -160,12 +195,93 @@
             else
                 $('#exampleModalCenter').modal('show')
         })
-
-        $(".div-discuss").on("click", ".btn-re", function () {
-            var fid = window.location.href.split("/")
-            localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
-            document.location.href = `/Discuss/vEditReDiscuss/${fid[fid.length - 1]}`
+         //<---------------------------------回覆按鈕---------------------------->
+        $(".div-discuss").on("click", ".btn-re", function () {       
+            if (document.cookie != "") {
+                var fid = window.location.href.split("/")
+                localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
+                document.location.href = `/Discuss/vEditReDiscuss/${fid[fid.length - 1]}`
+            }
+            else {
+                $('#exampleModalCenter').modal('show')
+            }
         });
+        //<---------------------------------新增留言---------------------------->
+        $(".div-discuss").on("focus", ".comment-input", function () {
+            if (document.cookie != "") {
+                $(".div-discuss").on("change", ".comment-input", function () {
+                    var ComInput =$(this)
+                    var fid = window.location.href.split("/")
+                    $.ajax({
+                        url: "/Discuss/CreateCommend",
+                        data: {
+                            "MemberID": document.cookie.split('MemberID=')[1].split("&")[0],
+                            "Main": $(".comment-input").val(),
+                            "ArticleID": fid[fid.length - 1],
+                        },
+                        success: function (data) {
+                            var txt = "";
+                            var t =  new Date
+                            var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                            txt += `
+                                 <div class="row at-comment">
+                                    <div class="col-1 mt-2 MemberImg"></div>
+                                        <div class="col-11 mt-2">
+                                            <div>${document.cookie.split('MemberName=')[1]}:</div>
+                                            <div class="com-div">${ComInput.val()}</div>
+                                            <div class="row justify-content-between" style="padding:0 15px;">
+                                                <span class="at-time">最後編輯時間: ${time}</span>
+                                                <div>
+                                                    <div class="btn at-btn com-edit" no="${data}">編輯</div>
+                                                    <div class="btn at-btn com-del" no="${data}">刪除</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 </div>
+                                   `
+                            ComInput.parent().parent().parent().find(".at-comment-list").append(txt)
+                            ComInput.val("");
+                        },
+                    });
+                });
+            }
+            else {
+                $('#exampleModalCenter').modal('show')
+            }
+            $(".div-discuss").on("blur", ".comment-input", function () {
+                $(".div-discuss").off("change", ".comment-input")
+            })
+        });
+        //<---------------------------------刪除留言---------------------------->
+        $(".div-discuss").on('click', '.com-del', function () {
+            $.ajax({
+                url: "/Discuss/DelComment",
+                data: { "no": $(this).attr("no") },
+            })
+            $(this).parent().parent().parent().parent().html("")
+        })
+
+        //<---------------------------------編輯留言---------------------------->
+
+        $(".div-discuss").on('click', '.com-edit', function () {
+            var com_div = $(this).parent().parent().parent().find(".com-div");
+            com_div.attr("contentEditable", "true");
+            com_div.focus();
+            $(this).removeClass("com-edit").addClass("com-ok").text("完成")
+        })
+        $(".div-discuss").on('click', '.com-ok', function () {
+            var t = new Date
+            var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+            var com_div = $(this).parent().parent().parent().find(".com-div");
+            $.ajax({
+                url: "/Discuss/EditComment",
+                dataType: "Post",
+                data: { "Main": com_div.text(), "no": $(this).attr("no") },                
+            })
+            $(this).removeClass("com-ok").addClass("com-edit").text("編輯")
+            com_div.removeAttr("contentEditable");
+            $(this).parent().parent().find(".at-time").text(time)
+        })
 
 
     </script>

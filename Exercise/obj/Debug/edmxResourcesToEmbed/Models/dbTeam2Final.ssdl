@@ -31,6 +31,16 @@
     <Property Name="MemberID" Type="int" Nullable="false" />
     <Property Name="ArticleID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="tComment">
+    <Key>
+      <PropertyRef Name="No" />
+    </Key>
+    <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="ArticleID" Type="int" />
+    <Property Name="Main" Type="nvarchar(max)" />
+    <Property Name="UpTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="tMemberInformation">
     <Key>
       <PropertyRef Name="fId" />
@@ -72,6 +82,17 @@
     <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MemberID" Type="int" Nullable="false" />
     <Property Name="ReArticleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tReComment">
+    <Key>
+      <PropertyRef Name="No" />
+    </Key>
+    <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="ArticleID" Type="int" />
+    <Property Name="ReArticleID" Type="int" />
+    <Property Name="Main" Type="nvarchar(max)" />
+    <Property Name="UpTime" Type="datetime" />
   </EntityType>
   <Association Name="FK_tArticle_tMembers">
     <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
@@ -161,10 +182,12 @@
     <EntitySet Name="N5" EntityType="Self.N5" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tMemberInformation" EntityType="Self.tMemberInformation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tReComment" EntityType="Self.tReComment" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_tArticle_tMembers" Association="Self.FK_tArticle_tMembers">
       <End Role="tMembers" EntitySet="tMembers" />
       <End Role="tArticle" EntitySet="tArticle" />

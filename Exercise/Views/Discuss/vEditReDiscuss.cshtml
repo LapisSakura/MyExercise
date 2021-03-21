@@ -5,18 +5,21 @@
 
 <div class="container body-content">
     <div class="container body-content col-8">
-        <form id="form-Article">
             <div class="row  btn-row">
                 <h2>回覆文章</h2>
             </div>
             <div class="row mt-3"><p style="max-width:682px;" id="ReArticleTitle">RE: 【心得】 朝第二外語邁進，日語學習日記全紀錄</p></div>
             <div class="row mt-3">
+                <div class="btn list-btn" style="width:120px;" id="quote">
+                    <a class="btn-a">引用回覆文章</a>
+                </div>
+            </div>
+            <div class="row mt-3">
                 <textarea class="form-control m-auto main-textarea" placeholder="本文"  name="Main" id="Main" required></textarea>
             </div>
-        </form>
         <div class=" row mt-2">
-            <div class="btn list-btn-select" style="width:60px;" id="submit">
-                <a class="btn-a-select">送出</a>
+            <div class="btn list-btn" style="width:60px;" id="submit">
+                <a class="btn-a">送出</a>
             </div>
             <span class="msg" id="Edit-msg"></span>
         </div>
@@ -35,40 +38,37 @@
             toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
         });
 
+        $("#quote").click(function () {
+            tinymce.get("Main").setContent(localStorage.getItem("main"));
+        });
+
+        //$(window).on("load",function(){
+        //    tinymce.get("Main").setContent(localStorage.getItem("main"));
+        //    localStorage.removeItem("main")
+        //})
+
 
         $("#submit").click(function () {
-            
+            var fid = window.location.href.split("/")
+            if (document.cookie != "") {
+                if ($("select[name='Category']").val() == null || $("input[name='Title']").val() == "" || tinymce.get("Main").getContent() == "") {
+                    $("#Edit-msg").html("尚有資料未填寫!!")
+                    return;
+                }
+                $.ajax({
+                    url: "/Discuss/CreateDiscuss",
+                    type: "POST",
+                    data: { "MemberID": document.cookie.split('MemberID=')[1].split("&")[0], "Main": escape(tinymce.get("Main").getContent()), "ArticleID": fid[fid.length - 1]},
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        localStorage.removeItem("main")
+                        window.location.href = `/Discuss/vSingleDiscuss/${fid[fid.length - 1]}`;
+                    },
+                })
+            }
+            else
+                $('#exampleModalCenter').modal('show')
         })
-
-        $(window).on("load",function(){
-            tinymce.get("Main").setContent(localStorage.getItem("main"));
-            localStorage.removeItem("main")
-        })
-
-
-            //$("#submit").click(function () {
-            //    if (document.cookie != "") {
-            //        if ($("select[name='Category']").val() == null || $("input[name='Title']").val() == "" || tinymce.get("Main").getContent() == "") {
-            //            $("#Edit-msg").html("尚有資料未填寫!!")
-            //            return;
-            //        }
-            //        var form = document.querySelector("#form-Article");
-            //        var formdata = new FormData(form);
-            //        formdata.set('Main', escape(tinymce.get("Main").getContent()));
-            //        formdata.append("MemberID", document.cookie.split('MemberID=')[1].split("&")[0])
-            //        $.ajax({
-            //            url: "/Discuss/CreateDiscuss",
-            //            type: "POST",
-            //            data: formdata,
-            //            processData: false,
-            //            contentType: false,
-            //            success: function (data) {
-            //                window.location.href = "/Discuss/vDiscussList";
-            //            },
-            //        })
-            //    }
-            //    else
-            //        $('#exampleModalCenter').modal('show')
-            //})
     </script>
 }

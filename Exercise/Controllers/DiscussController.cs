@@ -16,6 +16,7 @@ namespace Exercise.Controllers
         MRepository<tReArticle> tra = new MRepository<tReArticle>();
         MRepository<tArticleLove> tal = new MRepository<tArticleLove>();
         MRepository<tReArticleLove> tral = new MRepository<tReArticleLove>();
+        MRepository<tComment> tc = new MRepository<tComment>();
         dbTeam2_FinalEntities db = new dbTeam2_FinalEntities();
 
         public ActionResult Index()
@@ -39,8 +40,8 @@ namespace Exercise.Controllers
             return View();
         }
 
-
-        public JsonResult CategoryDiscussList(string Category)       //分類清單
+        //<---------------------------------文章分類---------------------------->
+        public JsonResult CategoryDiscussList(string Category)
         {
             var list = ta.getAll().Where(m => m.Category.Contains(Category)).Select(m => new
             {
@@ -55,7 +56,8 @@ namespace Exercise.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DiscussSingle(int ArticleID, int MemberID)      //單筆主要文章
+        //<---------------------------------顯示單筆主要文章---------------------------->
+        public JsonResult DiscussSingle(int ArticleID, int MemberID)
         {
             db.tArticle.FirstOrDefault(m => m.ArticleID == ArticleID).ViewCount++;
             db.SaveChanges();
@@ -73,7 +75,38 @@ namespace Exercise.Controllers
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ReDiscussSingle(int ArticleID, int MemberID)                   //單筆回文文章
+
+        //<---------------------------------顯示留言---------------------------->
+        public JsonResult Comment(int ArticleID)
+        {
+            var list = tc.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            {
+                MemberName= tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                Main=m.Main,
+                UpTime=m.UpTime,
+                MemberID=m.MemberID,
+                No =m.No,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------新增留言---------------------------->
+        public JsonResult CreateCommend(int MemberID, string Main, int ArticleID)
+        {
+            tComment list = new tComment()
+            {
+                MemberID = MemberID,
+                Main = Main,
+                ArticleID =ArticleID,
+                UpTime =DateTime.Now,
+            };
+            tc.create(list);
+            
+            return Json(tc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------顯示單筆回文文章---------------------------->
+        public JsonResult ReDiscussSingle(int ArticleID, int MemberID)                   
         {
             var list = tra.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
             {
@@ -87,9 +120,10 @@ namespace Exercise.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CreateDiscuss(tArticle form)              //新增文章
+        //<---------------------------------新增文章---------------------------->
+        public JsonResult CreateDiscuss(tArticle form)
         {
-            tArticle aa = new tArticle()
+            tArticle list = new tArticle()
             {
                 Category = form.Category,
                 Title = form.Title,
@@ -99,12 +133,29 @@ namespace Exercise.Controllers
                 ViewCount = 0,
                 MemberID = form.MemberID
             };
-            ta.create(aa);
+            ta.create(list);
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult TitleDiscussList(string Title)                   //文章搜尋
+        //<---------------------------------新增回文---------------------------->要改
+        public JsonResult CreateReDiscuss(int MemberID, string Main, int ArticleID)
+        {
+            tReArticle list = new tReArticle()
+            {
+                ArticleID = ArticleID,
+                Main = Main,
+                MemberID = MemberID,
+                UpTime = DateTime.Now,
+                LoveCount = 0,
+            };
+            tra.create(list);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+
+        //<---------------------------------文章搜尋---------------------------->
+        public JsonResult TitleDiscussList(string Title)
         {
             var list = ta.getAll().Where(m => m.Title.Contains(Title)).Select(m => new
             {
@@ -119,7 +170,8 @@ namespace Exercise.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult MainLoveCount(int ArticleID, bool LoveStatus ,int MemberID)    //主文愛心+-
+        //<---------------------------------主文愛心＋－---------------------------->
+        public JsonResult MainLoveCount(int ArticleID, bool LoveStatus ,int MemberID)
         {
             if (LoveStatus)
             {
@@ -143,7 +195,8 @@ namespace Exercise.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ReLoveCount(int ReArticleID, bool LoveStatus, int MemberID)       //回文愛心+-
+        //<---------------------------------回文愛心＋－---------------------------->
+        public JsonResult ReLoveCount(int ReArticleID, bool LoveStatus, int MemberID)
         {
             if (LoveStatus)
             {
@@ -167,5 +220,20 @@ namespace Exercise.Controllers
         }
 
 
+        //<---------------------------------刪除留言---------------------------->
+        public JsonResult DelComment(int no)
+        {
+            tc.delete(no);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------編輯留言---------------------------->
+        public JsonResult EditComment(int no,string Main)
+        {
+            db.tComment.FirstOrDefault(m => m.No == no).Main = Main;
+            db.tComment.FirstOrDefault(m => m.No == no).UpTime = DateTime.Now;
+            db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
     }   
 }

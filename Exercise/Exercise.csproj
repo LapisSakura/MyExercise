@@ -168,6 +168,9 @@
     <Compile Include="Models\tArticleLove.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tComment.cs">
+      <DependentUpon>dbTeam2Final.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMemberInformation.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
@@ -178,6 +181,9 @@
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tReArticleLove.cs">
+      <DependentUpon>dbTeam2Final.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tReComment.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
