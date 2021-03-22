@@ -17,6 +17,7 @@ namespace Exercise.Controllers
         MRepository<tArticleLove> tal = new MRepository<tArticleLove>();
         MRepository<tReArticleLove> tral = new MRepository<tReArticleLove>();
         MRepository<tComment> tc = new MRepository<tComment>();
+        MRepository<tReComment> trc = new MRepository<tReComment>();
         dbTeam2_FinalEntities db = new dbTeam2_FinalEntities();
 
         public ActionResult Index()
@@ -77,7 +78,7 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------顯示留言---------------------------->
-        public JsonResult Comment(int ArticleID)
+        public JsonResult Comment(int? ArticleID)
         {
             var list = tc.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
             {
@@ -91,7 +92,7 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------新增留言---------------------------->
-        public JsonResult CreateCommend(int MemberID, string Main, int ArticleID)
+        public JsonResult CreateComment(int MemberID, string Main, int ArticleID)
         {
             tComment list = new tComment()
             {
@@ -104,6 +105,37 @@ namespace Exercise.Controllers
             
             return Json(tc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
         }
+
+        //<---------------------------------顯示回文留言---------------------------->
+        public JsonResult ReComment()
+        {
+            var list = trc.getAll().Select(m => new
+            {
+                MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                Main = m.Main,
+                UpTime = m.UpTime,
+                MemberID = m.MemberID,
+                ReArticleID = m.ReArticleID,
+                No = m.No,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------新增回文留言---------------------------->
+        public JsonResult CreateReCommend(int MemberID, string Main, int ReArticleID)
+        {
+            tReComment list = new tReComment()
+            {
+                MemberID = MemberID,
+                Main = Main,
+                ReArticleID = ReArticleID,
+                UpTime = DateTime.Now,
+            };
+            trc.create(list);
+
+            return Json(trc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
+        }
+
 
         //<---------------------------------顯示單筆回文文章---------------------------->
         public JsonResult ReDiscussSingle(int ArticleID, int MemberID)                   

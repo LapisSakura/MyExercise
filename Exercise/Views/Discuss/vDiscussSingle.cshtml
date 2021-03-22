@@ -80,7 +80,7 @@
                                         <div class="col-11 mt-2">
                                             <div>${data[i].MemberName}:</div>
                                             <div  class="com-div">${data[i].Main}</div>
-                                            <div class="row justify-content-between" style="padding:0 15px;">
+                                            <div class="row justify-content-between" style="padding:0 0 0 15px">
                                                 <span class="at-time">最後編輯時間: ${time}</span>
                                                 <div>
                                                     <div class="btn at-btn com-edit" no="${data[i].No}">編輯</div>
@@ -109,11 +109,14 @@
                 data: { "ArticleID": `${fid[fid.length - 1]}`, "MemberID": `${NowMember}`},
                 dataType: "Json",
                 success: function (data) {
-                    var txt = "";
-                    for (var i = 0; i < data.length; i++) {
-                        var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
-                        var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
-                        txt += `
+                    $.ajax({
+                        url: "/Discuss/ReComment",
+                        success: function (bata) {
+                            for (var i = 0; i < data.length; i++) {
+                                var txt = "";
+                                var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
+                                var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                                txt += `
                                 <div class="row article my-5">
                                 <div class="at-discuss mt-2">
                                     <span>${data[i].MemberName}</span><br>
@@ -122,25 +125,61 @@
                                 </div>
                                 <div class="at-floor row justify-content-between">
                                 `
-                        if (data[i].LoveStatus) {
-                            txt += `
+                                if (data[i].LoveStatus) {
+                                    txt += `
                                 <div class="row ml-3"><a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
                                 <a class="btn btn-info btn-re">回覆</a>
                                 </div>
+                                <div class="at-comment-list-${data[i].ReArticleID}"></div>
+                                    <div class="at-comment-input row" style="padding: 12px;">
+                                    <div class="col-1 mt-2 MemberImg"></div>
+                                    <div class="col-11 mt-3"><input type="text" class="comment-input"/></div>
+                                </div>
+
                                 </div>
                                `;
 
-                        }
-                        else {
-                            txt += `
+                                }
+                                else {
+                                    txt += `
                                 <div class="row ml-3"><a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
                                 <a class="btn btn-info btn-re">回覆</a>
                                 </div>
+                                <div class="at-comment-list-${data[i].ReArticleID}"></div>
+                                    <div class="at-comment-input row" style="padding: 12px;">
+                                    <div class="col-1 mt-2 MemberImg"></div>
+                                    <div class="col-11 mt-3"><input type="text" class="comment-input"/></div>
+                                </div>
+
                                 </div>
                                `;
-                        }
-                    };
-                    $(".ReArticle").append(txt);
+                                }
+                                $(".ReArticle").append(txt);
+                            };
+                            for (var k = 0; k < bata.length; k++) {
+                                var t = new Date(parseInt(bata[k].UpTime.slice(6, -2)))
+                                var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
+                                $(`.at-comment-list-${bata[k].ReArticleID}`).append(`
+                                      <div class="row at-comment">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <div class="col-11 mt-2">
+                                            <div>${bata[k].MemberName}:</div>
+                                            <div  class="com-div">${bata[k].Main}</div>
+                                                <div class="row justify-content-between"  style="width:100%;padding:0 15px;">
+                                                    <span class="at-time">最後編輯時間: ${time}</span>
+                                                    <div>
+                                                        <div class="btn at-btn com-edit" no="${bata[k].No}">編輯</div>
+                                                        <div class="btn at-btn com-del" no="${bata[k].No}">刪除</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `)
+                            }
+
+                        },
+                    })
                 },
             });
         };
@@ -229,7 +268,7 @@
                                         <div class="col-11 mt-2">
                                             <div>${document.cookie.split('MemberName=')[1]}:</div>
                                             <div class="com-div">${ComInput.val()}</div>
-                                            <div class="row justify-content-between" style="padding:0 15px;">
+                                            <div class="row justify-content-between" style="padding:0 0 0 15px;">
                                                 <span class="at-time">最後編輯時間: ${time}</span>
                                                 <div>
                                                     <div class="btn at-btn com-edit" no="${data}">編輯</div>

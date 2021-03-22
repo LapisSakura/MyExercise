@@ -46,28 +46,19 @@
           <Property Name="Main" Type="nvarchar(max)" />
           <Property Name="UpTime" Type="datetime" />
         </EntityType>
-        <EntityType Name="tMemberInformation">
-          <Key>
-            <PropertyRef Name="fId" />
-          </Key>
-          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="fBirthday" Type="date" Nullable="false" />
-          <Property Name="fAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="fPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="fRegistrationDatetime" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="tMembers">
           <Key>
             <PropertyRef Name="MemberID" />
           </Key>
           <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Account" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="RegisteredDate" Type="datetime" />
-          <Property Name="Authority" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="int" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VerificationCode" Type="int" />
+          <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
+          <Property Name="Authority" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tReArticle">
           <Key>
@@ -94,7 +85,6 @@
           </Key>
           <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberID" Type="int" />
-          <Property Name="ArticleID" Type="int" />
           <Property Name="ReArticleID" Type="int" />
           <Property Name="Main" Type="nvarchar(max)" />
           <Property Name="UpTime" Type="datetime" />
@@ -188,7 +178,6 @@
           <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tMemberInformation" EntityType="Self.tMemberInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />
@@ -231,11 +220,9 @@
           <EntitySet Name="tArticle" EntityType="dbTeam2_FinalModel.tArticle" />
           <EntitySet Name="tArticleLove" EntityType="dbTeam2_FinalModel.tArticleLove" />
           <EntitySet Name="tComment" EntityType="dbTeam2_FinalModel.tComment" />
-          <EntitySet Name="tMemberInformation" EntityType="dbTeam2_FinalModel.tMemberInformation" />
           <EntitySet Name="tMembers" EntityType="dbTeam2_FinalModel.tMembers" />
           <EntitySet Name="tReArticle" EntityType="dbTeam2_FinalModel.tReArticle" />
           <EntitySet Name="tReArticleLove" EntityType="dbTeam2_FinalModel.tReArticleLove" />
-          <EntitySet Name="tReComment" EntityType="dbTeam2_FinalModel.tReComment" />
           <AssociationSet Name="FK_tArticle_tMembers" Association="dbTeam2_FinalModel.FK_tArticle_tMembers">
             <End Role="tMembers" EntitySet="tMembers" />
             <End Role="tArticle" EntitySet="tArticle" />
@@ -264,6 +251,7 @@
             <End Role="tReArticle" EntitySet="tReArticle" />
             <End Role="tReArticleLove" EntitySet="tReArticleLove" />
           </AssociationSet>
+          <EntitySet Name="tReComment" EntityType="dbTeam2_FinalModel.tReComment" />
         </EntityContainer>
         <EntityType Name="N5">
           <Key>
@@ -311,32 +299,23 @@
           <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UpTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tMemberInformation">
-          <Key>
-            <PropertyRef Name="fId" />
-          </Key>
-          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fBirthday" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="fAccount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fRegistrationDatetime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="tMembers">
           <Key>
             <PropertyRef Name="MemberID" />
           </Key>
           <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RegisteredDate" Type="DateTime" Precision="3" />
-          <Property Name="Authority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegisteredDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Authority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tArticle_tMembers" FromRole="tMembers" ToRole="tArticle" />
           <NavigationProperty Name="tArticleLove" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tMembers" FromRole="tMembers" ToRole="tArticleLove" />
           <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tMembers" FromRole="tMembers" ToRole="tReArticle" />
           <NavigationProperty Name="tReArticleLove" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" FromRole="tMembers" ToRole="tReArticleLove" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VerificationCode" Type="Int32" />
         </EntityType>
         <EntityType Name="tReArticle">
           <Key>
@@ -361,17 +340,6 @@
           <Property Name="ReArticleID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" FromRole="tReArticleLove" ToRole="tMembers" />
           <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle" FromRole="tReArticleLove" ToRole="tReArticle" />
-        </EntityType>
-        <EntityType Name="tReComment">
-          <Key>
-            <PropertyRef Name="No" />
-          </Key>
-          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberID" Type="Int32" />
-          <Property Name="ArticleID" Type="Int32" />
-          <Property Name="ReArticleID" Type="Int32" />
-          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UpTime" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_tArticle_tMembers">
           <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
@@ -457,6 +425,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tReComment">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="ReArticleID" Type="Int32" />
+          <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpTime" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -508,21 +486,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tMemberInformation">
-            <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMemberInformation">
-              <MappingFragment StoreEntitySet="tMemberInformation">
-                <ScalarProperty Name="fRegistrationDatetime" ColumnName="fRegistrationDatetime" />
-                <ScalarProperty Name="fPassword" ColumnName="fPassword" />
-                <ScalarProperty Name="fAccount" ColumnName="fAccount" />
-                <ScalarProperty Name="fBirthday" ColumnName="fBirthday" />
-                <ScalarProperty Name="fName" ColumnName="fName" />
-                <ScalarProperty Name="fId" ColumnName="fId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tMembers">
             <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMembers">
               <MappingFragment StoreEntitySet="tMembers">
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Authority" ColumnName="Authority" />
                 <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
@@ -560,7 +528,6 @@
                 <ScalarProperty Name="UpTime" ColumnName="UpTime" />
                 <ScalarProperty Name="Main" ColumnName="Main" />
                 <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
-                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="No" ColumnName="No" />
               </MappingFragment>
