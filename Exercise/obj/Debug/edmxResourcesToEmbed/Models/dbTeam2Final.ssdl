@@ -41,19 +41,28 @@
     <Property Name="Main" Type="nvarchar(max)" />
     <Property Name="UpTime" Type="datetime" />
   </EntityType>
+  <EntityType Name="tMemberInformation">
+    <Key>
+      <PropertyRef Name="fId" />
+    </Key>
+    <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fBirthday" Type="date" Nullable="false" />
+    <Property Name="fAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fRegistrationDatetime" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="tMembers">
     <Key>
       <PropertyRef Name="MemberID" />
     </Key>
     <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
-    <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="VerificationCode" Type="int" />
-    <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
-    <Property Name="Authority" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RegisteredDate" Type="datetime" />
+    <Property Name="Authority" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="tReArticle">
     <Key>
@@ -80,6 +89,7 @@
     </Key>
     <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MemberID" Type="int" />
+    <Property Name="ArticleID" Type="int" />
     <Property Name="ReArticleID" Type="int" />
     <Property Name="Main" Type="nvarchar(max)" />
     <Property Name="UpTime" Type="datetime" />
@@ -173,6 +183,7 @@
     <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tMemberInformation" EntityType="Self.tMemberInformation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />

@@ -110,6 +110,7 @@ a {
 .at-time {
     font-size: 5pt;
     color: #797979;
+    line-height:28px;
 }
 
 .at-comment-input {
@@ -144,6 +145,7 @@ a {
     color: #7e491ee8;
 }
 
+
 .comment-input {
     border-radius: 10px;
     max-width: 542px;
@@ -155,7 +157,7 @@ a {
 .com-div {
     word-wrap: break-word;
     overflow: auto;
-    width: 602px;
+    max-width:602px;
 }
 
 .MemberImg {

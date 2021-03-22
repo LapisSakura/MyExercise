@@ -41,22 +41,30 @@
                             </div>
                             <div class="at-discuss mt-2">
                                 <span>${data[0].MemberName}</span><br>
-                                <span class="at-time">最後編輯日期: ${time}</span>
+                                <div class="row justify-content-between" style="padding:0 0 0 15px">
+                                    <span class="at-time"">最後編輯日期: ${time}</span>
+                                    <div style="padding:0 15px 0 0">
+                                        <div class="btn at-btn">編輯</div>
+                                        <div class="btn at-btn">刪除</div>
+                                    </div>
+                                </div>
                                 <div class="at-main">${unescape(data[0].Main)}</div>
                             </div>
-                            <div class="at-floor row justify-content-between">
-                                <div class="row ml-3">
+                            <div class="at-floor">
+                                <div class=" row justify-content-between">
+                                    <div class="row ml-3">
                             `
                     if (data[0].LoveStatus) {
                         maintxt += `<a class="btn-love love mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <a class="btn btn-info btn-re" >回覆</a>
+                                        <a class="btn btn-re at-btn" >回覆</a>
+                                    </div>
                                 </div>
                                 `
                     }
                     else {
                         maintxt += `
                                 <a class="btn-love nolove mr-2" >　</a> <span>${data[0].LoveCount}</span></div >
-                                <a class="btn btn-info btn-re">回覆</a>
+                                <a class="btn btn-re at-btn">回覆</a>
                                 </div>
                                 `
                     }                        
@@ -120,15 +128,20 @@
                                 <div class="row article my-5">
                                 <div class="at-discuss mt-2">
                                     <span>${data[i].MemberName}</span><br>
-                                    <span class="at-time">最後編輯日期: ${time}</span>
+                                    <div class="row justify-content-between" style="padding:0 0 0 15px">
+                                        <span class="at-time"">最後編輯日期: ${time}</span>
+                                        <div style="padding:0 15px 0 0">
+                                            <div class="btn at-btn">編輯</div>
+                                            <div class="btn at-btn">刪除</div>
+                                        </div>
+                                    </div>
                                     <div class="at-main">${unescape(data[i].Main)}</div>
                                 </div>
-                                <div class="at-floor row justify-content-between">
+                                <div class="at-floor row">
                                 `
                                 if (data[i].LoveStatus) {
                                     txt += `
-                                <div class="row ml-3"><a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <a class="btn btn-info btn-re">回覆</a>
+                                <a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span>
                                 </div>
                                 <div class="at-comment-list-${data[i].ReArticleID}"></div>
                                     <div class="at-comment-input row" style="padding: 12px;">
@@ -142,8 +155,7 @@
                                 }
                                 else {
                                     txt += `
-                                <div class="row ml-3"><a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span></div>
-                                <a class="btn btn-info btn-re">回覆</a>
+                                <a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span>
                                 </div>
                                 <div class="at-comment-list-${data[i].ReArticleID}"></div>
                                     <div class="at-comment-input row" style="padding: 12px;">
@@ -238,7 +250,7 @@
         $(".div-discuss").on("click", ".btn-re", function () {       
             if (document.cookie != "") {
                 var fid = window.location.href.split("/")
-                localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
+                //localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
                 document.location.href = `/Discuss/vEditReDiscuss/${fid[fid.length - 1]}`
             }
             else {
@@ -252,7 +264,7 @@
                     var ComInput =$(this)
                     var fid = window.location.href.split("/")
                     $.ajax({
-                        url: "/Discuss/CreateCommend",
+                        url: "/Discuss/CreateComment",
                         data: {
                             "MemberID": document.cookie.split('MemberID=')[1].split("&")[0],
                             "Main": $(".comment-input").val(),

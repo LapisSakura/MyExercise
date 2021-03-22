@@ -171,6 +171,9 @@
     <Compile Include="Models\tComment.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tMemberInformation.cs">
+      <DependentUpon>dbTeam2Final.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMembers.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
