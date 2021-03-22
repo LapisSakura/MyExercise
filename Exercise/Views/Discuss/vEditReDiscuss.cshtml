@@ -38,9 +38,9 @@
             toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
         });
 
-        $("#quote").click(function () {
-            tinymce.get("Main").setContent(localStorage.getItem("main"));
-        });
+        //$("#quote").click(function () {
+        //    tinymce.get("Main").setContent(localStorage.getItem("main"));
+        //});
 
         //$(window).on("load",function(){
         //    tinymce.get("Main").setContent(localStorage.getItem("main"));
@@ -51,19 +51,20 @@
         $("#submit").click(function () {
             var fid = window.location.href.split("/")
             if (document.cookie != "") {
-                if ($("select[name='Category']").val() == null || $("input[name='Title']").val() == "" || tinymce.get("Main").getContent() == "") {
+                if (tinymce.get("Main").getContent() == "") {
                     $("#Edit-msg").html("尚有資料未填寫!!")
                     return;
                 }
+                console.log((document.cookie.split('MemberID=')[1].split("&")[0]) / 1)
+                console.log(tinymce.get("Main").getContent())
+                console.log(fid[fid.length - 1])
                 $.ajax({
-                    url: "/Discuss/CreateDiscuss",
+                    url: "/Discuss/CreateReDiscuss",
                     type: "POST",
-                    data: { "MemberID": document.cookie.split('MemberID=')[1].split("&")[0], "Main": escape(tinymce.get("Main").getContent()), "ArticleID": fid[fid.length - 1]},
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
+                    data: { "MemberID": `${(document.cookie.split('MemberID=')[1].split("&")[0]) / 1}`, "Main": escape(tinymce.get("Main").getContent()), "ArticleID": `${fid[fid.length - 1]}` },
+                    success: function () {
                         localStorage.removeItem("main")
-                        window.location.href = `/Discuss/vSingleDiscuss/${fid[fid.length - 1]}`;
+                        window.location.href = `/Discuss/vDiscussSingle/${fid[fid.length - 1]}`;
                     },
                 })
             }

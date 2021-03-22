@@ -170,7 +170,7 @@ namespace Exercise.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        //<---------------------------------新增回文---------------------------->要改
+        //<---------------------------------新增回文---------------------------->
         public JsonResult CreateReDiscuss(int MemberID, string Main, int ArticleID)
         {
             tReArticle list = new tReArticle()
