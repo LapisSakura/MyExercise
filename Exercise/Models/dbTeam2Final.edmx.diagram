@@ -9,11 +9,12 @@
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticle" Width="1.5" PointX="3" PointY="3.25" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticleLove" Width="1.5" PointX="8.25" PointY="3.75" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tComment" Width="1.5" PointX="2.75" PointY="7.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMemberInformation" Width="1.5" PointX="4.75" PointY="7.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tLoginRecord" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tPost" Width="1.5" PointX="8.75" PointY="6.75" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticle" Width="1.5" PointX="5.25" PointY="3.375" />
         <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticleLove" Width="1.5" PointX="7.5" PointY="0.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReComment" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReComment" Width="1.5" PointX="8.75" PointY="9.75" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticle_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticleLove_tArticle" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tReArticle_tArticle" />

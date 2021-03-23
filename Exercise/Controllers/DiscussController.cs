@@ -80,15 +80,22 @@ namespace Exercise.Controllers
         //<---------------------------------顯示留言---------------------------->
         public JsonResult Comment(int? ArticleID)
         {
-            var list = tc.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            if (ArticleID != null)
             {
-                MemberName= tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
-                Main=m.Main,
-                UpTime=m.UpTime,
-                MemberID=m.MemberID,
-                No =m.No,
-            });
-            return Json(list, JsonRequestBehavior.AllowGet);
+                var list = tc.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+                {
+                    MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                    Main = m.Main,
+                    UpTime = m.UpTime,
+                    MemberID = m.MemberID,
+                    No = m.No,
+                });
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
         }
 
         //<---------------------------------新增留言---------------------------->
@@ -105,6 +112,22 @@ namespace Exercise.Controllers
             
             return Json(tc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
         }
+
+        //<---------------------------------新增回文留言---------------------------->
+        public JsonResult CreateReComment(int MemberID, string Main, int ReArticleID)
+        {
+            tReComment list = new tReComment()
+            {
+                MemberID = MemberID,
+                Main = Main,
+                ReArticleID = ReArticleID,
+                UpTime = DateTime.Now,
+            };
+            trc.create(list);
+
+            return Json(trc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
+        }
+
 
         //<---------------------------------顯示回文留言---------------------------->
         public JsonResult ReComment()
@@ -185,6 +208,18 @@ namespace Exercise.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
+        //<---------------------------------刪除回文---------------------------->
+        public JsonResult DelReArticle(int ReArticleID)
+        {
+            var count = trc.getAll().Where(m => m.ReArticleID == ReArticleID).Count();
+            for (int i = 0; i < count; i++)
+            {
+                trc.delete(trc.getAll().FirstOrDefault(m => m.ReArticleID == ReArticleID).No);
+            }
+            tra.delete(ReArticleID);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
 
         //<---------------------------------文章搜尋---------------------------->
         public JsonResult TitleDiscussList(string Title)
@@ -258,12 +293,26 @@ namespace Exercise.Controllers
             tc.delete(no);
             return Json("", JsonRequestBehavior.AllowGet);
         }
+        //<---------------------------------刪除回文留言---------------------------->
+        public JsonResult DelReComment(int no)
+        {
+            trc.delete(no);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
 
         //<---------------------------------編輯留言---------------------------->
         public JsonResult EditComment(int no,string Main)
         {
             db.tComment.FirstOrDefault(m => m.No == no).Main = Main;
             db.tComment.FirstOrDefault(m => m.No == no).UpTime = DateTime.Now;
+            db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        //<---------------------------------編輯回文留言---------------------------->
+        public JsonResult EditReComment(int no, string Main)
+        {
+            db.tReComment.FirstOrDefault(m => m.No == no).Main = Main;
+            db.tReComment.FirstOrDefault(m => m.No == no).UpTime = DateTime.Now;
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }

@@ -151,6 +151,11 @@ a {
     max-width: 542px;
     max-height: 40px;
 }
+.ReComment-input {
+    border-radius: 10px;
+    max-width: 542px;
+    max-height: 40px;
+}
 .comment-input:focus {
     outline: none;
 }
@@ -158,6 +163,7 @@ a {
     word-wrap: break-word;
     overflow: auto;
     max-width:602px;
+    min-width:602px;
 }
 
 .MemberImg {

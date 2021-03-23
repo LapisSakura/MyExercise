@@ -12,12 +12,11 @@ namespace Exercise.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tReComment
+    public partial class tLoginRecord
     {
-        public int No { get; set; }
-        public Nullable<int> MemberID { get; set; }
-        public Nullable<int> ReArticleID { get; set; }
-        public string Main { get; set; }
-        public Nullable<System.DateTime> UpTime { get; set; }
+        public int fLRId { get; set; }
+        public int fMId { get; set; }
+        public System.DateTime fLRLogOnDatetime { get; set; }
+        public System.DateTime fLRLogOffDatetime { get; set; }
     }
 }
