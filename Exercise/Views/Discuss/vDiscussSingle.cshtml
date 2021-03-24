@@ -44,8 +44,8 @@
                                 <div class="row justify-content-between" style="padding:0 0 0 15px">
                                     <span class="at-time">最後編輯日期: ${time}</span>
                                     <div style="padding:0 15px 0 0">
-                                        <div class="btn at-btn">編輯</div>
-                                        <div class="btn at-btn">刪除</div>
+                                        <div class="btn at-btn at-edit">編輯</div>
+                                        <div class="btn at-btn at-del">刪除</div>
                                     </div>
                                 </div>
                                 <div class="at-main">${unescape(data[0].Main)}</div>
@@ -79,7 +79,7 @@
                 data: { "ArticleID": `${fid[fid.length - 1]}`},
                 success: function (data) {
                     var maintxt = "";
-                    maintxt += `<div class="at-comment-list">`
+                    maintxt += `<div class="comment-list at-comment-list">`
                     for (var i = 0; i < data.length; i++) {
                         var t = new Date(parseInt(data[i].UpTime.slice(6, -2)))
                         var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
@@ -102,9 +102,11 @@
                     };
                     maintxt += `
                                  </div>
-                                <div class="at-comment-input row" style="padding: 12px;">
-                                    <div class="col-1 mt-2 MemberImg"></div>
-                                    <div class="col-11 mt-3"><input type="text" class="comment-input"/></div>
+                                <div class="comment-list at-comment-list-input">
+                                    <div class="row at-comment-input justify-content-between my-2">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <input type="text" class="comment-input col-11"/>
+                                    </div>
                                 </div>
                                `
                     $(".MainArticle").append(maintxt);
@@ -127,7 +129,7 @@
                                 var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
                                 txt += `
                                 <div class="row article my-5">
-                                <div class="at-discuss mt-2">
+                                <div class="at-discuss mt-5">
                                     <span>${data[i].MemberName}</span><br>
                                     <div class="row justify-content-between" style="padding:0 0 0 15px">
                                         <span class="at-time">最後編輯日期: ${time}</span>
@@ -146,10 +148,12 @@
                                 <a class="btn-love love mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span>
                                 </div>
                                 </div>
-                                <div class="at-comment-list-${data[i].ReArticleID}"></div>
-                                <div class="at-comment-input row" style="padding: 12px;">
-                                    <div class="col-1 mt-2 MemberImg"></div>
-                                    <div class="col-11 mt-3"><input type="text" class="ReComment-input" no="${data[i].ReArticleID}"/></div>
+                                <div class="comment-list at-comment-list-${data[i].ReArticleID}"></div>
+                                <div class="at-comment-input">
+                                    <div class="row at-comment-input justify-content-between my-2">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <input type="text" class="ReComment-input col-11" no="${data[i].ReArticleID}"/>
+                                    </div>
                                 </div>
 
                                 </div>
@@ -162,10 +166,12 @@
                                 <a class="btn-love nolove mr-2" id="${data[i].ReArticleID}">　</a><span>${data[i].LoveCount}</span>
                                 </div>                            
                                 </div>
-                                <div class="at-comment-list-${data[i].ReArticleID}"></div>
-                                <div class="at-comment-input row" style="padding: 12px;">
-                                    <div class="col-1 mt-2 MemberImg"></div>
-                                    <div class="col-11 mt-3"><input type="text" class="ReComment-input" no="${data[i].ReArticleID}"/></div>
+                                <div class="comment-list at-comment-list-${data[i].ReArticleID}"></div>
+                                <div class="comment-list at-comment-list-input">
+                                    <div class="row at-comment-input justify-content-between my-2">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <input type="text" class="ReComment-input col-11" no="${data[i].ReArticleID}"/>
+                                    </div>
                                 </div>
 
                                 </div>
@@ -485,7 +491,17 @@
                 }
             })
         })
-       //<---------------------------------編輯回文---------------------------->
+       //<---------------------------------刪除本文回文---------------------------->
+        $(".div-discuss").on("click", ".at-del", function () {
+            var fid = window.location.href.split("/")
+            $.ajax({
+                url: "/Discuss/DelDiscuss",
+                data: { "ArticleID": `${fid[fid.length - 1]}` },
+                success: function () {
+                    document.location.href="/Discuss/vDiscussList"
+                },
+            });
+        })
 
     </script>
 }

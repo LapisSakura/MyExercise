@@ -192,6 +192,30 @@ namespace Exercise.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
+        //<---------------------------------刪除文章---------------------------->
+        public JsonResult DelDiscuss(int ArticleID)
+        {    
+            var count = tra.getAll().Where(m => m.ArticleID == ArticleID).Count();//抓到回文數
+            for (int i = 0; i < count; i++)
+            {
+                var raid=tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID;
+                var count1 = trc.getAll().Where(m => m.ReArticleID == raid).Count();
+                for (int k = 0; k < count1; k++)
+                {
+                    trc.delete(trc.getAll().FirstOrDefault(m => m.ReArticleID == raid).No);           //殺回文留言
+                }
+                tra.delete(tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID);  //殺回文
+            }
+
+            var ccount = tc.getAll().Where(m => m.ArticleID == ArticleID).Count();
+            for (int i = 0; i < ccount; i++)
+            {
+                tc.delete(tc.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).No);    //殺本文留言
+            }
+            ta.delete(ArticleID);                                                            //殺本文
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
 
         //<---------------------------------新增回文---------------------------->
         public JsonResult CreateReDiscuss(int MemberID, string Main, int ArticleID)
