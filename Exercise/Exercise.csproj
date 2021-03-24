@@ -171,13 +171,10 @@
     <Compile Include="Models\tComment.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tLoginRecord.cs">
+    <Compile Include="Models\tMemberInformation.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMembers.cs">
-      <DependentUpon>dbTeam2Final.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tPost.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tReArticle.cs">
@@ -347,7 +344,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Discuss\vDiscussList.cshtml" />
     <Content Include="Views\Discuss\vDiscussSingle.cshtml" />
-    <Content Include="Views\Discuss\vEditDiscuss.cshtml" />
+    <Content Include="Views\Discuss\vCreateDiscuss.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -359,7 +356,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Member\vRegistered.cshtml" />
-    <Content Include="Views\Discuss\vEditReDiscuss.cshtml" />
+    <Content Include="Views\Discuss\vCreateReDiscuss.cshtml" />
+    <Content Include="Views\Discuss\vEditDiscuss.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

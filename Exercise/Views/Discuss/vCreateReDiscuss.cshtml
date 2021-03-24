@@ -28,6 +28,8 @@
 
 @section scripts{
     <script>
+     //<-------------------------------新增回文頁面------------------------------->
+     //<-------------------------------文字編輯器生成----------------------------->
         tinymce.init({
             selector: "#Main",
             width: '682px',
@@ -47,7 +49,7 @@
         //    localStorage.removeItem("main")
         //})
 
-
+        //<----------------------------驗證並寫入資料庫-------------------------------->
         $("#submit").click(function () {
             var fid = window.location.href.split("/")
             if (document.cookie != "") {

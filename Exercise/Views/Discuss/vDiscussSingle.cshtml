@@ -261,7 +261,7 @@
             if (document.cookie != "") {
                 var fid = window.location.href.split("/")
                 //localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
-                document.location.href = `/Discuss/vEditReDiscuss/${fid[fid.length - 1]}`
+                document.location.href = `/Discuss/vCreateReDiscuss/${fid[fid.length - 1]}`
             }
             else {
                 $('#exampleModalCenter').modal('show')
@@ -502,6 +502,9 @@
                 },
             });
         })
+
+        //<--------------------------------編輯文章------------------------------->
+        
 
     </script>
 }

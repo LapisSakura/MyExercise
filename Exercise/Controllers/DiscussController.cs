@@ -32,6 +32,14 @@ namespace Exercise.Controllers
         {
             return View();
         }
+        public ActionResult vCreateDiscuss()
+        {
+            return View();
+        }
+        public ActionResult vCreateReDiscuss()
+        {
+            return View();
+        }
         public ActionResult vEditDiscuss()
         {
             return View();
@@ -192,10 +200,17 @@ namespace Exercise.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
+
+        //<---------------------------------回傳文章---------------------------->
+        public JsonResult EditDiscuss(int ArticleID)
+        {
+            return Json(ta.getAll().FirstOrDefault(m=>m.ArticleID==ArticleID), JsonRequestBehavior.AllowGet);
+        }
+
         //<---------------------------------刪除文章---------------------------->
         public JsonResult DelDiscuss(int ArticleID)
         {    
-            var count = tra.getAll().Where(m => m.ArticleID == ArticleID).Count();//抓到回文數
+            var count = tra.getAll().Where(m => m.ArticleID == ArticleID).Count();                     //抓到回文數
             for (int i = 0; i < count; i++)
             {
                 var raid=tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID;
@@ -204,15 +219,27 @@ namespace Exercise.Controllers
                 {
                     trc.delete(trc.getAll().FirstOrDefault(m => m.ReArticleID == raid).No);           //殺回文留言
                 }
+
+                var count2 = tral.getAll().Where(m => m.ReArticleID == raid).Count();
+                for (int k = 0; k < count2; k++)
+                {
+                    tral.delete(tral.getAll().FirstOrDefault(m => m.ReArticleID == raid).No);        //殺回文愛心
+                }
                 tra.delete(tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID);  //殺回文
             }
 
             var ccount = tc.getAll().Where(m => m.ArticleID == ArticleID).Count();
             for (int i = 0; i < ccount; i++)
             {
-                tc.delete(tc.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).No);    //殺本文留言
+                tc.delete(tc.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).No);            //殺本文留言
             }
-            ta.delete(ArticleID);                                                            //殺本文
+
+            var ccount1 = tal.getAll().Where(m => m.ArticleID == ArticleID).Count();
+            for (int i = 0; i < ccount1; i++)
+            {
+                tal.delete(tal.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).No);          //殺本文愛心
+            }
+            ta.delete(ArticleID);                                                                   //殺本文
             return Json("", JsonRequestBehavior.AllowGet);
         }
 

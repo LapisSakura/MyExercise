@@ -12,11 +12,13 @@ namespace Exercise.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tPost
+    public partial class tMemberInformation
     {
-        public int fPostID { get; set; }
-        public string fMId { get; set; }
-        public string fPost { get; set; }
-        public System.DateTime fPostDatetime { get; set; }
+        public int fId { get; set; }
+        public string fName { get; set; }
+        public System.DateTime fBirthday { get; set; }
+        public string fAccount { get; set; }
+        public string fPassword { get; set; }
+        public System.DateTime fRegistrationDatetime { get; set; }
     }
 }

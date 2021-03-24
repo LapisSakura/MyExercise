@@ -62,13 +62,14 @@
     <script>
         var Article;
 
+   //<---------------------------表格單行變色---------------------------->
         $(".tbody").on('mouseover', 'tr', function () {
             $(this).addClass("tr-select")
         })
         $(".tbody").on('mouseout', 'tr', function () {
             $(this).removeClass("tr-select")
         })
-
+  //<---------------------------排序--------------------------------->
         const sortFn = {
             'new': (a, b) => {
                 return a.UpTime < b.UpTime ? 1 : -1;
@@ -84,14 +85,15 @@
             },
         }
 
-
+  //<----------------排序下拉選單更動>>根據指定條件排序>>由生成頁面顯示-------------------------------------------->
         document.querySelector(".list-sort").addEventListener('change', function (event) {
             Article.sort(sortFn[$(this).val()]);
             pagelist();
         });
 
 
-        CategoryList("")
+        CategoryList("")//分類預設 不分類
+  //<---------------------------分類按鈕樣式切換--------------------------------->
 
         $("li.btn-li").click(function () {
             $(this).addClass("list-btn-select").removeClass("list-btn").children().addClass("btn-a-select").removeClass("btn-a").end()
@@ -99,11 +101,13 @@
             CategoryList($(this).attr("Name"))
         });
 
+  //<---------------------------發表新文章--------------------------------->
+
         $("#Edit-btn").click(function () {
-            LoginStatus("/Discuss/vEditDiscuss")
+            LoginStatus("/Discuss/vCreateDiscuss")
         });
 
-
+  //<---------------------------分類按鈕--------------------------------->
         function CategoryList(Category) {
             $.ajax({
                 url: "/Discuss/CategoryDiscussList",
@@ -117,7 +121,7 @@
             });
         }
 
-
+  //<-----------------------------關鍵字搜尋------------------------------->
         $(".textbox-search").change(function () {
             $.ajax({
                 url: "/Discuss/TitleDiscussList",
@@ -147,7 +151,7 @@
 
 
 
-
+        //<----------------------------------分頁-------------------------->
         function pagelist() {
             $('.pagelist').pagination({
                 className: 'custom-paginationjs',

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "vEditDiscuss";
 }
-
 @section styles{
     @*<link href="~/Styles/Lapis.css" rel="stylesheet" />*@
 }
@@ -22,7 +21,7 @@
                 <input type="text" placeholder="請輸入標題" class="form-control mx-2" id="Title" name="Title" required />
             </div>
             <div class="row mt-3">
-                <textarea class="form-control m-auto main-textarea" placeholder="本文" name="Main" id="Main" required></textarea>
+                <textarea class="form-control m-auto main-textarea" placeholder="本文"name="Main" id="Main" required></textarea>
             </div>
         </form>
         <div class=" row mt-2">
@@ -35,10 +34,10 @@
 </div>
 @section scripts{
     <script>
-        //<----------------------------發表新文章頁面-------------------------------->
-        //<----------------------------文字編輯器生成-------------------------------->
+            //<----------------------------發表新文章頁面-------------------------------->
+            //<----------------------------文字編輯器生成-------------------------------->
         tinymce.init({
-            selector: "#Main",
+            selector: "#Main", 
             width: '682px',
             height: 500,
             auto_focus: "Main",
@@ -46,24 +45,8 @@
             menubar:"",
             toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
         });
-
-        //<----------------------------抓回原本文章內容-------------------------------->
-            //$(window).on("load",function(){
-            //tinymce.get("Main").setContent(localStorage.getItem("main"));
-            //localStorage.removeItem("main")
-            //})
-        var hr = document.location.href.split("/");
-        $.ajax({
-            url: "/Discuss/EditDiscuss",
-            data: { "ArticelID": `${hr[hr.length - 1]}` },
-            success: function (data) {
-                console.log(data)
-                console.log(data.ArticelID);
-            },
-        })
-
-
-        //<----------------------------欄位驗證並寫入-------------------------------->
+            
+        //<------------------------欄位驗證並寫入------------------------------------>
         $("#submit").click(function () {
             if (document.cookie != "") {
                 if ($("select[name='Category']").val() == null || $("input[name='Title']").val() == "" || tinymce.get("Main").getContent() == "") {
@@ -90,4 +73,3 @@
         })
     </script>
 }
-
