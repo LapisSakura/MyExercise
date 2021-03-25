@@ -14,11 +14,21 @@ namespace Exercise.Models
     
     public partial class tMemberInformation
     {
-        public int fId { get; set; }
+        public int fMId { get; set; }
         public string fName { get; set; }
+        public string fNickname { get; set; }
         public System.DateTime fBirthday { get; set; }
+        public string fGender { get; set; }
+        public string fLivingArea { get; set; }
+        public string fNationality { get; set; }
+        public string fOccupation { get; set; }
+        public string fJLPTLevel { get; set; }
+        public string fGoal { get; set; }
         public string fAccount { get; set; }
         public string fPassword { get; set; }
+        public string fIdentity { get; set; }
+        public string fVerificationCode { get; set; }
+        public bool fAlive { get; set; }
         public System.DateTime fRegistrationDatetime { get; set; }
     }
 }

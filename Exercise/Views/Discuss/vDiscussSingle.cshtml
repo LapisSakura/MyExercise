@@ -44,7 +44,7 @@
                                 <div class="row justify-content-between" style="padding:0 0 0 15px">
                                     <span class="at-time">最後編輯日期: ${time}</span>
                                     <div style="padding:0 15px 0 0">
-                                        <div class="btn at-btn at-edit">編輯</div>
+                                        <div class="btn at-btn at-edit" no="${data[0].ArticleID}">編輯</div>
                                         <div class="btn at-btn at-del">刪除</div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                     <div class="row justify-content-between" style="padding:0 0 0 15px">
                                         <span class="at-time">最後編輯日期: ${time}</span>
                                         <div style="padding:0 15px 0 0">
-                                            <div class="btn at-btn Reat-elit no="${data[i].ReArticleID}">編輯</div>
+                                            <div class="btn at-btn Reat-edit" no="${data[i].ReArticleID}">編輯</div>
                                             <div class="btn at-btn Reat-del" no="${data[i].ReArticleID}">刪除</div>
                                         </div>
                                     </div>
@@ -260,7 +260,6 @@
         $(".div-discuss").on("click", ".btn-re", function () {       
             if (document.cookie != "") {
                 var fid = window.location.href.split("/")
-                //localStorage.setItem("main", $(this).parents().parent().parent().find(".at-discuss>.at-main").html())
                 document.location.href = `/Discuss/vCreateReDiscuss/${fid[fid.length - 1]}`
             }
             else {
@@ -504,7 +503,16 @@
         })
 
         //<--------------------------------編輯文章------------------------------->
-        
+        $(".div-discuss").on('click', ".at-edit", function () {
+            document.location.href = "/Discuss/vEditDiscuss/" + `${$(this).attr("no")}`;
+        })
+
+        //<------------------------------編輯回覆文章------------------------------->
+        $(".div-discuss").on('click', ".Reat-edit", function () {
+            document.location.href = "/Discuss/vEditReDiscuss/" + `${$(this).attr("no")}`;
+        })
+
+
 
     </script>
 }

@@ -48,6 +48,7 @@ namespace Exercise.Controllers
         {
             return View();
         }
+        
 
         //<---------------------------------文章分類---------------------------->
         public JsonResult CategoryDiscussList(string Category)
@@ -202,11 +203,27 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------回傳文章---------------------------->
-        public JsonResult EditDiscuss(int ArticleID)
+        public JsonResult ReturnDiscuss(int ArticleID)
         {
-            return Json(ta.getAll().FirstOrDefault(m=>m.ArticleID==ArticleID), JsonRequestBehavior.AllowGet);
+            var list = ta.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            {
+                Category=m.Category,
+                Main=m.Main,
+                Title=m.Title,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
-
+        //<---------------------------------編輯文章---------------------------->
+        public JsonResult EditDiscuss(tArticle formdata)
+        {
+            var edit=db.tArticle.FirstOrDefault(m => m.ArticleID == formdata.ArticleID);
+            edit.Main = formdata.Main;
+            edit.Title = formdata.Title;
+            edit.Category = formdata.Category;
+            edit.UpTime = DateTime.Now;
+            db.SaveChanges();
+            return Json(formdata.ArticleID, JsonRequestBehavior.AllowGet);
+        }
         //<---------------------------------刪除文章---------------------------->
         public JsonResult DelDiscuss(int ArticleID)
         {    
@@ -257,6 +274,27 @@ namespace Exercise.Controllers
             };
             tra.create(list);
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------回傳回文---------------------------->
+        public JsonResult ReturnReDiscuss(int ReArticleID)
+        {
+            var TheRA = tra.getAll().FirstOrDefault(m => m.ReArticleID == ReArticleID);
+            var list = ta.getAll().Where(m => m.ArticleID == TheRA.ArticleID).Select(m => new
+            {
+                Title = m.Title,
+                Category = m.Category,
+                Main = TheRA.Main,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------編輯回文---------------------------->
+        public JsonResult EditReDiscuss(string Main ,int ReArticleID)
+        {
+            db.tReArticle.FirstOrDefault(m => m.ReArticleID == ReArticleID).Main = Main;
+            db.SaveChanges();
+            return Json(db.tReArticle.FirstOrDefault(m => m.ReArticleID == ReArticleID).ArticleID, JsonRequestBehavior.AllowGet);
         }
 
         //<---------------------------------刪除回文---------------------------->
@@ -366,6 +404,17 @@ namespace Exercise.Controllers
             db.tReComment.FirstOrDefault(m => m.No == no).UpTime = DateTime.Now;
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        //<---------------------------------回傳標題---------------------------->
+        public JsonResult ReturnTitle(int ArticleID)
+        {
+            var list = ta.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            {
+                Category = m.Category,
+                Title = m.Title,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }   
 }

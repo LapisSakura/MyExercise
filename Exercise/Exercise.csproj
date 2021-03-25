@@ -171,10 +171,16 @@
     <Compile Include="Models\tComment.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tLoginRecord.cs">
+      <DependentUpon>dbTeam2Final.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMemberInformation.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tMembers.cs">
+      <DependentUpon>dbTeam2Final.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tPost.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tReArticle.cs">
@@ -358,6 +364,7 @@
     <Content Include="Views\Member\vRegistered.cshtml" />
     <Content Include="Views\Discuss\vCreateReDiscuss.cshtml" />
     <Content Include="Views\Discuss\vEditDiscuss.cshtml" />
+    <Content Include="Views\Discuss\vEditReDiscuss.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

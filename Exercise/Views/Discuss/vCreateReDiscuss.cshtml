@@ -8,12 +8,7 @@
             <div class="row  btn-row">
                 <h2>回覆文章</h2>
             </div>
-            <div class="row mt-3"><p style="max-width:682px;" id="ReArticleTitle">RE: 【心得】 朝第二外語邁進，日語學習日記全紀錄</p></div>
-            <div class="row mt-3">
-                <div class="btn list-btn" style="width:120px;" id="quote">
-                    <a class="btn-a">引用回覆文章</a>
-                </div>
-            </div>
+            <div class="row mt-3"><p style="max-width:682px;" id="ReArticleTitle"></p></div>
             <div class="row mt-3">
                 <textarea class="form-control m-auto main-textarea" placeholder="本文"  name="Main" id="Main" required></textarea>
             </div>
@@ -30,6 +25,7 @@
     <script>
      //<-------------------------------新增回文頁面------------------------------->
      //<-------------------------------文字編輯器生成----------------------------->
+        var fid = window.location.href.split("/")
         tinymce.init({
             selector: "#Main",
             width: '682px',
@@ -39,27 +35,21 @@
             menubar:"",
             toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent forecolor backcolor",
         });
-
-        //$("#quote").click(function () {
-        //    tinymce.get("Main").setContent(localStorage.getItem("main"));
-        //});
-
-        //$(window).on("load",function(){
-        //    tinymce.get("Main").setContent(localStorage.getItem("main"));
-        //    localStorage.removeItem("main")
-        //})
-
+        //<----------------------------回傳標題-------------------------------->
+        $.ajax({
+            url: "/Discuss/ReturnTitle",
+            data: { "ArticleID": fid[fid.length-1]/1 },
+            success: function (data) {
+                $("#ReArticleTitle").text(`RE: 【${data[0].Category}】 ${data[0].Title}`);
+            },
+        })
         //<----------------------------驗證並寫入資料庫-------------------------------->
         $("#submit").click(function () {
-            var fid = window.location.href.split("/")
             if (document.cookie != "") {
                 if (tinymce.get("Main").getContent() == "") {
                     $("#Edit-msg").html("尚有資料未填寫!!")
                     return;
                 }
-                console.log((document.cookie.split('MemberID=')[1].split("&")[0]) / 1)
-                console.log(tinymce.get("Main").getContent())
-                console.log(fid[fid.length - 1])
                 $.ajax({
                     url: "/Discuss/CreateReDiscuss",
                     type: "POST",

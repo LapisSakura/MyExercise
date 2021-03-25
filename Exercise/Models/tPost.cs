@@ -12,12 +12,11 @@ namespace Exercise.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tReComment
+    public partial class tPost
     {
-        public int No { get; set; }
-        public Nullable<int> MemberID { get; set; }
-        public Nullable<int> ReArticleID { get; set; }
-        public string Main { get; set; }
-        public Nullable<System.DateTime> UpTime { get; set; }
+        public int fPostID { get; set; }
+        public string fMId { get; set; }
+        public string fPost { get; set; }
+        public System.DateTime fPostDatetime { get; set; }
     }
 }
