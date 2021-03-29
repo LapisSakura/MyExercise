@@ -25,6 +25,10 @@ namespace Exercise.Controllers
         {
             return View();
         }
+        public ActionResult vMemberFile()
+        {
+            return View();
+        }
 
         public string Login(string Account ,string Password,bool RememberMe)
         {
@@ -75,5 +79,26 @@ namespace Exercise.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult Imgupload(HttpPostedFileBase photo)
+        {
+            var MemberID = Request.Cookies["AutoLogin"]["MemberID"];
+
+            if (photo.ContentLength>0)
+            {
+                string filepath = $"/MemberImg/Member{MemberID}.jpg";
+                photo.SaveAs(Server.MapPath("~") + filepath);
+
+                db.tMembers.FirstOrDefault(m => m.MemberID == 2).ImgURL = filepath;
+                db.SaveChanges();
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult ShowMember(int MemberID)
+        {
+            return Json(tm.getAll().FirstOrDefault(m => m.MemberID == MemberID).ImgURL??"null", JsonRequestBehavior.AllowGet);
+        }
     }
 }

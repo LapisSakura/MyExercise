@@ -25,14 +25,10 @@ namespace Exercise.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<N5> N5 { get; set; }
         public virtual DbSet<tArticle> tArticle { get; set; }
         public virtual DbSet<tArticleLove> tArticleLove { get; set; }
         public virtual DbSet<tComment> tComment { get; set; }
-        public virtual DbSet<tLoginRecord> tLoginRecord { get; set; }
-        public virtual DbSet<tMemberInformation> tMemberInformation { get; set; }
         public virtual DbSet<tMembers> tMembers { get; set; }
-        public virtual DbSet<tPost> tPost { get; set; }
         public virtual DbSet<tReArticle> tReArticle { get; set; }
         public virtual DbSet<tReArticleLove> tReArticleLove { get; set; }
         public virtual DbSet<tReComment> tReComment { get; set; }

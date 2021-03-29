@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="dbTeam2_FinalModelStoreContainer" CdmEntityContainer="dbTeam2_FinalEntities">
-    <EntitySetMapping Name="N5">
-      <EntityTypeMapping TypeName="dbTeam2_FinalModel.N5">
-        <MappingFragment StoreEntitySet="N5">
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
-          <ScalarProperty Name="Options" ColumnName="Options" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tArticle">
       <EntityTypeMapping TypeName="dbTeam2_FinalModel.tArticle">
         <MappingFragment StoreEntitySet="tArticle">
@@ -46,60 +35,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tLoginRecord">
-      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tLoginRecord">
-        <MappingFragment StoreEntitySet="tLoginRecord">
-          <ScalarProperty Name="fLRLogOffDatetime" ColumnName="fLRLogOffDatetime" />
-          <ScalarProperty Name="fLRLogOnDatetime" ColumnName="fLRLogOnDatetime" />
-          <ScalarProperty Name="fMId" ColumnName="fMId" />
-          <ScalarProperty Name="fLRId" ColumnName="fLRId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tMemberInformation">
-      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMemberInformation">
-        <MappingFragment StoreEntitySet="tMemberInformation">
-          <ScalarProperty Name="fRegistrationDatetime" ColumnName="fRegistrationDatetime" />
-          <ScalarProperty Name="fAlive" ColumnName="fAlive" />
-          <ScalarProperty Name="fVerificationCode" ColumnName="fVerificationCode" />
-          <ScalarProperty Name="fIdentity" ColumnName="fIdentity" />
-          <ScalarProperty Name="fPassword" ColumnName="fPassword" />
-          <ScalarProperty Name="fAccount" ColumnName="fAccount" />
-          <ScalarProperty Name="fGoal" ColumnName="fGoal" />
-          <ScalarProperty Name="fJLPTLevel" ColumnName="fJLPTLevel" />
-          <ScalarProperty Name="fOccupation" ColumnName="fOccupation" />
-          <ScalarProperty Name="fNationality" ColumnName="fNationality" />
-          <ScalarProperty Name="fLivingArea" ColumnName="fLivingArea" />
-          <ScalarProperty Name="fGender" ColumnName="fGender" />
-          <ScalarProperty Name="fBirthday" ColumnName="fBirthday" />
-          <ScalarProperty Name="fNickname" ColumnName="fNickname" />
-          <ScalarProperty Name="fName" ColumnName="fName" />
-          <ScalarProperty Name="fMId" ColumnName="fMId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tMembers">
       <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMembers">
         <MappingFragment StoreEntitySet="tMembers">
+          <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Authority" ColumnName="Authority" />
           <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
-          <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Account" ColumnName="Account" />
-          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
           <ScalarProperty Name="MemberName" ColumnName="MemberName" />
           <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tPost">
-      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tPost">
-        <MappingFragment StoreEntitySet="tPost">
-          <ScalarProperty Name="fPostDatetime" ColumnName="fPostDatetime" />
-          <ScalarProperty Name="fPost" ColumnName="fPost" />
-          <ScalarProperty Name="fMId" ColumnName="fMId" />
-          <ScalarProperty Name="fPostID" ColumnName="fPostID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -75,6 +75,7 @@ namespace Exercise.Controllers
             {
                 ArticleID = m.ArticleID,
                 MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                MemberID =m.MemberID,
                 Category = m.Category,
                 Title = m.Title,
                 Main = m.Main,
@@ -226,7 +227,7 @@ namespace Exercise.Controllers
         }
         //<---------------------------------刪除文章---------------------------->
         public JsonResult DelDiscuss(int ArticleID)
-        {    
+        {
             var count = tra.getAll().Where(m => m.ArticleID == ArticleID).Count();                     //抓到回文數
             for (int i = 0; i < count; i++)
             {

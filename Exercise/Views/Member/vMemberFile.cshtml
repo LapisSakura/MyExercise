@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "vMemberFile";
+}
+@section styles{
+@*<link href="~/Styles/Lapis.css" rel="stylesheet" />*@
+<style>
+.member-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.PreviewImg {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.test {
+    border: 1px red solid;
+}
+label{
+    margin:0;
+}
+/* ===================================
+版型
+===================================*/
+* {
+    box-sizing: border-box;
+}
+
+ul a {
+    display: inline-block;
+    text-decoration: none;
+    color: #666;
+}
+/* ===================================
+布局樣式
+===================================*/
+.menu {
+    max-width: 300px;
+    margin: 0 auto;
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 0;
+    text-align: center;
+}
+/* ===================================
+動態效果
+===================================*/
+.drop-down {
+    position: relative;
+}
+
+.submenu {
+    position: relative;
+    opacity: 0;
+    width: 100%;
+    z-index: 8;
+    transition: opacity 0.5s ease;
+}
+
+.submenu-item {
+    display: block;
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+.drop-down:hover .submenu {
+    opacity: 1;
+}
+
+.drop-down:hover .submenu-item {
+    overflow: visible;
+    height: 30px;
+}
+/* ===================================
+視覺樣式
+===================================*/
+.item {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+    .item:hover {
+        background: #ddd;
+    }
+
+.submenu-item {
+    background: #ccc;
+    color: #eee;
+    width: 100%;
+    padding-left: 20px;
+    line-height: 30px;
+}
+
+    .submenu-item:hover {
+        background: #555;
+        color: #ccc;
+    }
+
+.now .item {
+    background: #ddd;
+}
+
+.now .submenu {
+    opacity: 1;
+}
+
+.now .submenu-item {
+    background: #555;
+    overflow: visible;
+    height: 30px;
+}
+</style>
+}
+
+
+<!-- 個人圖片頁面↓ -->
+<div class="modal fade" id="MemberImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">上傳個人頭像</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row justify-content-center">
+                <div class="PreviewImg"><img></div>
+            </div>
+            <div class="modal-footer">
+                <form id="img-form">
+                    <label class="btn btn-primary">
+                        <input id="Imgupload" style="display:none;" type="file">上傳圖片
+                    </label>
+                    <button type="button" class="btn btn-primary" id="Imgsave">儲存</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 個人圖片頁面↑ -->
+
+<div class="row justify-content-between mt-5">
+    <div class="col-2 test">
+        <div class="test mt-3 row justify-content-center">
+            <div class="img" data-toggle="modal" data-target="#MemberImg">
+                <img class="member-img"></div>
+            <div>姓名:XXX</div>
+        </div>
+        <ul class="menu mt-5">
+            <li class="itembox drop-down">
+                <a class="item">編輯個人資料</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="item">已收藏的文章</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="item">已收藏的新聞</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="item">個人行事曆</a>
+            </li>
+            <li class="itembox drop-down">
+                <a class="item">個人題庫</a>
+                <div class="submenu">
+                    <a class="submenu-item">測試1</a>
+                    <a class="submenu-item">測試2</a>
+                    <a class="submenu-item">測試3</a>
+                    <a class="submenu-item">測試4</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-9 test">
+    </div>
+</div>
+
+@section scripts{
+<script>
+    var hr = document.location.href.split("/")
+    $.ajax({
+        url: "/Member/ShowMember",
+        data: { "MemberID": (hr[hr.length - 1]) / 1 },
+        success: function (data) {
+            if (data == "null") {
+                $(".member-img").attr("src", "/MemberImg/DefaultImg.jpg");
+            }
+            else {
+                $(".member-img").attr("src", data);
+            }
+
+        },
+    })
+
+
+    //<-------------預覽----------------->
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(".PreviewImg>img").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    $("#Imgupload").change(function () {
+        readURL(this)
+    })
+
+
+
+    //<-----------上傳儲存圖片----------->
+    $("#Imgsave").click(function () {
+        var formdata = new FormData(document.querySelector("#img-form"));
+        formdata.append("photo",$("#Imgupload").get(0).files[0])
+        $.ajax({
+            url: "/Member/Imgupload",
+            type:"POST",
+            data: formdata,
+            processData: false,
+            contentType: false,
+
+            success: function () {
+                console.log("上傳成功")
+            }
+
+        })
+    })
+
+
+</script>
+}

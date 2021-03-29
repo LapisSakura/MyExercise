@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="dbTeam2_FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="N5">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Category" Type="nvarchar(max)" />
-    <Property Name="Question" Type="nvarchar(max)" />
-    <Property Name="Options" Type="nvarchar(max)" />
-    <Property Name="Answer" Type="nvarchar(max)" />
-  </EntityType>
   <EntityType Name="tArticle">
     <Key>
       <PropertyRef Name="ArticleID" />
@@ -41,58 +31,18 @@
     <Property Name="Main" Type="nvarchar(max)" />
     <Property Name="UpTime" Type="datetime" />
   </EntityType>
-  <EntityType Name="tLoginRecord">
-    <Key>
-      <PropertyRef Name="fLRId" />
-    </Key>
-    <Property Name="fLRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fMId" Type="int" Nullable="false" />
-    <Property Name="fLRLogOnDatetime" Type="datetime" Nullable="false" />
-    <Property Name="fLRLogOffDatetime" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="tMemberInformation">
-    <Key>
-      <PropertyRef Name="fMId" />
-    </Key>
-    <Property Name="fMId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fNickname" Type="nvarchar" MaxLength="50" />
-    <Property Name="fBirthday" Type="date" Nullable="false" />
-    <Property Name="fGender" Type="nvarchar" MaxLength="50" />
-    <Property Name="fLivingArea" Type="nvarchar" MaxLength="50" />
-    <Property Name="fNationality" Type="nvarchar" MaxLength="50" />
-    <Property Name="fOccupation" Type="nvarchar" MaxLength="50" />
-    <Property Name="fJLPTLevel" Type="nvarchar" MaxLength="50" />
-    <Property Name="fGoal" Type="nvarchar" MaxLength="50" />
-    <Property Name="fAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fIdentity" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fVerificationCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fAlive" Type="bit" Nullable="false" />
-    <Property Name="fRegistrationDatetime" Type="datetime" Nullable="false" />
-  </EntityType>
   <EntityType Name="tMembers">
     <Key>
       <PropertyRef Name="MemberID" />
     </Key>
     <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
-    <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="VerificationCode" Type="int" />
-    <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
-    <Property Name="Authority" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="tPost">
-    <Key>
-      <PropertyRef Name="fPostID" />
-    </Key>
-    <Property Name="fPostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fMId" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="fPost" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="fPostDatetime" Type="datetime" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RegisteredDate" Type="datetime" />
+    <Property Name="Authority" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+    <Property Name="ImgURL" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tReArticle">
     <Key>
@@ -208,14 +158,10 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="dbTeam2_FinalModelStoreContainer">
-    <EntitySet Name="N5" EntityType="Self.N5" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tLoginRecord" EntityType="Self.tLoginRecord" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tMemberInformation" EntityType="Self.tMemberInformation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tMembers" EntityType="Self.tMembers" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tPost" EntityType="Self.tPost" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticle" EntityType="Self.tReArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReArticleLove" EntityType="Self.tReArticleLove" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tReComment" EntityType="Self.tReComment" Schema="dbo" store:Type="Tables" />

@@ -159,9 +159,6 @@
     </Compile>
     <Compile Include="Models\genericRepository\IRepository.cs" />
     <Compile Include="Models\genericRepository\MRepository.cs" />
-    <Compile Include="Models\N5.cs">
-      <DependentUpon>dbTeam2Final.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tArticle.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
@@ -171,16 +168,7 @@
     <Compile Include="Models\tComment.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tLoginRecord.cs">
-      <DependentUpon>dbTeam2Final.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tMemberInformation.cs">
-      <DependentUpon>dbTeam2Final.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tMembers.cs">
-      <DependentUpon>dbTeam2Final.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tPost.cs">
       <DependentUpon>dbTeam2Final.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tReArticle.cs">
@@ -209,6 +197,7 @@
     <Content Include="imgs\NO.png" />
     <Content Include="imgs\nolove.png" />
     <Content Include="imgs\OK.png" />
+    <Content Include="MemberImg\DefaultImg.jpg" />
     <Content Include="Models\dbTeam2Final.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbTeam2Final.Context.cs</LastGenOutput>
@@ -365,6 +354,7 @@
     <Content Include="Views\Discuss\vCreateReDiscuss.cshtml" />
     <Content Include="Views\Discuss\vEditDiscuss.cshtml" />
     <Content Include="Views\Discuss\vEditReDiscuss.cshtml" />
+    <Content Include="Views\Member\vMemberFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

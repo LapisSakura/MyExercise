@@ -24,7 +24,7 @@
         //<---------------------------------產生頁面---------------------------->
         function ShowView() {  　　　　　　　　 
             var fid = window.location.href.split("/")
-            var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
+            var NowMember = document.cookie==""?0:(document.cookie.split('MemberID=')[1].split("&")[0])/1;
          //<---------------------------------產生主文---------------------------->
             $.ajax({　　　　　　　　　　　　　　　
                 url: "/Discuss/DiscussSingle",
@@ -43,10 +43,14 @@
                                 <span>${data[0].MemberName}</span><br>
                                 <div class="row justify-content-between" style="padding:0 0 0 15px">
                                     <span class="at-time">最後編輯日期: ${time}</span>
-                                    <div style="padding:0 15px 0 0">
-                                        <div class="btn at-btn at-edit" no="${data[0].ArticleID}">編輯</div>
-                                        <div class="btn at-btn at-del">刪除</div>
-                                    </div>
+                                    <div style="padding:0 15px 0 0">`
+                    if (data[0].MemberID == NowMember) {
+                        maintxt += `
+                                    <div class="btn at-btn at-edit" no="${data[0].ArticleID}">編輯</div>
+                                    <div class="btn at-btn at-del">刪除</div>
+                                   `
+                    }
+                     maintxt +=`</div>
                                 </div>
                                 <div class="at-main">${unescape(data[0].Main)}</div>
                             </div>
