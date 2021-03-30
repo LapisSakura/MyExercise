@@ -18,7 +18,6 @@ namespace Exercise.Models
         public tReArticle()
         {
             this.tReArticleLove = new HashSet<tReArticleLove>();
-            this.tReComment = new HashSet<tReComment>();
         }
     
         public int ReArticleID { get; set; }
@@ -32,7 +31,5 @@ namespace Exercise.Models
         public virtual tMembers tMembers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tReArticleLove> tReArticleLove { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tReComment> tReComment { get; set; }
     }
 }

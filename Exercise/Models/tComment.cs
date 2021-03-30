@@ -19,8 +19,5 @@ namespace Exercise.Models
         public Nullable<int> ArticleID { get; set; }
         public string Main { get; set; }
         public Nullable<System.DateTime> UpTime { get; set; }
-    
-        public virtual tArticle tArticle { get; set; }
-        public virtual tMembers tMembers { get; set; }
     }
 }

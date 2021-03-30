@@ -123,10 +123,10 @@ namespace Exercise.Controllers
             {
                 var fileName = string.Concat(Server.MapPath(fileSavedPath), "/", savedFileName);
 
-                var importTest = new List<tCustomizeTopic>();
+                var importTCT = new List<tCustomizeTopic>();
 
                 var helper = new ImportDataHelper();
-                var checkResult = helper.CheckImportData(fileName, importTest);
+                var checkResult = helper.CheckImportData(fileName, importTCT);
 
                 jo.Add("Result", checkResult.Success);
                 jo.Add("Msg", checkResult.Success ? string.Empty : checkResult.ErrorMessage);
@@ -134,7 +134,7 @@ namespace Exercise.Controllers
                 if (checkResult.Success)
                 {
                     //儲存匯入的資料
-                    helper.SaveImportData(importTest);
+                    helper.SaveImportData(importTCT);
                 }
                 result = JsonConvert.SerializeObject(jo);
             }

@@ -38,8 +38,8 @@
     <EntitySetMapping Name="tCustomizeTopic">
       <EntityTypeMapping TypeName="dbTeam2_FinalModel.tCustomizeTopic">
         <MappingFragment StoreEntitySet="tCustomizeTopic">
-          <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="Answer" ColumnName="Answer" />
           <ScalarProperty Name="Question" ColumnName="Question" />
           <ScalarProperty Name="No" ColumnName="No" />

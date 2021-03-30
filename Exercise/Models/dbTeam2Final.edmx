@@ -43,8 +43,8 @@
           <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Question" Type="nvarchar(max)" />
           <Property Name="Answer" Type="nvarchar(max)" />
-          <Property Name="MemberID" Type="int" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="MemberID" Type="int" />
         </EntityType>
         <EntityType Name="tMembers">
           <Key>
@@ -124,30 +124,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tComment_tArticle">
-          <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
-          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tArticle">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="tComment">
-              <PropertyRef Name="ArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tComment_tMembers">
-          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
-          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMembers">
-              <PropertyRef Name="MemberID" />
-            </Principal>
-            <Dependent Role="tComment">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tReArticle_tArticle">
           <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
           <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
@@ -196,30 +172,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tReComment_tMembers">
-          <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
-          <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMembers">
-              <PropertyRef Name="MemberID" />
-            </Principal>
-            <Dependent Role="tReComment">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tReComment_tReArticle">
-          <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="0..1" />
-          <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tReArticle">
-              <PropertyRef Name="ReArticleID" />
-            </Principal>
-            <Dependent Role="tReComment">
-              <PropertyRef Name="ReArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="dbTeam2_FinalModelStoreContainer">
           <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
@@ -241,14 +193,6 @@
             <End Role="tMembers" EntitySet="tMembers" />
             <End Role="tArticleLove" EntitySet="tArticleLove" />
           </AssociationSet>
-          <AssociationSet Name="FK_tComment_tArticle" Association="Self.FK_tComment_tArticle">
-            <End Role="tArticle" EntitySet="tArticle" />
-            <End Role="tComment" EntitySet="tComment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tComment_tMembers" Association="Self.FK_tComment_tMembers">
-            <End Role="tMembers" EntitySet="tMembers" />
-            <End Role="tComment" EntitySet="tComment" />
-          </AssociationSet>
           <AssociationSet Name="FK_tReArticle_tArticle" Association="Self.FK_tReArticle_tArticle">
             <End Role="tArticle" EntitySet="tArticle" />
             <End Role="tReArticle" EntitySet="tReArticle" />
@@ -264,14 +208,6 @@
           <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="Self.FK_tReArticleLove_tReArticle">
             <End Role="tReArticle" EntitySet="tReArticle" />
             <End Role="tReArticleLove" EntitySet="tReArticleLove" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tReComment_tMembers" Association="Self.FK_tReComment_tMembers">
-            <End Role="tMembers" EntitySet="tMembers" />
-            <End Role="tReComment" EntitySet="tReComment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tReComment_tReArticle" Association="Self.FK_tReComment_tReArticle">
-            <End Role="tReArticle" EntitySet="tReArticle" />
-            <End Role="tReComment" EntitySet="tReComment" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -295,10 +231,6 @@
             <End Role="tArticle" EntitySet="tArticle" />
             <End Role="tArticleLove" EntitySet="tArticleLove" />
           </AssociationSet>
-          <AssociationSet Name="FK_tComment_tArticle" Association="dbTeam2_FinalModel.FK_tComment_tArticle">
-            <End Role="tArticle" EntitySet="tArticle" />
-            <End Role="tComment" EntitySet="tComment" />
-          </AssociationSet>
           <AssociationSet Name="FK_tReArticle_tArticle" Association="dbTeam2_FinalModel.FK_tReArticle_tArticle">
             <End Role="tArticle" EntitySet="tArticle" />
             <End Role="tReArticle" EntitySet="tReArticle" />
@@ -306,10 +238,6 @@
           <AssociationSet Name="FK_tArticleLove_tMembers" Association="dbTeam2_FinalModel.FK_tArticleLove_tMembers">
             <End Role="tMembers" EntitySet="tMembers" />
             <End Role="tArticleLove" EntitySet="tArticleLove" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tComment_tMembers" Association="dbTeam2_FinalModel.FK_tComment_tMembers">
-            <End Role="tMembers" EntitySet="tMembers" />
-            <End Role="tComment" EntitySet="tComment" />
           </AssociationSet>
           <AssociationSet Name="FK_tReArticle_tMembers" Association="dbTeam2_FinalModel.FK_tReArticle_tMembers">
             <End Role="tMembers" EntitySet="tMembers" />
@@ -319,17 +247,9 @@
             <End Role="tMembers" EntitySet="tMembers" />
             <End Role="tReArticleLove" EntitySet="tReArticleLove" />
           </AssociationSet>
-          <AssociationSet Name="FK_tReComment_tMembers" Association="dbTeam2_FinalModel.FK_tReComment_tMembers">
-            <End Role="tMembers" EntitySet="tMembers" />
-            <End Role="tReComment" EntitySet="tReComment" />
-          </AssociationSet>
           <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle">
             <End Role="tReArticle" EntitySet="tReArticle" />
             <End Role="tReArticleLove" EntitySet="tReArticleLove" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tReComment_tReArticle" Association="dbTeam2_FinalModel.FK_tReComment_tReArticle">
-            <End Role="tReArticle" EntitySet="tReArticle" />
-            <End Role="tReComment" EntitySet="tReComment" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tArticle">
@@ -346,7 +266,6 @@
           <Property Name="ViewCount" Type="Int32" />
           <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tArticle_tMembers" FromRole="tArticle" ToRole="tMembers" />
           <NavigationProperty Name="tArticleLove" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tArticle" FromRole="tArticle" ToRole="tArticleLove" />
-          <NavigationProperty Name="tComment" Relationship="dbTeam2_FinalModel.FK_tComment_tArticle" FromRole="tArticle" ToRole="tComment" />
           <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tArticle" FromRole="tArticle" ToRole="tReArticle" />
         </EntityType>
         <EntityType Name="tArticleLove">
@@ -368,8 +287,6 @@
           <Property Name="ArticleID" Type="Int32" />
           <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UpTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tComment_tArticle" FromRole="tComment" ToRole="tArticle" />
-          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tComment_tMembers" FromRole="tComment" ToRole="tMembers" />
         </EntityType>
         <EntityType Name="tCustomizeTopic">
           <Key>
@@ -378,8 +295,8 @@
           <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MemberID" Type="Int32" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberID" Type="Int32" />
         </EntityType>
         <EntityType Name="tMembers">
           <Key>
@@ -395,10 +312,8 @@
           <Property Name="ImgURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tArticle_tMembers" FromRole="tMembers" ToRole="tArticle" />
           <NavigationProperty Name="tArticleLove" Relationship="dbTeam2_FinalModel.FK_tArticleLove_tMembers" FromRole="tMembers" ToRole="tArticleLove" />
-          <NavigationProperty Name="tComment" Relationship="dbTeam2_FinalModel.FK_tComment_tMembers" FromRole="tMembers" ToRole="tComment" />
           <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tMembers" FromRole="tMembers" ToRole="tReArticle" />
           <NavigationProperty Name="tReArticleLove" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" FromRole="tMembers" ToRole="tReArticleLove" />
-          <NavigationProperty Name="tReComment" Relationship="dbTeam2_FinalModel.FK_tReComment_tMembers" FromRole="tMembers" ToRole="tReComment" />
         </EntityType>
         <EntityType Name="tReArticle">
           <Key>
@@ -413,7 +328,6 @@
           <NavigationProperty Name="tArticle" Relationship="dbTeam2_FinalModel.FK_tReArticle_tArticle" FromRole="tReArticle" ToRole="tArticle" />
           <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReArticle_tMembers" FromRole="tReArticle" ToRole="tMembers" />
           <NavigationProperty Name="tReArticleLove" Relationship="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle" FromRole="tReArticle" ToRole="tReArticleLove" />
-          <NavigationProperty Name="tReComment" Relationship="dbTeam2_FinalModel.FK_tReComment_tReArticle" FromRole="tReArticle" ToRole="tReComment" />
         </EntityType>
         <EntityType Name="tReArticleLove">
           <Key>
@@ -434,8 +348,6 @@
           <Property Name="ReArticleID" Type="Int32" />
           <Property Name="Main" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UpTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tMembers" Relationship="dbTeam2_FinalModel.FK_tReComment_tMembers" FromRole="tReComment" ToRole="tMembers" />
-          <NavigationProperty Name="tReArticle" Relationship="dbTeam2_FinalModel.FK_tReComment_tReArticle" FromRole="tReComment" ToRole="tReArticle" />
         </EntityType>
         <Association Name="FK_tArticle_tMembers">
           <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
@@ -457,18 +369,6 @@
               <PropertyRef Name="ArticleID" />
             </Principal>
             <Dependent Role="tArticleLove">
-              <PropertyRef Name="ArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tComment_tArticle">
-          <End Type="dbTeam2_FinalModel.tArticle" Role="tArticle" Multiplicity="0..1" />
-          <End Type="dbTeam2_FinalModel.tComment" Role="tComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tArticle">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="tComment">
               <PropertyRef Name="ArticleID" />
             </Dependent>
           </ReferentialConstraint>
@@ -497,18 +397,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tComment_tMembers">
-          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
-          <End Type="dbTeam2_FinalModel.tComment" Role="tComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMembers">
-              <PropertyRef Name="MemberID" />
-            </Principal>
-            <Dependent Role="tComment">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tReArticle_tMembers">
           <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
           <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="*" />
@@ -533,18 +421,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tReComment_tMembers">
-          <End Type="dbTeam2_FinalModel.tMembers" Role="tMembers" Multiplicity="0..1" />
-          <End Type="dbTeam2_FinalModel.tReComment" Role="tReComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMembers">
-              <PropertyRef Name="MemberID" />
-            </Principal>
-            <Dependent Role="tReComment">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tReArticleLove_tReArticle">
           <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="1" />
           <End Type="dbTeam2_FinalModel.tReArticleLove" Role="tReArticleLove" Multiplicity="*" />
@@ -553,18 +429,6 @@
               <PropertyRef Name="ReArticleID" />
             </Principal>
             <Dependent Role="tReArticleLove">
-              <PropertyRef Name="ReArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tReComment_tReArticle">
-          <End Type="dbTeam2_FinalModel.tReArticle" Role="tReArticle" Multiplicity="0..1" />
-          <End Type="dbTeam2_FinalModel.tReComment" Role="tReComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tReArticle">
-              <PropertyRef Name="ReArticleID" />
-            </Principal>
-            <Dependent Role="tReComment">
               <PropertyRef Name="ReArticleID" />
             </Dependent>
           </ReferentialConstraint>
@@ -612,8 +476,8 @@
           <EntitySetMapping Name="tCustomizeTopic">
             <EntityTypeMapping TypeName="dbTeam2_FinalModel.tCustomizeTopic">
               <MappingFragment StoreEntitySet="tCustomizeTopic">
-                <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="No" ColumnName="No" />

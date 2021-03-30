@@ -38,8 +38,8 @@
     <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question" Type="nvarchar(max)" />
     <Property Name="Answer" Type="nvarchar(max)" />
-    <Property Name="MemberID" Type="int" />
     <Property Name="Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="MemberID" Type="int" />
   </EntityType>
   <EntityType Name="tMembers">
     <Key>
@@ -119,30 +119,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tComment_tArticle">
-    <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
-    <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tArticle">
-        <PropertyRef Name="ArticleID" />
-      </Principal>
-      <Dependent Role="tComment">
-        <PropertyRef Name="ArticleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tComment_tMembers">
-    <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
-    <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tMembers">
-        <PropertyRef Name="MemberID" />
-      </Principal>
-      <Dependent Role="tComment">
-        <PropertyRef Name="MemberID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tReArticle_tArticle">
     <End Role="tArticle" Type="Self.tArticle" Multiplicity="0..1" />
     <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="*" />
@@ -191,30 +167,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tReComment_tMembers">
-    <End Role="tMembers" Type="Self.tMembers" Multiplicity="0..1" />
-    <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tMembers">
-        <PropertyRef Name="MemberID" />
-      </Principal>
-      <Dependent Role="tReComment">
-        <PropertyRef Name="MemberID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tReComment_tReArticle">
-    <End Role="tReArticle" Type="Self.tReArticle" Multiplicity="0..1" />
-    <End Role="tReComment" Type="Self.tReComment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tReArticle">
-        <PropertyRef Name="ReArticleID" />
-      </Principal>
-      <Dependent Role="tReComment">
-        <PropertyRef Name="ReArticleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="dbTeam2_FinalModelStoreContainer">
     <EntitySet Name="tArticle" EntityType="Self.tArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tArticleLove" EntityType="Self.tArticleLove" Schema="dbo" store:Type="Tables" />
@@ -236,14 +188,6 @@
       <End Role="tMembers" EntitySet="tMembers" />
       <End Role="tArticleLove" EntitySet="tArticleLove" />
     </AssociationSet>
-    <AssociationSet Name="FK_tComment_tArticle" Association="Self.FK_tComment_tArticle">
-      <End Role="tArticle" EntitySet="tArticle" />
-      <End Role="tComment" EntitySet="tComment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tComment_tMembers" Association="Self.FK_tComment_tMembers">
-      <End Role="tMembers" EntitySet="tMembers" />
-      <End Role="tComment" EntitySet="tComment" />
-    </AssociationSet>
     <AssociationSet Name="FK_tReArticle_tArticle" Association="Self.FK_tReArticle_tArticle">
       <End Role="tArticle" EntitySet="tArticle" />
       <End Role="tReArticle" EntitySet="tReArticle" />
@@ -259,14 +203,6 @@
     <AssociationSet Name="FK_tReArticleLove_tReArticle" Association="Self.FK_tReArticleLove_tReArticle">
       <End Role="tReArticle" EntitySet="tReArticle" />
       <End Role="tReArticleLove" EntitySet="tReArticleLove" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tReComment_tMembers" Association="Self.FK_tReComment_tMembers">
-      <End Role="tMembers" EntitySet="tMembers" />
-      <End Role="tReComment" EntitySet="tReComment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tReComment_tReArticle" Association="Self.FK_tReComment_tReArticle">
-      <End Role="tReArticle" EntitySet="tReArticle" />
-      <End Role="tReComment" EntitySet="tReComment" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

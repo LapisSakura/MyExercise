@@ -19,10 +19,8 @@ namespace Exercise.Models
         {
             this.tArticle = new HashSet<tArticle>();
             this.tArticleLove = new HashSet<tArticleLove>();
-            this.tComment = new HashSet<tComment>();
             this.tReArticle = new HashSet<tReArticle>();
             this.tReArticleLove = new HashSet<tReArticleLove>();
-            this.tReComment = new HashSet<tReComment>();
         }
     
         public int MemberID { get; set; }
@@ -39,12 +37,8 @@ namespace Exercise.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tArticleLove> tArticleLove { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tComment> tComment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tReArticle> tReArticle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tReArticleLove> tReArticleLove { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tReComment> tReComment { get; set; }
     }
 }

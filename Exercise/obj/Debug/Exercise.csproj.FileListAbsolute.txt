@@ -479,3 +479,8 @@ C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.Data.Linq.dll
 C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.dll
 C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.Interfaces.dll
 C:\Users\User\Desktop\STtest\Exercise\bin\LinqToExcel.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\LinqToExcel.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.Data.Linq.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.Interfaces.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\LinqToExcel.xml

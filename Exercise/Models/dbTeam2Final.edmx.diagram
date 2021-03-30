@@ -5,25 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5fc7b8c3adcc4013bd0ff0bff2f64314" Name="Diagram1" ZoomLevel="61">
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticle" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticleLove" Width="1.5" PointX="5.25" PointY="2.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tComment" Width="1.5" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tCustomizeTopic" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="0.75" PointY="4.875" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticle" Width="1.5" PointX="8.25" PointY="5.25" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticleLove" Width="1.5" PointX="10.5" PointY="2.75" />
-        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReComment" Width="1.5" PointX="10.5" PointY="5.5" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticle" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tArticleLove" Width="1.5" PointX="8.25" PointY="3.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tComment" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tCustomizeTopic" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tMembers" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticle" Width="1.5" PointX="5.25" PointY="3.375" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReArticleLove" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="dbTeam2_FinalModel.tReComment" Width="1.5" PointX="4.75" PointY="7.75" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticle_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticleLove_tArticle" />
-        <AssociationConnector Association="dbTeam2_FinalModel.FK_tComment_tArticle" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tReArticle_tArticle" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tArticleLove_tMembers" />
-        <AssociationConnector Association="dbTeam2_FinalModel.FK_tComment_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tReArticle_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tReArticleLove_tMembers" />
-        <AssociationConnector Association="dbTeam2_FinalModel.FK_tReComment_tMembers" />
         <AssociationConnector Association="dbTeam2_FinalModel.FK_tReArticleLove_tReArticle" />
-        <AssociationConnector Association="dbTeam2_FinalModel.FK_tReComment_tReArticle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
