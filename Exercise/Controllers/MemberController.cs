@@ -98,7 +98,12 @@ namespace Exercise.Controllers
 
         public JsonResult ShowMember(int MemberID)
         {
-            return Json(tm.getAll().FirstOrDefault(m => m.MemberID == MemberID).ImgURL??"null", JsonRequestBehavior.AllowGet);
+            var list = tm.getAll().Where(m => m.MemberID == MemberID).Select(m => new
+            {
+                MemberName=m.MemberName,
+                ImgURL=m.ImgURL,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

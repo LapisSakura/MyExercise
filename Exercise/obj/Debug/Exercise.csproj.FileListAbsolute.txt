@@ -474,3 +474,8 @@ C:\Users\User\Desktop\STtest\Exercise\obj\Debug\Exercise.csproj.CoreCompileInput
 C:\Users\User\Desktop\STtest\Exercise\obj\Debug\Exercise.csproj.CopyComplete
 C:\Users\User\Desktop\STtest\Exercise\obj\Debug\Exercise.dll
 C:\Users\User\Desktop\STtest\Exercise\obj\Debug\Exercise.pdb
+C:\Users\User\Desktop\STtest\Exercise\bin\LinqToExcel.dll
+C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.Data.Linq.dll
+C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.dll
+C:\Users\User\Desktop\STtest\Exercise\bin\Remotion.Interfaces.dll
+C:\Users\User\Desktop\STtest\Exercise\bin\LinqToExcel.xml

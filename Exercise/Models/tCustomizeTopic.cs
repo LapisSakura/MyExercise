@@ -12,15 +12,12 @@ namespace Exercise.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tComment
+    public partial class tCustomizeTopic
     {
         public int No { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
         public Nullable<int> MemberID { get; set; }
-        public Nullable<int> ArticleID { get; set; }
-        public string Main { get; set; }
-        public Nullable<System.DateTime> UpTime { get; set; }
-    
-        public virtual tArticle tArticle { get; set; }
-        public virtual tMembers tMembers { get; set; }
+        public string Category { get; set; }
     }
 }

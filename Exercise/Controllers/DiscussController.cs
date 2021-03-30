@@ -62,6 +62,7 @@ namespace Exercise.Controllers
                 LoveCount = m.LoveCount,
                 ViewCount = m.ViewCount,
                 ReCount = tra.getAll().Where(t => t.ArticleID == m.ArticleID).Count(),
+                //ReCount = tra.getAll().Where(t => t.ArticleID == m.ArticleID).Count()>0? "1" : $"{tra.getAll().LastOrDefault(t => t.ArticleID == m.ArticleID).UpTime.ToString()}",
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -179,6 +180,7 @@ namespace Exercise.Controllers
                 Main = m.Main,
                 UpTime = m.UpTime,
                 LoveCount = m.LoveCount,
+                MemberID=m.MemberID,
                 ReArticleID = m.ReArticleID,
                 LoveStatus = tral.getAll().FirstOrDefault(t => t.MemberID == MemberID && t.ReArticleID == m.ReArticleID) != null,
             });

@@ -772,8 +772,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // Normally, we could not test that directly and need to do a
     //   `('localStorage' in window) && ` test first because otherwise Firefox will
-    //   throw bugzil.la/365772 if 
-s are disabled
+    //   throw bugzil.la/365772 if s are disabled
 
     // Also in iOS5 Private Browsing mode, attempting to use localStorage.setItem
     // will throw the exception:

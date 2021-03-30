@@ -95,9 +95,14 @@
                                             <div  class="com-div">${data[i].Main}</div>
                                             <div class="row justify-content-between" style="padding:0 0 0 15px">
                                                 <span class="at-time">最後編輯時間: ${time}</span>
-                                                <div>
-                                                    <div class="btn at-btn com-edit" no="${data[i].No}">編輯</div>
-                                                    <div class="btn at-btn com-del" no="${data[i].No}">刪除</div>
+                                                <div>`
+                        if (data[i].MemberID == NowMember) {
+                            maintxt +=`
+                                        <div class="btn at-btn com-edit" no="${data[i].No}">編輯</div>
+                                        <div class="btn at-btn com-del" no="${data[i].No}">刪除</div>
+                                      `
+                        }
+                        maintxt += `
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +134,7 @@
                         success: function (bata) {
                             for (var i = 0; i < data.length; i++) {
                                 var txt = "";
-                                var t = new Date(parseInt(data[0].UpTime.slice(6, -2)))
+                                var t = new Date(parseInt(data[i].UpTime.slice(6, -2)))
                                 var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
                                 txt += `
                                 <div class="row article my-5">
@@ -137,10 +142,14 @@
                                     <span>${data[i].MemberName}</span><br>
                                     <div class="row justify-content-between" style="padding:0 0 0 15px">
                                         <span class="at-time">最後編輯日期: ${time}</span>
-                                        <div style="padding:0 15px 0 0">
-                                            <div class="btn at-btn Reat-edit" no="${data[i].ReArticleID}">編輯</div>
-                                            <div class="btn at-btn Reat-del" no="${data[i].ReArticleID}">刪除</div>
-                                        </div>
+                                        <div style="padding:0 15px 0 0">`
+                                if (data[i].MemberID == NowMember) {
+                                    txt += `
+                                    <div class="btn at-btn at-edit" no="${data[i].ArticleID}">編輯</div>
+                                    <div class="btn at-btn at-del no="${data[i].ArticleID}">刪除</div>
+                                   `
+                                }
+                                txt+=`</div>
                                     </div>
                                     <div class="at-main">${unescape(data[i].Main)}</div>
                                 </div>
@@ -187,7 +196,8 @@
                             for (var k = 0; k < bata.length; k++) {
                                 var t = new Date(parseInt(bata[k].UpTime.slice(6, -2)))
                                 var time = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`
-                                $(`.at-comment-list-${bata[k].ReArticleID}`).append(`
+                                if (bata[k].MemberID == NowMember) {
+                                    $(`.at-comment-list-${bata[k].ReArticleID}`).append(`
                                       <div class="row at-comment">
                                         <div class="col-1 mt-2 MemberImg"></div>
                                         <div class="col-11 mt-2">
@@ -204,6 +214,25 @@
                                         </div>
                                     </div>
                                     `)
+                                }
+                                else {
+                                    $(`.at-comment-list-${bata[k].ReArticleID}`).append(`
+                                      <div class="row at-comment">
+                                        <div class="col-1 mt-2 MemberImg"></div>
+                                        <div class="col-11 mt-2">
+                                            <div>${bata[k].MemberName}:</div>
+                                            <div  class="com-div">${bata[k].Main}</div>
+                                                <div class="row justify-content-between"  style="padding:0 0 0 15px;">
+                                                    <span class="at-time">最後編輯時間: ${time}</span>
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `)
+
+                                }
                             }
                         },
                     })
@@ -346,7 +375,7 @@
             })
         })
 
-        //<---------------------------------編輯留言---------------------------->
+        //<----------------------------------編輯留言---------------------------->
 
         $(".div-discuss").on('click', '.com-edit', function () {
             var com_div = $(this).parent().parent().parent().find(".com-div");

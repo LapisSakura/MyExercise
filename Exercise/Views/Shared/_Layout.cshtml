@@ -90,14 +90,14 @@
                         <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#exampleModalCenter">登入</a></li>
                         <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
                           `
-            $("#member-ul").html(txt)
+            $("#member-ul").html(txt);
         }
         else {
             var txt = `
                         <li class="nav-li" id="MemberFile" no="${document.cookie.split('ID=')[1].split("&")[0]}"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
                         <li class="nav-li"><a class="nav-a"id="logout">登出</a></li>
                           `
-            $("#member-ul").html(txt)
+            $("#member-ul").html(txt);
         }
 
         $("#registered").click(function () {
@@ -119,8 +119,9 @@
                         title: '已成功登出',
                         showConfirmButton: false,
                         timer: 500
+                    }).then(function () {
+                        document.location.href = "/Home/Index"
                     })
-                    document.location.href="/Home/Index"
                 }
             })
         })
@@ -139,11 +140,12 @@
                         $("#member-ul").html(txt)
                         $("#Account").val("");
                         $("#Password").val("");
+                        window.location.reload();
+
                     }
                     else {
-                        $("#Login-msg").text(data)
+                        $("#Login-msg").text(data);
                     }
-                    window.location.reload();
                 },
             })
         })
