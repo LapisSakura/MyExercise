@@ -20,7 +20,10 @@ namespace Exercise.Infrastructure.Helpers
         /// <returns></returns>
         public CheckResult CheckImportData(
             string fileName,
-            List<tCustomizeTopic> importTest)
+            List<tCustomizeTopic> importTest,
+            string MemberID,
+            string Category
+            )
         {
             var result = new CheckResult();
 
@@ -58,6 +61,8 @@ namespace Exercise.Infrastructure.Helpers
                 //test.ID = row.ID;
                 tcp.Question = row.Question;
                 tcp.Answer = row.Answer;
+                tcp.MemberID = int.Parse(MemberID);
+                tcp.Category = Category;
 
                 //題目
                 if (string.IsNullOrWhiteSpace(row.Question))
@@ -136,8 +141,6 @@ namespace Exercise.Infrastructure.Helpers
                 {
                     foreach (var item in importTest)
                     {
-                        item.MemberID = 2;
-                        item.Category = "分類1";
                         db.tCustomizeTopic.Add(item);
                     }
                     db.SaveChanges();

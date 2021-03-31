@@ -22,7 +22,7 @@ namespace Exercise.Controllers
         private string fileSavedPath = WebConfigurationManager.AppSettings["UploadPath"];
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload(string Category, HttpPostedFileBase file)
         {
             JObject jo = new JObject();
             string result = string.Empty;
@@ -124,9 +124,10 @@ namespace Exercise.Controllers
                 var fileName = string.Concat(Server.MapPath(fileSavedPath), "/", savedFileName);
 
                 var importTCT = new List<tCustomizeTopic>();
-
+                var MemberID = Request.Cookies["AutoLogin"]["MemberID"];
+                var Category = Request.Cookies["Category"].Value;
                 var helper = new ImportDataHelper();
-                var checkResult = helper.CheckImportData(fileName, importTCT);
+                var checkResult = helper.CheckImportData(fileName, importTCT, MemberID, Category);
 
                 jo.Add("Result", checkResult.Success);
                 jo.Add("Msg", checkResult.Success ? string.Empty : checkResult.ErrorMessage);
@@ -136,6 +137,7 @@ namespace Exercise.Controllers
                     //儲存匯入的資料
                     helper.SaveImportData(importTCT);
                 }
+                Response.Cookies["Category"].Expires = DateTime.Now.AddSeconds(-1);
                 result = JsonConvert.SerializeObject(jo);
             }
             catch (Exception ex)

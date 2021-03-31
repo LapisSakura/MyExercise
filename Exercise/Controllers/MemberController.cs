@@ -30,6 +30,8 @@ namespace Exercise.Controllers
             return View();
         }
 
+
+        //<-----------------登入--------------------->
         public string Login(string Account ,string Password,bool RememberMe)
         {
             string result ;
@@ -51,13 +53,13 @@ namespace Exercise.Controllers
             return result;
         }
 
-
+        //<----------------登出---------------------->
         public void Logout()
         {
             Response.Cookies["AutoLogin"].Expires = DateTime.Now.AddSeconds(-1);
         }
 
-
+        //<-------------------驗證帳號是否重複------------------->
         public JsonResult CheckAccount(string Account)
         {
             bool result = tm.getAll().FirstOrDefault(m => m.Account == Account) == null;
@@ -79,23 +81,24 @@ namespace Exercise.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-
+        //<------------------照片上傳-------------------->
         public JsonResult Imgupload(HttpPostedFileBase photo)
         {
-            var MemberID = Request.Cookies["AutoLogin"]["MemberID"];
+            string filepath = "";
+            int MemberID = int.Parse(Request.Cookies["AutoLogin"]["MemberID"]);
 
             if (photo.ContentLength>0)
             {
-                string filepath = $"/MemberImg/Member{MemberID}.jpg";
+                filepath = $"/MemberImg/Member{MemberID}.jpg";
                 photo.SaveAs(Server.MapPath("~") + filepath);
 
-                db.tMembers.FirstOrDefault(m => m.MemberID == 2).ImgURL = filepath;
+                db.tMembers.FirstOrDefault(m => m.MemberID == MemberID).ImgURL = filepath;
                 db.SaveChanges();
             }
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json(filepath, JsonRequestBehavior.AllowGet);
         }
 
-
+        //<-----------------------個人頁面載入---------------------->
         public JsonResult ShowMember(int MemberID)
         {
             var list = tm.getAll().Where(m => m.MemberID == MemberID).Select(m => new
@@ -103,6 +106,11 @@ namespace Exercise.Controllers
                 MemberName=m.MemberName,
                 ImgURL=m.ImgURL,
             });
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ShowCategory(int MemberID)
+        {
+            var list = db.tCustomizeTopic.Where(m => m.MemberID == MemberID).GroupBy(m => m.Category, (t, tn) => new { Category = t});
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

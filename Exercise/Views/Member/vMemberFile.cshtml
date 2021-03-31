@@ -166,7 +166,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    @*<span>請輸入分類名稱:</span><input type="text" class="form-control" name="Category" id="Category" />*@
+                    <span>請輸入分類名稱:</span><input type="text" class="form-control" name="Category" id="Category" />
 
                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                         <div class="form-control mt-2" data-trigger="fileinput">
@@ -220,9 +220,6 @@
                 <a class="item" id="topic">個人題庫</a>
                 <div class="submenu">
                     <a class="submenu-item">測試1</a>
-                    <a class="submenu-item">測試2</a>
-                    <a class="submenu-item">測試3</a>
-                    <a class="submenu-item">測試4</a>
                 </div>
             </li>
         </ul>
@@ -233,14 +230,14 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/bootbox.js"></script>
-    <script src="~/Scripts/jquery.form.min.js"></script>
-    <script src="~/Scripts/project.js"></script>
-    <script src="~/Scripts/project.extends.js"></script>
-    <script src="~/Scripts/project.Test.js"></script>
+<script src="~/Scripts/bootbox.js"></script>
+<script src="~/Scripts/jquery.form.min.js"></script>
+<script src="~/Scripts/project.js"></script>
+<script src="~/Scripts/project.extends.js"></script>
+<script src="~/Scripts/project.Test.js"></script>
 
-    <script>
-
+<script>
+     //<-------------------Excel匯入------------------>
     $(document).ready(function () {
         var actionUrls = {
             Upload: '@Url.Action("Upload", "ImportExcel")',
@@ -250,23 +247,20 @@
         project.Test.Initialize(actionUrls);
     });
 
+    $("#ButtonSubmit").click(function () {            
+        document.cookie = `Category=${$("#Category").val()};path=/`
+    })
 
 
 
 
-
-
-
-
-
-
-
-
-
-        var hr = document.location.href.split("/")
+    //<------------------顯示頁面------顯示頁面與登錄身分不符回首頁------------------>
+    var hr = document.location.href.split("/")
+    var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]/1)
+    if (hr[hr.length - 1] == NowMember) {
         $.ajax({
             url: "/Member/ShowMember",
-            data: { "MemberID": (hr[hr.length - 1]) / 1 },
+            data: { "MemberID": NowMember },
             success: function (data) {
                 $(".memberName").text(data[0].MemberName);
                 if (data[0].ImgURL == null) {
@@ -275,43 +269,67 @@
                 else {
                     $(".member-img").attr("src", data[0].ImgURL);
                 }
-
             },
         })
+        $.ajax({
+            url: "/Member/ShowCategory",
+            data: { "MemberID": NowMember },
+            success: function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    $(".submenu").append(`<a class="submenu-item">${data[i].Category}</a>`)
 
-
-        //<-------------預覽----------------->
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $(".PreviewImg>img").attr("src", e.target.result);
                 }
-                reader.readAsDataURL(input.files[0])
+            },
+        })
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: '壞壞喔',
+            text: '您沒有權限查看此頁面',
+        }).then((result) => {
+            window.location.href = "/Home/Index"
+        });
+    }
+
+
+    //<-------------預覽----------------->
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(".PreviewImg>img").attr("src", e.target.result);
             }
+            reader.readAsDataURL(input.files[0])
         }
-        $("#Imgupload").change(function () {
-            readURL(this)
+    }
+    $("#Imgupload").change(function () {
+        readURL(this)
+    })
+
+
+
+    //<-----------上傳儲存圖片----------->
+    $("#Imgsave").click(function () {
+        var formdata = new FormData(document.querySelector("#img-form"));
+        formdata.append("photo", $("#Imgupload").get(0).files[0])
+        $.ajax({
+            url: "/Member/Imgupload",
+            type: "POST",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $("#MemberImg").modal('hide')
+                $(".member-img").attr("src", data);
+            },
         })
+    })
+    //<---------------個人題庫---------------->
+    $("#topic").click(function () {
+        $("#main-div").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">匯入資料</button>`)
+    })
 
-
-
-        //<-----------上傳儲存圖片----------->
-        $("#Imgsave").click(function () {
-            var formdata = new FormData(document.querySelector("#img-form"));
-            formdata.append("photo", $("#Imgupload").get(0).files[0])
-            $.ajax({
-                url: "/Member/Imgupload",
-                type: "POST",
-                data: formdata,
-                processData: false,
-                contentType: false,
-            })
-        })
-        //<---------------個人題庫---------------->
-        $("#topic").click(function () {
-            $("#main-div").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">匯入資料</button>`)
-        })
-
-    </script>
+</script>
 }

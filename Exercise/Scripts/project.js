@@ -29,16 +29,20 @@
             /// <param name="title"></param>
             /// <param name="message"></param>
 
-            bootbox.dialog({
+            //bootbox.dialog({
+            //    title: title,
+            //    message: message,
+            //    buttons: {
+            //        main: {
+            //            label: "確認",
+            //            className: "btn-primary"
+            //        }
+            //    }
+            //});
+            Swal.fire({
                 title: title,
-                message: message,
-                buttons: {
-                    main: {
-                        label: "確認",
-                        className: "btn-primary"
-                    }
-                }
-            });
+                text: message,
+            })
         },
 
         ShowMessageCallback: function (title, message, handlers) {
@@ -49,17 +53,22 @@
             /// <param name="message"></param>
             /// <param name="handlers"></param>
 
-            bootbox.dialog({
+            //bootbox.dialog({
+            //    title: title,
+            //    message: message,
+            //    buttons: {
+            //        main: {
+            //            label: "確認",
+            //            className: "btn-primary",
+            //            callback: handlers
+            //        }
+            //    }
+            //});
+            Swal.fire({
                 title: title,
-                message: message,
-                buttons: {
-                    main: {
-                        label: "確認",
-                        className: "btn-primary",
-                        callback: handlers
-                    }
-                }
-            });
+                text: message,
+            }).then(handlers)
+
         },
 
         AlertErrorMessage: function (title, message) {
@@ -69,16 +78,23 @@
             /// <param name="title"></param>
             /// <param name="message"></param>
 
-            bootbox.dialog({
+            //bootbox.dialog({
+            //    title: title,
+            //    message: message,
+            //    buttons: {
+            //        danger: {
+            //            label: "確認",
+            //            className: "btn-danger"
+            //        }
+            //    }
+            //});
+
+            Swal.fire({
+                icon: 'error',
                 title: title,
-                message: message,
-                buttons: {
-                    danger: {
-                        label: "確認",
-                        className: "btn-danger"
-                    }
-                }
-            });
+                text: message,
+            })
+
         },
 
         AlertErrorMessageCallback: function (title, message, handlers) {
@@ -89,17 +105,24 @@
             /// <param name="message"></param>
             /// <param name="handlers"></param>
 
-            bootbox.dialog({
+            //bootbox.dialog({
+            //    title: title,
+            //    message: message,
+            //    buttons: {
+            //        danger: {
+            //            label: "確認",
+            //            className: "btn-danger",
+            //            callback: handlers
+            //        }
+            //    }
+            //});
+
+            Swal.fire({
+                icon: 'error',
                 title: title,
-                message: message,
-                buttons: {
-                    danger: {
-                        label: "確認",
-                        className: "btn-danger",
-                        callback: handlers
-                    }
-                }
-            });
+                text: message,
+            }).then(handlers)
+
         }
     });
 
