@@ -113,5 +113,19 @@ namespace Exercise.Controllers
             var list = db.tCustomizeTopic.Where(m => m.MemberID == MemberID).GroupBy(m => m.Category, (t, tn) => new { Category = t});
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+
+
+        public JsonResult ShowTopic(string Category, int MemberID)
+        {
+            var list = db.tCustomizeTopic.Where(m => m.Category == Category && m.MemberID == MemberID).Select(m => new
+            {
+                No = m.No,
+                Question=m.Question,
+                Answer=m.Answer,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

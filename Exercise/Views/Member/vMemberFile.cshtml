@@ -4,127 +4,129 @@
 }
 @section styles{
     @*<link href="~/Styles/Lapis.css" rel="stylesheet" />*@
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <style>
-        .memberImg {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
+            .memberImg {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
 
-        .PreviewImg {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
+            .PreviewImg {
+                width: 280px;
+                height: 280px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
 
-        .member-img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
+            .member-img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
 
-        .test {
-            border: 1px red solid;
-        }
+            .test {
+                border: 1px red solid;
+            }
 
-        label {
-            margin: 0;
-        }
-        /* ===================================
+            label {
+                margin: 0;
+            }
+            /* ===================================
         版型
         ===================================*/
-        * {
-            box-sizing: border-box;
-        }
+            * {
+                box-sizing: border-box;
+            }
 
-        ul a {
-            display: inline-block;
-            text-decoration: none;
-            color: #666;
-        }
-        /* ===================================
+            ul a {
+                display: inline-block;
+                text-decoration: none;
+                color: #666;
+            }
+            /* ===================================
         布局樣式
         ===================================*/
-        .menu {
-            max-width: 300px;
-            margin: 0 auto;
-            list-style-type: none;
-            border-radius: 10px;
-            padding: 0;
-            text-align: center;
-        }
-        /* ===================================
+            .menu {
+                max-width: 300px;
+                margin: 0 auto;
+                list-style-type: none;
+                border-radius: 10px;
+                padding: 0;
+                text-align: center;
+            }
+            /* ===================================
         動態效果
         ===================================*/
-        .drop-down {
-            position: relative;
-        }
+            .drop-down {
+                position: relative;
+            }
 
-        .submenu {
-            position: relative;
-            opacity: 0;
-            width: 100%;
-            z-index: 8;
-            transition: opacity 0.5s ease;
-        }
+            .submenu {
+                position: relative;
+                opacity: 0;
+                width: 100%;
+                z-index: 8;
+                transition: opacity 0.5s ease;
+            }
 
-        .submenu-item {
-            display: block;
-            height: 0px;
-            overflow: hidden;
-            transition: height 0.5s ease;
-        }
+            .submenu-item {
+                display: block;
+                height: 0px;
+                overflow: hidden;
+                transition: height 0.5s ease;
+            }
 
-        .drop-down:hover .submenu {
-            opacity: 1;
-        }
+            .drop-down:hover .submenu {
+                opacity: 1;
+            }
 
-        .drop-down:hover .submenu-item {
-            overflow: visible;
-            height: 30px;
-        }
-        /* ===================================
+            .drop-down:hover .submenu-item {
+                overflow: visible;
+                height: 30px;
+            }
+            /* ===================================
         視覺樣式
         ===================================*/
-        .item {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-        }
+            .item {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+            }
 
-            .item:hover {
+                .item:hover {
+                    background: #ddd;
+                }
+
+            .submenu-item {
+                background: #ccc;
+                color: #eee;
+                width: 100%;
+                padding-left: 20px;
+                line-height: 30px;
+            }
+
+                .submenu-item:hover {
+                    background: #555;
+                    color: #ccc;
+                }
+
+            .now .item {
                 background: #ddd;
             }
 
-        .submenu-item {
-            background: #ccc;
-            color: #eee;
-            width: 100%;
-            padding-left: 20px;
-            line-height: 30px;
-        }
-
-            .submenu-item:hover {
-                background: #555;
-                color: #ccc;
+            .now .submenu {
+                opacity: 1;
             }
 
-        .now .item {
-            background: #ddd;
-        }
-
-        .now .submenu {
-            opacity: 1;
-        }
-
-        .now .submenu-item {
-            background: #555;
-            overflow: visible;
-            height: 30px;
-        }
+            .now .submenu-item {
+                background: #555;
+                overflow: visible;
+                height: 30px;
+            }
     </style>
 }
 
@@ -196,7 +198,7 @@
 
 
 <div class="row justify-content-between mt-5">
-    <div class="col-2 test">
+    <div class="col-2 test mt-5">
         <div class="test mt-3 row justify-content-center">
             <div class="img" data-toggle="modal" data-target="#MemberImg">
                 <div class="memberImg"><img class="member-img" /></div>
@@ -217,26 +219,33 @@
                 <a class="item">個人行事曆</a>
             </li>
             <li class="itembox drop-down">
-                <a class="item" id="topic">個人題庫</a>
+                <a class="item">個人題庫</a>
                 <div class="submenu">
-                    <a class="submenu-item">測試1</a>
+                    <a class="submenu-item" data-toggle="modal" data-target="#UploadModal">匯入個人題庫</a>
                 </div>
             </li>
         </ul>
     </div>
-    <div class="col-9 test">
-        <div class="row" id="main-div"></div>
+    <div class="col-9 test mt-5">
+        <div class="row justify-content-center pt-5" id="main-div">
+            <label for="test" style="width:100px;height:100px;background-color:pink;">測試<input id="test" type="checkbox" style="display:none" /></label>
+            <label for="test" style="width:100px;height:100px;background-color:pink;">測試1<input id="test" type="checkbox" style="display:none" /></label>
+            <label for="test" style="width:100px;height:100px;background-color:pink;">測試2<input id="test" type="checkbox" style="display:none" /></label>
+
+        </div>
     </div>
 </div>
 
 @section scripts{
-<script src="~/Scripts/bootbox.js"></script>
-<script src="~/Scripts/jquery.form.min.js"></script>
-<script src="~/Scripts/project.js"></script>
-<script src="~/Scripts/project.extends.js"></script>
-<script src="~/Scripts/project.Test.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/project.Test.js"></script>
 
-<script>
+    <script>
      //<-------------------Excel匯入------------------>
     $(document).ready(function () {
         var actionUrls = {
@@ -247,10 +256,9 @@
         project.Test.Initialize(actionUrls);
     });
 
-    $("#ButtonSubmit").click(function () {            
+    $("#ButtonSubmit").click(function () {
         document.cookie = `Category=${$("#Category").val()};path=/`
     })
-
 
 
 
@@ -275,9 +283,8 @@
             url: "/Member/ShowCategory",
             data: { "MemberID": NowMember },
             success: function (data) {
-                console.log(data);
                 for (var i = 0; i < data.length; i++) {
-                    $(".submenu").append(`<a class="submenu-item">${data[i].Category}</a>`)
+                    $(".submenu").append(`<a class="submenu-item show-topic">${data[i].Category}</a>`)
 
                 }
             },
@@ -326,10 +333,76 @@
             },
         })
     })
-    //<---------------個人題庫---------------->
-    $("#topic").click(function () {
-        $("#main-div").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">匯入資料</button>`)
-    })
 
-</script>
+    //<----------------顯示個人題庫--------------->
+        $(".submenu").on('click', ".show-topic", function () {
+            console.log("OK")
+            $.ajax({
+                url: "/Member/ShowTopic",
+                data: { "Category": $(this).text(), "MemberID": NowMember},
+                success: function (data) {
+                    var txt = ""
+                    txt += `
+                            <table id="datatable" class="ui celled table mt-5">
+                                <thead style="text-align:center;">
+                                    <tr>
+                                        <th>題目</th><th>答案</th><th>編輯</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;">
+                            `
+                    for (var i = 0; i < data.length; i++) {
+                        txt += `
+                                <tr>
+                                    <td>${data[i].Question}</td>
+                                    <td>${data[i].Answer}</td>
+                                    <td>
+                                        <a class="btn at-btn" no="${data[i].No}">編輯</a>
+                                        <a class="btn at-btn" no="${data[i].No}">刪除</a>
+                                    </td>
+                                </tr>
+                               `
+                    }
+                    txt += `
+                                </tbody>
+                            </table>
+                           `
+                    $("#main-div").html(txt)
+                    $('#datatable').DataTable({
+                        "bPaginate": true, // 顯示換頁
+                        "searching": true, // 顯示搜尋
+                        "info": false, // 顯示資訊
+                        "fixedHeader": true, // 標題置頂
+                        "bAutoWidth": false,
+                        "aoColumns": [
+                            { sWidth: '300px' },
+                            { sWidth: '300px' },
+                            { sWidth: '130px' }
+                        ] ,
+                        "language": {
+                            processing: "處理中...",
+                            loadingRecords: "載入中...",
+                            lengthMenu: "顯示 _MENU_ 項結果",
+                            zeroRecords: "沒有符合的結果",
+                            info: "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                            infoEmpty: "顯示第 0 至 0 項結果，共 0 項",
+                            infoFiltered: "(從 _MAX_ 項結果中過濾)",
+                            search: "搜尋:",
+                            paginate: {
+                                first: "第一頁",
+                                previous: "上一頁",
+                                next: "下一頁",
+                                last: "最後一頁"
+                            },
+                            aria: {
+                                sortAscending: ": 升冪排列",
+                                sortDescending: ": 降冪排列"
+                            }
+                        }
+                    });
+
+                },
+            })
+        })
+    </script>
 }
