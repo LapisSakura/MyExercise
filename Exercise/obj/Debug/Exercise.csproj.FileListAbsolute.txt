@@ -484,3 +484,16 @@ C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.Data.Linq.dll
 C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.dll
 C:\Users\user\Desktop\MyExercise\Exercise\bin\Remotion.Interfaces.dll
 C:\Users\user\Desktop\MyExercise\Exercise\bin\LinqToExcel.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.Security.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Owin.dll
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\user\Desktop\MyExercise\Exercise\bin\Microsoft.Owin.Security.xml

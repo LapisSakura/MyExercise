@@ -4,28 +4,27 @@
 }
 
 <div class="container body-content">
-    <div class="container body-content col-8">
-            <div class="row  btn-row">
-                <h2>回覆文章</h2>
-            </div>
-            <div class="row mt-3"><p style="max-width:682px;" id="ReArticleTitle"></p></div>
-            <div class="row mt-3">
-                <textarea class="form-control m-auto main-textarea" placeholder="本文"  name="Main" id="Main" required></textarea>
-            </div>
-        <div class=" row mt-2">
-            <div class="btn list-btn" style="width:60px;" id="submit">
-                <a class="btn-a">送出</a>
-            </div>
+    <h2 class="d-flex justify-content-center" style="margin:50px 0 20px 0;">回覆文章</h2>
+    <div class="container body-content col-8 edit-discuss-outline">
+        <div class="row" style="background-color:#2d3d5a;color:#fff"><span class="title-span" id="ReArticleTitle"></span></div>
+        <div class="row mt-3" style="margin:5px;">
+            <textarea class="form-control m-auto main-textarea" placeholder="本文" name="Main" id="Main" required></textarea>
+        </div>
+        <div class=" row my-3 justify-content-between">
             <span class="msg" id="Edit-msg"></span>
+            <div class="btn list-btn-select" style="width:60px;margin-right:20px;" id="submit">
+                <a class="btn-a-select">送出</a>
+            </div>
         </div>
     </div>
 </div>
 
 @section scripts{
     <script>
+        var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0]) / 1;
+        var fid = window.location.href.split("/")
      //<-------------------------------新增回文頁面------------------------------->
      //<-------------------------------文字編輯器生成----------------------------->
-        var fid = window.location.href.split("/")
         tinymce.init({
             selector: "#Main",
             width: '682px',
@@ -53,7 +52,7 @@
                 $.ajax({
                     url: "/Discuss/CreateReDiscuss",
                     type: "POST",
-                    data: { "MemberID": `${(document.cookie.split('MemberID=')[1].split("&")[0]) / 1}`, "Main": escape(tinymce.get("Main").getContent()), "ArticleID": `${fid[fid.length - 1]}` },
+                    data: { "MemberID": NowMember, "Main": escape(tinymce.get("Main").getContent()), "ArticleID": `${fid[fid.length - 1]}` },
                     success: function () {
                         localStorage.removeItem("main")
                         window.location.href = `/Discuss/vDiscussSingle/${fid[fid.length - 1]}`;
@@ -61,7 +60,7 @@
                 })
             }
             else
-                $('#exampleModalCenter').modal('show')
+                $('#LoginModal').modal('show')
         })
     </script>
 }

@@ -38,8 +38,8 @@
     <EntitySetMapping Name="tCustomizeTopic">
       <EntityTypeMapping TypeName="dbTeam2_FinalModel.tCustomizeTopic">
         <MappingFragment StoreEntitySet="tCustomizeTopic">
-          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
           <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
           <ScalarProperty Name="Answer" ColumnName="Answer" />
           <ScalarProperty Name="Question" ColumnName="Question" />
           <ScalarProperty Name="No" ColumnName="No" />
@@ -49,6 +49,7 @@
     <EntitySetMapping Name="tMembers">
       <EntityTypeMapping TypeName="dbTeam2_FinalModel.tMembers">
         <MappingFragment StoreEntitySet="tMembers">
+          <ScalarProperty Name="Cid" ColumnName="Cid" />
           <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Authority" ColumnName="Authority" />
@@ -89,6 +90,13 @@
           <ScalarProperty Name="ReArticleID" ColumnName="ReArticleID" />
           <ScalarProperty Name="MemberID" ColumnName="MemberID" />
           <ScalarProperty Name="No" ColumnName="No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tSqChatroom">
+      <EntityTypeMapping TypeName="dbTeam2_FinalModel.tSqChatroom">
+        <MappingFragment StoreEntitySet="tSqChatroom">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

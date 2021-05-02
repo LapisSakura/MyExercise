@@ -17,7 +17,7 @@ namespace Exercise.Models
         public int No { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-        public string Category { get; set; }
         public Nullable<int> MemberID { get; set; }
+        public string Category { get; set; }
     }
 }

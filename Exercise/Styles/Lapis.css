@@ -2,9 +2,13 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Hachi Maru Pop', cursive;
+    font-family: 'Hachi Maru Pop', cursive;   
 }
-
+body {
+    background-color: #F5F8FA;
+}
+/*#bafeef薄荷綠*/
+/*#7e491ee8咖啡色*/
 a:hover {
     color: red;
     text-decoration: none;
@@ -38,13 +42,15 @@ a {
 }
 
 .btn-login {
-    background-color: #7e491ee8;/*咖啡色*/
+    background-color: #7e491ee8; /*咖啡色*/
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
     color: #bafeef;
 }
-.btn-login:hover{
-    color:red ;
+
+.btn-login:hover {
+    color: red;
 }
+
 .vlogin {
     background: #bafeef;
     color: #7e491ee8;
@@ -52,13 +58,191 @@ a {
 
 
 
+/*--↓↓-------------chatroom*/
+.chatroom-btn {
+    width: 80px;
+    height: 80px;
+    background-color: #bafeef;
+    color: #7e491ee8;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 26pt;
+    line-height: 80px;
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+}
+
+.chatroom-btn:hover {
+    background-color: rgba(255, 209, 163,0.5);
+}
+
+.chatroom {
+    border: 1px #ccc solid;
+    width: 700px;
+    height: 500px;
+    position: absolute;
+    right: 160px;
+    bottom: 60px;
+    background-color: #ccc;
+    display: flex;
+    flex-wrap: wrap;
+    display:none;
+}
+.chatroom-left {
+    border-right: 1px #ccc solid;
+    background-color: #fff;
+    height: 100%;
+    width:60%;
+}
+.chatroom-right {
+    border-left: 1px #ccc solid;
+    background-color: #fff;
+    height: 100%;
+    width: 40%;
+}
+.chatroom-left-head {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 60px;
+    font-size: 16pt;
+}
+.chatroom-right-head {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    font-size:16pt;
+    line-height:60px;
+}
+#chatroom-area {
+    background-color: #fff;
+    width: 100%;
+    height: 368px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    font-size: 12pt;
+}
+#chatroom-floot {
+    border-top:solid 1px #ccc;
+    width: 100%;
+    height: 70px;
+    text-align:center;
+    line-height:70px;
+}
+#chatroom-input-set {
+    width: 400px;
+}
+
+#chatroom-input-btn {
+    border:solid 1px #ccc;
+    width:38px;
+    padding:11px;
+    background-color: #bafeef;
+    color: #7e491ee8;
+}
+#onlinetime{
+    margin-right:20px;
+    color:#999;
+    line-height:60px;
+    font-size:10pt;
+}
+#chatroom-name {
+    max-width:240px;
+}
+.chatroom-name-p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+    line-height: 60px;
+}
+#chatroom-memberlist {
+    width: 100%;
+    height: 438px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.LastReplyTime {
+    color: #999;
+    font-size: 10pt;
+}
+.chatroom-member {
+    width: 100%;
+    height: 70px;
+    cursor: pointer;
+    padding: 10px;
+}
+.chatroom-member:hover{
+    background-color:#eee;
+}
+.chatroom-list-name {
+    max-width: 100px;
+}
+.chatroom-list-content {
+    max-width: 200px;
+}
+.chatroom-list-content-p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.chatroom-singlemsg{
+    margin-top:20px;
+}
+.chatroom-area-forconntent {
+    max-width: 410px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color: #bafeef;
+    color: #7e491ee8;
+    margin-top: 10px;
+    font-size: 14pt;
+    border-radius: 20px 0 20px 20px;
+    padding: .5833em .833em;
+    display: inline-block;
+}
+.chatroom-area-fromconntent {
+    max-width: 410px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color: #fff;
+    border: solid 1px #ccc;
+    color: #000;
+    margin-top: 10px;
+    font-size: 14pt;
+    border-radius:0 20px 20px 20px;
+    padding: .5833em .833em;
+    display: inline-block;
+}
+
+
+
 /*--↓↓-------------SingleDiscuss*/
+.member-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
 
+.MemberImg {
+    border: solid 2px #fff;
+    border-radius: 50%;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    overflow: hidden;
+}
 
-.member {
-    width: 100px;
-    height: 100px;
-    border: solid 1px;
+.floor-count {
+    font-size: 5pt;
+    color: #797979;
+    line-height: 28px;
+    border: solid #797979 1px;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin-right: 10px;
 }
 
 .nolove {
@@ -79,7 +263,7 @@ a {
 
 .at-title {
     border-bottom: 1px solid;
-    margin:36px 36px 0 36px;
+    margin: 36px 36px 0 36px;
     width: 100%;
 }
 
@@ -100,16 +284,18 @@ a {
     padding: 12px;
     margin: 36px 36px 0 36px;
 }
-.at-comment {
-    margin:0 24px 0 24px;
-    font-size: 13px;
 
+.at-comment {
+    margin: 0 24px 0 24px;
+    font-size: 13px;
 }
+
 .comment-list {
     background-color: #F3F4F4;
     width: 100%;
     padding: 0 12px 0 12px;
 }
+
 .at-comment-list-input {
     width: 100%;
     padding: 0 12px 0 12px;
@@ -117,14 +303,14 @@ a {
 }
 
 .at-comment-input {
-    margin:0 24px 0 24px;
+    margin: 0 24px 0 24px;
     font-size: 13px;
 }
 
 .comment-input {
     border-radius: 10px;
     height: 40px;
-    margin-top:7px;
+    margin-top: 7px;
 }
 
 
@@ -135,7 +321,7 @@ a {
 .at-time {
     font-size: 5pt;
     color: #797979;
-    line-height:28px;
+    line-height: 28px;
 }
 
 
@@ -149,14 +335,19 @@ a {
 
 .article {
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
+    background-color:#fff;
 }
 
 .at-btn {
     padding: 1px;
-    width: 50px;
+    width: 60px;
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
-    background-color: #bafeef;
-    color: #7e491ee8;
+    background-color: #7e491ee8;
+    color:#bafeef;
+}
+
+.at-btn:hover {
+    color: red;
 }
 
 
@@ -165,51 +356,53 @@ a {
     height: 40px;
     margin-top: 7px;
 }
+
 .comment-input:focus {
     outline: none;
 }
+
+.ReComment-input:focus {
+    outline: none;
+}
+
 .com-div {
     word-wrap: break-word;
     overflow: auto;
-    max-width:602px;
-    min-width:602px;
+    max-width: 602px;
+    min-width: 602px;
 }
 
-.MemberImg {
-    border: solid 1px;
-    border-radius: 50%;
-    min-width: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    max-height: 40px;
-}
 
 /*--↓↓-------------DiscussList*/
 .textbox-search {
     border-radius: 20px;
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
-.textbox-search:focus{
-    outline:none;
+
+.textbox-search:focus {
+    outline: none;
 }
 
 .list-th {
-    background-color: #fcd7a7;
+    background-color: #bafeef;
+    color: #7e491ee8
 }
 
 .list-btn {
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
     width: 96.9px;
-    background-color: #bafeef;
+    background-color:#bafeef;
 }
+
 .list-btn-select {
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
     width: 96.9px;
     background-color: #7e491ee8;
 }
-.btn-row{
-    margin-top:50px;
+
+.btn-row {
+    margin-top: 50px;
 }
 
 .btn-a {
@@ -217,18 +410,19 @@ a {
     overflow: hidden;
     white-space: nowrap;
 }
+
 .btn-a-select {
-    color: #bafeef;
+    color:#bafeef;
     overflow: hidden;
     white-space: nowrap;
 }
 
 
 .list-sort {
-    border: solid #fff 1px;
+    border: solid#7e491ee8 1px;
     border-radius: 5px;
-    color: #fff;
-    background-color: rgb(88, 174, 231);
+    color: #7e491ee8;
+    background-color: #bafeef;
 }
 
 .table td {
@@ -248,6 +442,10 @@ a {
     box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
 }
 
+.list tr {
+    border-top: 1px solid #7e491ee8;
+}
+
 .title-p {
     overflow: hidden;
     white-space: nowrap;
@@ -256,50 +454,73 @@ a {
 }
 
 .title-div {
-    width: 700px;
+    width: 690px;
 }
 
 .th-Count {
+    width: 155px;
+}
+
+.td-Category {
+    width: 100px
+}
+
+.th-Re {
     width: 150px;
 }
-.td-Category{
-    width:100px
+
+.Reat-del, .at-del, .com-del,.Recom-del, .del-topic {
+    background-color: #922932;
 }
-.th-Re{
-    width:150px;
+
+.Reat-edit, .at-edit, .com-edit, .Recom-edit, .edit-topic {
+    background-color: #29925E;
 }
+
 .custom-paginationjs a {
-    background-color: #bafeef !important;
+    background-color:#bafeef !important;
     color: #7e491ee8 !important;
 }
 
 .paginationjs .paginationjs-pages li.active > a {
     background-color: #7e491ee8 !important;
-    color: #bafeef !important;
+    color:#bafeef !important;
 }
-
-
 
 
 /*--↓↓-------------EditDiscuss*/
-a:hover {
-    color: red;
-    text-decoration: none;
+.creat-bar {
+    background-color: #bafeef;
+    color: #7e491ee8;
+    padding: 10px 0 10px 20px;
+}
+.title-span {
+    max-width: 682px;
+    line-height: 50px;
+    padding-left: 20px;
 }
 
-.tbody a{
-    color:black;
+.edit-discuss-outline {
+    border: #bafeef solid 3px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 /33%);
 }
 
-.tr-select{
-    background-color: rgba(246, 193, 239,0.5) !important;
+
+.tbody a {
+    color: black;
+}
+
+.tr-select {
+    background-color: rgba(255, 209, 163,0.5) !important;
 }
 
 
-.main-textarea{
+.main-textarea {
     resize: none;
     max-width: initial;
 }
+
 .msg {
     margin-left: 20px;
     color: red;
@@ -307,12 +528,140 @@ a:hover {
     display: block;
 }
 
-.reg-msg{
-    font-size:10pt;
-    color:red;
-}
-.reg-title{
-    text-align:end;
-    line-height:40px;
+.reg-msg {
+    font-size: 10pt;
+    color: red;
 }
 
+.reg-title {
+    text-align: end;
+    line-height: 40px;
+}
+
+.modal-fix {
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+}
+
+/*<-----------全體聊天室-------------->*/
+.sq-chatroom {
+    border: #bafeef solid 1px;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 33%);
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+.sq-chatroom-title {
+    margin-top: 80px;
+    background-color: #bafeef;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 33%);
+    text-align: center;
+    font-size: 16pt;
+    padding: 10px 0;
+    border-radius: 20px 20px 0 0;
+}
+.sq-chatroom-left {
+    width: 75%;
+    height: 100%;
+    background-color: #fff;
+    border-right: 1px #ccc solid;
+}
+.sq-chatroom-right {
+    width: 25%;
+    height: 100%;
+    background-color: #fff;
+    border-left: 1px #ccc solid;
+}
+#sq-chatroom-memberlist {
+    width: 100%;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.sq-chatroom-member {
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.sq-chatroom-member:hover {
+    background-color:#ccc;
+}
+.sq-chatroom-list-name {
+max-width: 100px;
+}
+.sq-chatroom-list-content-p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 35px;
+}
+#sq-chatroom-area {
+    background-color: #fff;
+    width: 100%;
+    height: 430px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    font-size: 12pt;
+}
+#sq-chatroom-floot {
+    border-top: solid 1px #ccc;
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+}
+#sq-chatroom-input-btn {
+    border: solid 1px #ccc;
+    width: 38px;
+    padding: 11px;
+    background-color: #bafeef;
+    color: #7e491ee8;
+}
+#sq-chatroom-input-set {
+    width:500px;
+}
+
+
+#online-msg-list{
+    position:absolute;
+    right:190px;
+    bottom:80px;
+}
+.online-msg-div {
+    text-align:end;
+    margin-top: 20px;
+}
+.online-msg {
+    background-color: #A8484E;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px 10px 0 10px;
+    animation: fadein 5s ease;
+}
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.sq-lh40 {
+    line-height: 40px;
+}

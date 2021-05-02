@@ -48,12 +48,12 @@ namespace Exercise.Controllers
         {
             return View();
         }
-        
+
 
         //<---------------------------------文章分類---------------------------->
         public JsonResult CategoryDiscussList(string Category)
         {
-            var list = ta.getAll().Where(m => m.Category.Contains(Category)).Select(m => new
+            var list = db.tArticle.Where(m => m.Category.Contains(Category)).Select(m => new
             {
                 ArticleID = m.ArticleID,
                 Category = m.Category,
@@ -61,8 +61,7 @@ namespace Exercise.Controllers
                 UpTime = m.UpTime,
                 LoveCount = m.LoveCount,
                 ViewCount = m.ViewCount,
-                ReCount = tra.getAll().Where(t => t.ArticleID == m.ArticleID).Count(),
-                //ReCount = tra.getAll().Where(t => t.ArticleID == m.ArticleID).Count()>0? "1" : $"{tra.getAll().LastOrDefault(t => t.ArticleID == m.ArticleID).UpTime.ToString()}",
+                ReCount = db.tReArticle.Where(t => t.ArticleID == m.ArticleID).Count(),
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -72,41 +71,45 @@ namespace Exercise.Controllers
         {
             db.tArticle.FirstOrDefault(m => m.ArticleID == ArticleID).ViewCount++;
             db.SaveChanges();
-            var list = ta.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            var list = db.tArticle.Where(m => m.ArticleID == ArticleID).Select(m => new
             {
                 ArticleID = m.ArticleID,
-                MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
-                MemberID =m.MemberID,
+                MemberName = db.tMembers.FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
                 Category = m.Category,
+                MemberID = m.MemberID,
                 Title = m.Title,
                 Main = m.Main,
                 UpTime = m.UpTime,
                 LoveCount = m.LoveCount,
                 ViewCount = m.ViewCount,
-                LoveStatus = tal.getAll().FirstOrDefault(t => t.MemberID == MemberID && t.ArticleID == ArticleID) != null,
+                LoveStatus = db.tArticleLove.FirstOrDefault(t => t.MemberID == MemberID && t.ArticleID == ArticleID) != null,
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         //<---------------------------------顯示留言---------------------------->
-        public JsonResult Comment(int? ArticleID)
+        public JsonResult Comment(int ArticleID, int MemberID)
         {
-            if (ArticleID != null)
+            var list = db.tComment.Where(m => m.ArticleID == ArticleID).Select(m => new
             {
-                var list = tc.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
-                {
-                    MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
-                    Main = m.Main,
-                    UpTime = m.UpTime,
-                    MemberID = m.MemberID,
-                    No = m.No,
-                });
-                return Json(list, JsonRequestBehavior.AllowGet);
-            }
+                MemberName = db.tMembers.FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                Main = m.Main,
+                UpTime = m.UpTime,
+                MemberID = m.MemberID,
+                No = m.No,
+                ImgURL = db.tMembers.FirstOrDefault(t => t.MemberID == m.MemberID).ImgURL,
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult CommentInput(int MemberID)
+        {
+            var NowImgURL = "";
+            if (MemberID == 0)
+                NowImgURL = "null";
             else
-            {
-                return Json("", JsonRequestBehavior.AllowGet);
-            }
+                NowImgURL = db.tMembers.FirstOrDefault(m => m.MemberID == MemberID).ImgURL == null ? "null" : db.tMembers.FirstOrDefault(m => m.MemberID == MemberID).ImgURL;
+            return Json(NowImgURL, JsonRequestBehavior.AllowGet);
         }
 
         //<---------------------------------新增留言---------------------------->
@@ -116,11 +119,11 @@ namespace Exercise.Controllers
             {
                 MemberID = MemberID,
                 Main = Main,
-                ArticleID =ArticleID,
-                UpTime =DateTime.Now,
+                ArticleID = ArticleID,
+                UpTime = DateTime.Now,
             };
             tc.create(list);
-            
+
             return Json(tc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
         }
 
@@ -150,39 +153,26 @@ namespace Exercise.Controllers
                 UpTime = m.UpTime,
                 MemberID = m.MemberID,
                 ReArticleID = m.ReArticleID,
+                ImgURL = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).ImgURL,
                 No = m.No,
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        //<---------------------------------新增回文留言---------------------------->
-        public JsonResult CreateReCommend(int MemberID, string Main, int ReArticleID)
-        {
-            tReComment list = new tReComment()
-            {
-                MemberID = MemberID,
-                Main = Main,
-                ReArticleID = ReArticleID,
-                UpTime = DateTime.Now,
-            };
-            trc.create(list);
-
-            return Json(trc.getAll().LastOrDefault(t => t.No > 0).No, JsonRequestBehavior.AllowGet);
-        }
-
 
         //<---------------------------------顯示單筆回文文章---------------------------->
-        public JsonResult ReDiscussSingle(int ArticleID, int MemberID)                   
+        public JsonResult ReDiscussSingle(int ArticleID, int MemberID)
         {
-            var list = tra.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
+            var list = db.tReArticle.Where(m => m.ArticleID == ArticleID).Select(m => new
             {
-                MemberName = tm.getAll().FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                MemberName = db.tMembers.FirstOrDefault(t => t.MemberID == m.MemberID).MemberName,
+                MemberID = db.tMembers.FirstOrDefault(t => t.MemberID == m.MemberID).MemberID,
                 Main = m.Main,
                 UpTime = m.UpTime,
                 LoveCount = m.LoveCount,
-                MemberID=m.MemberID,
                 ReArticleID = m.ReArticleID,
-                LoveStatus = tral.getAll().FirstOrDefault(t => t.MemberID == MemberID && t.ReArticleID == m.ReArticleID) != null,
+                NowImgURL = db.tMembers.FirstOrDefault(t => t.MemberID == MemberID).ImgURL,
+                LoveStatus = db.tReArticleLove.FirstOrDefault(t => t.MemberID == MemberID && t.ReArticleID == m.ReArticleID) != null,
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -201,8 +191,8 @@ namespace Exercise.Controllers
                 MemberID = form.MemberID
             };
             ta.create(list);
-
-            return Json("", JsonRequestBehavior.AllowGet);
+            var ID = ta.getAll().LastOrDefault(m => m.ArticleID > 0).ArticleID;
+            return Json(ID, JsonRequestBehavior.AllowGet);
         }
 
         //<---------------------------------回傳文章---------------------------->
@@ -210,16 +200,16 @@ namespace Exercise.Controllers
         {
             var list = ta.getAll().Where(m => m.ArticleID == ArticleID).Select(m => new
             {
-                Category=m.Category,
-                Main=m.Main,
-                Title=m.Title,
+                Category = m.Category,
+                Main = m.Main,
+                Title = m.Title,
             });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         //<---------------------------------編輯文章---------------------------->
         public JsonResult EditDiscuss(tArticle formdata)
         {
-            var edit=db.tArticle.FirstOrDefault(m => m.ArticleID == formdata.ArticleID);
+            var edit = db.tArticle.FirstOrDefault(m => m.ArticleID == formdata.ArticleID);
             edit.Main = formdata.Main;
             edit.Title = formdata.Title;
             edit.Category = formdata.Category;
@@ -233,7 +223,7 @@ namespace Exercise.Controllers
             var count = tra.getAll().Where(m => m.ArticleID == ArticleID).Count();                     //抓到回文數
             for (int i = 0; i < count; i++)
             {
-                var raid=tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID;
+                var raid = tra.getAll().FirstOrDefault(m => m.ArticleID == ArticleID).ReArticleID;
                 var count1 = trc.getAll().Where(m => m.ReArticleID == raid).Count();
                 for (int k = 0; k < count1; k++)
                 {
@@ -293,7 +283,7 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------編輯回文---------------------------->
-        public JsonResult EditReDiscuss(string Main ,int ReArticleID)
+        public JsonResult EditReDiscuss(string Main, int ReArticleID)
         {
             db.tReArticle.FirstOrDefault(m => m.ReArticleID == ReArticleID).Main = Main;
             db.SaveChanges();
@@ -308,6 +298,12 @@ namespace Exercise.Controllers
             {
                 trc.delete(trc.getAll().FirstOrDefault(m => m.ReArticleID == ReArticleID).No);
             }
+            var count2 = tral.getAll().Where(m => m.ReArticleID == ReArticleID).Count();
+            for (int i = 0; i < count2; i++)
+            {
+                tral.delete(tral.getAll().FirstOrDefault(m => m.ReArticleID == ReArticleID).No);
+            }
+            
             tra.delete(ReArticleID);
             return Json("", JsonRequestBehavior.AllowGet);
         }
@@ -330,7 +326,7 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------主文愛心＋－---------------------------->
-        public JsonResult MainLoveCount(int ArticleID, bool LoveStatus ,int MemberID)
+        public JsonResult MainLoveCount(int ArticleID, bool LoveStatus, int MemberID)
         {
             if (LoveStatus)
             {
@@ -350,7 +346,7 @@ namespace Exercise.Controllers
             }
             db.SaveChanges();
 
-       
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
@@ -393,7 +389,7 @@ namespace Exercise.Controllers
         }
 
         //<---------------------------------編輯留言---------------------------->
-        public JsonResult EditComment(int no,string Main)
+        public JsonResult EditComment(int no, string Main)
         {
             db.tComment.FirstOrDefault(m => m.No == no).Main = Main;
             db.tComment.FirstOrDefault(m => m.No == no).UpTime = DateTime.Now;

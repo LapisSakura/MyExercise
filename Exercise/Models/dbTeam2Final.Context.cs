@@ -33,5 +33,6 @@ namespace Exercise.Models
         public virtual DbSet<tReArticle> tReArticle { get; set; }
         public virtual DbSet<tReArticleLove> tReArticleLove { get; set; }
         public virtual DbSet<tReComment> tReComment { get; set; }
+        public virtual DbSet<tSqChatroom> tSqChatroom { get; set; }
     }
 }

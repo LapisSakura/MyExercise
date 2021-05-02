@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Chatroom";
+}
+
+<div class="container body-content col-8">
+    <div class="sq-chatroom-title">聊　天　室</div>
+    <div class="sq-chatroom">
+        <div class="sq-chatroom-left">
+            <div id="sq-chatroom-area">
+                @*<div class="chatroom-singlemsg" style="text-align: right;">
+                    <div class="d-flex justify-content-end">
+                        <div class="sq-lh40 mr-2">一周前 10:47</div>
+                        <div class="MemberImg mr-2"><img class="member-img" src="/MemberImg/Member2.jpg" /></div>
+                    </div>
+                    <div class="chatroom-area-forconntent">這是內容這是內容這是內容這是內容</div>
+                </div>
+                <div class="chatroom-singlemsg">
+                    <div class="d-flex">
+                        <div class="MemberImg mr-2"><img class="member-img" src="/MemberImg/Member2.jpg" /></div>
+                        <div  class="sq-lh40 mr-2">是我啦</div>
+                        <div  class="sq-lh40">一周前 10:47</div>
+
+                    </div>
+                    <div class="chatroom-area-fromconntent">這是內容這是內容這是內容這是內容</div>
+                </div>*@
+            </div>
+            <div id="sq-chatroom-floot">
+                <div class="ui action input" id="sq-chatroom-input-set">
+                    <input type="text" id="sq-chatroom-input" placeholder="說點什麼吧...">
+                    <button class="ui button" id="sq-chatroom-input-btn"><i class="paper plane outline icon"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sq-chatroom-right">
+            <div id="sq-chatroom-memberlist">
+            </div>
+        </div>
+        <div id="online-msg-list">
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        //<--------------------------顯示當前聊天室成員-------------------------------->
+        $.ajax({
+            url: "/Home/getChatroom",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ImgURL == null) {
+                        $("#sq-chatroom-memberlist").append(`
+                                                    <div class="sq-chatroom-member d-flex" data-id="${data[i].MemberID}">
+                                                        <div class="MemberImg mr-2"><img class="member-img" src="/MemberImg/DefaultImg.jpg" /></div>
+                                                        <div class="sq-chatroom-list-name"><p class="sq-chatroom-list-content-p">${data[i].MemberName}</p></div>
+                                                    </div>
+                                                    `)
+                    }
+                    else {
+                        $("#sq-chatroom-memberlist").append(`
+                                                    <div class="sq-chatroom-member d-flex" data-id="${data[i].MemberID}">
+                                                        <div class="MemberImg mr-2"><img class="member-img" src="${data[i].ImgURL}" /></div>
+                                                        <div class="sq-chatroom-list-name"><p class="sq-chatroom-list-content-p">${data[i].MemberName}</p></div>
+                                                    </div>
+                                                    `)
+                    }
+
+                }
+            },
+        })
+
+        $(function () {
+            var NowMember = document.cookie == "" ? 0 : (document.cookie.split('MemberID=')[1].split("&")[0] / 1)
+
+            var chat = $.connection.chatHub;
+
+            chat.client.login = function (name,img) {
+                $("#online-msg-list").append(`<div class="online-msg-div"><span class="online-msg">【${name}】  上線囉</span></div>`)
+                setTimeout(function () { $("#online-msg-list").children().first().remove() }, 5000)
+                $("#sq-chatroom-memberlist").append(`
+                                                <div class="sq-chatroom-member d-flex">
+                                                    <div class="MemberImg mr-2"><img class="member-img" src="${img}" /></div>
+                                                    <div class="sq-chatroom-list-name"><p class="sq-chatroom-list-content-p">${name}</p></div>
+                                                </div>
+                                                `)
+            }
+
+            chat.client.SqChatroomMsg = function (MemberName, message,ImgURL,MemberID) {
+                if (MemberID == NowMember) {
+                    $("#sq-chatroom-area").append(`
+                                                <div class="chatroom-singlemsg" style="text-align: right;">
+                                                    <div class="d-flex justify-content-end">
+                                                        <div class="sq-lh40 mr-2">一周前 10:47</div>
+                                                        <div class="MemberImg mr-2" data-id="${MemberID}><img class="member-img" src="${ImgURL}" /></div>
+                                                    </div>
+                                                    <div class="chatroom-area-forconntent">${message}</div>
+                                                </div>
+                                                  `)
+                }
+                else {
+                    $("#sq-chatroom-area").append(`
+                                                <div class="chatroom-singlemsg">
+                                                    <div class="d-flex">
+                                                        <div class="MemberImg mr-2" data-id="${MemberID}"><img class="member-img" src="${ImgURL}" /></div>
+                                                        <div  class="sq-lh40 mr-2">${MemberName}</div>
+                                                        <div  class="sq-lh40">一周前 10:47</div>
+                                                    </div>
+                                                    <div class="chatroom-area-fromconntent">${message}</div>
+                                                </div>
+                                                  `)
+                }
+            }
+            $.connection.hub.start().done(function () {
+                chat.server.login_sq_chatroom(NowMember)
+                $("#sq-chatroom-input-btn").click(function () {
+                    chat.server.sendall(NowMember, $('#sq-chatroom-input').val());
+                    $('#sq-chatroom-input').val('').focus();
+
+                })
+            })
+        });
+    </script>
+}

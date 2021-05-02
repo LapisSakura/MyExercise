@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" />
@@ -15,7 +15,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.tiny.cloud/1/sc3jp0c7htyf9c5oqc0pa3xysyz5gd7ttvbxwqgyo9bqnldj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-     
+
     </script>
     @RenderSection("styles", required: false)
     <style>
@@ -23,7 +23,7 @@
 </head>
 <body>
     @*登入頁面ˇ*@
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content vlogin">
                 <div class="modal-header">
@@ -54,10 +54,11 @@
         <div class="container">
             <div class="row justify-content-between col-12">
                 <ul class="nav-ul">
-                    <li class="nav-li"><a href="/Home/Index"class="nav-a">首頁</a></li>
+                    <li class="nav-li"><a href="/Home/Index" class="nav-a">首頁</a></li>
                     <li class="nav-li"><a href="/Discuss/vDiscussList" class="nav-a">討論區</a></li>
                     <li class="nav-li"><a class="nav-a">單字表</a></li>
                     <li class="nav-li"><a class="nav-a">小測驗</a></li>
+                    <li class="nav-li"><a  href="/Home/Chatroom" class="nav-a">聊天室</a></li>
                 </ul>
                 <ul class="nav-ul" id="member-ul">
                 </ul>
@@ -66,37 +67,121 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-        </footer>
+
+    </div>
+    <div class="chatroom-btn"><i class="comments icon"></i></div>
+    <div class="chatroom">
+        <div class="chatroom-left">
+            <div class="chatroom-left-head d-flex justify-content-between">
+                <div class="d-flex justify-content-around">
+                    <div class="MemberImg ml-3"style="margin-top:9.5px"><img class="member-img"src="/MemberImg/Member2.jpg" /></div>
+                    <div id="chatroom-name"><p class="chatroom-name-p">哈哈是我啦哈哈是我啦哈哈是我啦哈哈是我啦哈哈是我啦哈哈是我啦</p></div>
+                </div>
+                <div id="onlinetime">一周前 10:47</div>
+            </div>
+            <div id="chatroom-area">
+                <div class="chatroom-singlemsg">
+                    <div class="d-flex"><div>哈哈是我啦</div><div>一周前 10:47</div></div>
+                    <div class="chatroom-area-fromconntent">
+                        That name is taken!That name is taken!That name is taken!That name is taken!That name is taken!That name is taken!
+                    </div>
+                </div>
+                <div class="chatroom-singlemsg" style="text-align: right;">
+                    <div>一周前 10:47</div>
+                    <div class="chatroom-area-forconntent">HI YT</div>
+                </div>
+
+            </div>
+            <div id="chatroom-floot">
+                <div class="ui action input" id="chatroom-input-set">
+                    <input type="text" id="chatroom-input"placeholder="說點什麼吧...">
+                    <button class="ui button" id="chatroom-input-btn"><i class="paper plane outline icon"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="chatroom-right">
+            <div class="chatroom-right-head">聊天室</div>
+            <div id="chatroom-memberlist">
+                <div class="chatroom-member d-flex">
+                    <div class="MemberImg mr-2" style="margin-top:5px"><img class="member-img" src="/MemberImg/Member2.jpg" /></div>
+                    <div style="font-size:13pt;">
+                        <div class="d-flex justify-content-between" style="width:200px">
+                            <div class="chatroom-list-name"><p class="chatroom-list-content-p">哈哈是我啦哈哈是我啦</p></div>
+                            <div class="LastReplyTime">一周前 12:11</div>
+                        </div>
+                        <div class="chatroom-list-content"><p class="chatroom-list-content-p">這是內容這是內容這是內這是內這是內</p></div>
+                    </div>            
+                </div>
+            </div>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @*<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>*@
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous"></script>
     @RenderSection("scripts", required: false)
 
     <script>
+        var NowMemberName = document.cookie == "" ? 0 : document.cookie.split('MemberName=')[1];
+        //<---------------------------聊天室---------------------------->
+        $(function () {
+            var chat = $.connection.chatHub;
+            chat.client.addNewMessageToPage = function (name, message) {
+                if (name == "") {
+                    $('#chatroom-area').append(`
+                                                <div class="chatroom-singlemsg" style="text-align: right;">
+                                                    <div>一周前 10:47</div>
+                                                    <div class="chatroom-area-forconntent">${message}</div>
+                                                </div>
+                                                `);
+                }
+                else{
+                    $('#chatroom-area').append(`
+                                                <div class="chatroom-singlemsg">
+                                                    <div class="d-flex"><div>${name}</div><div>一周前 10:47</div></div>
+                                                    <div class="chatroom-area-fromconntent">${message}</div>
+                                                </div>
+                                               `);
+                }
+            };
+            $.connection.hub.start().done(function () {
+                $('#chatroom-input-btn').click(function () {
+                    chat.server.send($("#chatroom-input-btn").data("id"), $('#chatroom-input').val());
+                    $('#chatroom-input').val('').focus();
+                });
+            });
+
+        })
+
+        $(".test").click(function () {
+            $("#chatroom-area").html("");
+            $("#chatroom-input-btn").data("id", $(this).data("id"))
+
+        })
+
 
         function LoginStatus(href) {
             if (document.cookie != "")
                 window.location.href = href;
             else
-                $('#exampleModalCenter').modal('show')
+                $('#LoginModal').modal('show')
         }
 
         if (document.cookie == "") {
             var txt = `
-                        <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#exampleModalCenter">登入</a></li>
-                        <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
-                          `
+                            <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#LoginModal">登入</a></li>
+                            <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
+                              `
             $("#member-ul").html(txt);
         }
         else {
             var txt = `
-                        <li class="nav-li" id="MemberFile" no="${document.cookie.split('ID=')[1].split("&")[0]}"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
-                        <li class="nav-li"><a class="nav-a"id="logout">登出</a></li>
-                          `
+                            <li class="nav-li" id="MemberFile" no="${document.cookie.split('ID=')[1].split("&")[0]}"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
+                            <li class="nav-li"><a class="nav-a"id="logout">登出</a></li>
+                              `
             $("#member-ul").html(txt);
         }
 
@@ -109,9 +194,9 @@
                 url: "/Member/Logout",
                 success: function () {
                     var txt = `
-                        <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#exampleModalCenter">登入</a></li>
-                        <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
-                          `
+                            <li class="nav-li"><a class="nav-a" data-toggle="modal" data-target="#LoginModal">登入</a></li>
+                            <li class="nav-li registered"><a href="/Member/vRegistered" class="nav-a">註冊</a></li>
+                              `
                     $("#member-ul").html(txt)
                     Swal.fire({
                         position: 'top-end',
@@ -133,15 +218,17 @@
                 dataType: "text",
                 success: function (data) {
                     if (data == "登入成功") {
-                        $('#exampleModalCenter').modal('hide')
+                        $('#LoginModal').modal('hide')
                         var txt = `<li class="nav-li" id="MemberFile" no="${document.cookie.split('ID=')[1].split("&")[0]}"><a class="nav-a">${document.cookie.split('MemberName=')[1]}</a></li>
-                                       <li class="nav-li"><a class="nav-a" id="logout">登出</a></li>
-                                      `
+                                           <li class="nav-li"><a class="nav-a" id="logout">登出</a></li>
+                                          `
                         $("#member-ul").html(txt)
                         $("#Account").val("");
                         $("#Password").val("");
-                        window.location.reload();
 
+
+
+                        window.location.reload();
                     }
                     else {
                         $("#Login-msg").text(data);
